@@ -1,7 +1,7 @@
-export default function Home(  ) {
+export default function Contatos(  ) {
     return (
         <div className="body-text">
-            Home
+            Contato
         </div>
     )
 }

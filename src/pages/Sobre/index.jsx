@@ -1,7 +1,7 @@
-export default function Home(  ) {
+export default function Sobre(  ) {
     return (
         <div className="body-text">
-            Home
+            Sobre
         </div>
     )
 }

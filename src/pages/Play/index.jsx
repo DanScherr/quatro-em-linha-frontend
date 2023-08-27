@@ -1,7 +1,7 @@
-export default function Home(  ) {
+export default function Play(  ) {
     return (
         <div className="body-text">
-            Home
+            Play
         </div>
     )
 }

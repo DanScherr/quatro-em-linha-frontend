@@ -1,9 +1,9 @@
 /** MUI */
 import {createTheme} from '@mui/material';
-import { grey, lime, teal } from '@mui/material/colors';
+import { grey, purple, pink } from '@mui/material/colors';
 
-const color1 = lime;
-const colo2 = teal;
+const color1 = purple;
+const colo2 = pink;
 
 export const darkTheme = createTheme({
     palette: {

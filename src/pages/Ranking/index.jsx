@@ -1,7 +1,7 @@
-export default function Home(  ) {
+export default function Ranking(  ) {
     return (
         <div className="body-text">
-            Home
+            Ranking
         </div>
     )
 }
