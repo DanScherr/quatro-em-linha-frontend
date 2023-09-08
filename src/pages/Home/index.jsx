@@ -11,8 +11,7 @@ export default function Home(  ) {
 
     return (
         <>
-
-                <Button onClick={navegarPara}
+            <Button onClick={navegarPara}
                 sx={{
                     position: 'absolute',
                     top: '57%',
@@ -33,7 +32,7 @@ export default function Home(  ) {
                 >
                     <PlayCircleIcon sx={{fontSize: 200,
                         '&:hover': {
-                            color: 'font.main',
+                            color: 'font.emphasis',
                             opacity: '80%',
                     }}} />
                 </Button>
