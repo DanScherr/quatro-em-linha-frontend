@@ -3,6 +3,8 @@ import SharedLayoutFooter from "./components/Footer";
 import SharedLayoutHeader from "./components/Header";
 import { Outlet } from "react-router-dom";
 import "./index.css"
+import Regras from "./components/Regras";
+import Monetizacao from "./components/Monetizacao";
 
 export default function SharedLayout(  ) {
     return (
@@ -11,14 +13,14 @@ export default function SharedLayout(  ) {
             <Grid container columnSpacing={{sm: 2}}
                 sx={{justifyContent: 'center', alignContent: 'center'}}
             >
-                <Grid xs={0} md={3} className="ShareLayoutGrid SharedLayoutGridRegras">
-                    Regras
+                <Grid xs={0} md={3} className="ShareLayoutGrid">
+                    <Regras />
                 </Grid>
-                <Grid xs={6} md={6} className="ShareLayoutGrid SharedLayoutGridMain">
+                <Grid xs={6} md={6} className="ShareLayoutGrid">
                     <Outlet />
                 </Grid>
-                <Grid xs={0} md={3} className="ShareLayoutGrid SharedLayoutGridBuy">
-                    Buy
+                <Grid xs={0} md={3} className="ShareLayoutGrid">
+                    <Monetizacao />
                 </Grid>
             </Grid>
             <div className="fixed-bottom">

@@ -53,8 +53,8 @@ export default function SharedLayoutHeader( ) {
     })
 
     /** Mockup */
-    let paginas = ['sobre', 'regras', 'contatos']
-    let configuracao = ['perfil', 'login/logout', 'configurações']
+    let paginas = [ 'jogue', 'sobre' ]
+    let configuracao = [ 'perfil', 'login/logout', 'configurações' ]
 
     return(
         <>
@@ -68,9 +68,10 @@ export default function SharedLayoutHeader( ) {
                             <Box sx={{display: { xs: 'none', md: 'flex' }, flexGrow: 1}}>
                                 <Button onClick={() => navegarPagina('/')} >
                                     <ExtensionIcon sx={{ 
-                                        display: { xs: 'none', md: 'flex' }, 
-                                        mr: 1,
-                                    }} />
+                                            display: { xs: 'none', md: 'flex'}, 
+                                            mr: 1, fontSize: '30px', 
+                                        }} 
+                                    />
                                     <Typography
                                         variant="h6"
                                         noWrap
@@ -78,8 +79,9 @@ export default function SharedLayoutHeader( ) {
                                         href="/"
                                         sx={{
                                         display: { xs: 'none', md: 'flex' },
-                                        fontFamily: 'monospace',
-                                        fontWeight: 700,
+                                        fontFamily: '"Roboto","Helvetica","Arial",sans-serif',
+                                        fontSize: '25px',
+                                        fontWeight: '700',
                                         letterSpacing: '.2rem',
                                         color: 'inherit',
                                         textDecoration: 'none',
@@ -94,8 +96,13 @@ export default function SharedLayoutHeader( ) {
                                 {paginas.map((page, index) => (
                                 <Button
                                     key={`${page}`}
-                                    onClick={() => navegarPagina(page)}
-                                    sx={{ my: 2, color: 'primary.veryLightMain', display: 'block' }}
+                                    onClick={() => navegarPagina(page==='jogue'? '' : page)}
+                                    sx={{ 
+                                        my: 2, color: 'primary.lightMain',  mr: 2,
+                                        display: 'block', fontSize: '16px',
+                                        fontFamily: '"Roboto","Helvetica","Arial",sans-serif',
+                                        fontWeight: 700
+                                    }}
                                 >
                                     {`${page}`}
                                 </Button>
@@ -157,7 +164,7 @@ export default function SharedLayoutHeader( ) {
                             <Box sx={{ flexGrow: 0 }}>
                                 <Tooltip title="User Options">
                                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                        <Avatar alt="Avatar" src={profileImg} />
+                                        <Avatar alt="Avatar" src={profileImg} sx={{ width: 70, height: 70 }} />
                                     </IconButton>
                                 </Tooltip>
                                 <Menu
@@ -178,9 +185,9 @@ export default function SharedLayoutHeader( ) {
                                     >
                                     {configuracao.map((setting) => (
                                         <MenuItem key={setting} onClick={handleCloseUserMenu} sx={{
-                                                color: 'primary.lightestMain',
+                                                color: 'font.emphasis',
                                             }}>
-                                            <Typography textAlign="center" sx={{color: 'primary.veryLightMain'}} >
+                                            <Typography textAlign="center" sx={{color: 'primary.lightestMain'}} >
                                                 {setting}
                                             </Typography>
                                         </MenuItem>

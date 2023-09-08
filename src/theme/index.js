@@ -10,7 +10,9 @@ export const darkTheme = createTheme({
         mode: 'dark',
         background: {
             navBar: grey[900], //#212121
-            footBox: grey[800] //#424242
+            footBox: grey[800], //#424242
+            card: '#333333',
+            accordionHeader: '#777777'
         },
         primary: {
             main: color1['A400'], //#c6ff00
@@ -22,5 +24,9 @@ export const darkTheme = createTheme({
             main: colo2['A700'], //#00bfa5
             veryLightMain: colo2[600], //#00897b
         },
+        font: {
+            main: '#B8B2B8',
+            emphasis: '#f9fbe7'
+        }
     }
 });
