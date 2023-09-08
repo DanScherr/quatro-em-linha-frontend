@@ -3,6 +3,7 @@
 
 ## **SUMARIO**
 
+- **[WBS](#wbs)**
 - **[Github](#github)**
   - [Contextualizando](#contextualizando)
   - [Clonando o projeto na sua máquina local](#clonando-o-projeto-na-sua-máquina-local)
@@ -10,6 +11,12 @@
   - [Se for sua primeira vez com o projeto na sua máquina](#se-for-sua-primeira-vez-com-o-projeto-na-sua-máquina)
   - [Available Scripts](#available-scripts)
   - [Learn More](#learn-more)
+
+***
+
+# **WBS:**
+
+- ![](doc-assets/images/wbs-programacao-dark.png)
 
 ***
 

@@ -5,10 +5,10 @@ import LabelIcon from '@mui/icons-material/Label';
 export default function Regras(  ) {
     return (
         <Card sx={{
-            height: '86%', m: 2, 
+            height: '605px', m: 2, 
             backgroundColor: 'background.card',
             borderRadius: 5,
-            mt: 12
+            mt: 11.6
         }}>
             <CardContent>
                 <Typography sx={{

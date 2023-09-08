@@ -6,10 +6,10 @@ import './Monetizacao.css'
 export default function Monetizacao(  ) {
     return (
         <Card sx={{
-            height: '86%', m: 2, 
+            height: '605px', m: 2, 
             backgroundColor: 'background.card',
             borderRadius: 5,
-            mt: 12
+            mt: 11.5
         }}>
             {/** CLASSICOS */}
             <CardContent>
