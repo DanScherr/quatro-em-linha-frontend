@@ -1,7 +1,9 @@
-import { Card, CardContent, Grid, Typography, Button, Accordion, AccordionSummary, List, AccordionDetails } from "@mui/material";
+import { Card, CardContent, Grid, Typography, Button, Accordion, AccordionSummary, List, AccordionDetails, Avatar, Box } from "@mui/material";
 import CircleIcon from '@mui/icons-material/Circle';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import './Monetizacao.css'
+import imgDefault from './../../../../static/images/default-image-icon.png';
+import lockDefault from './../../../../static/images/default-lock-icon.png';
 
 export default function Monetizacao(  ) {
     return (
@@ -22,14 +24,14 @@ export default function Monetizacao(  ) {
                 <Grid container spacing={2} sx={{my: 1}}>
                     <Grid xs={6}>
                         <Typography textAlign={'center'}>
-                            <Button>
+                            <Button sx={{borderRadius: 60}}>
                                 <CircleIcon sx={{fontSize: 60, color: 'yellow'}}/>
                             </Button>
                         </Typography>
                     </Grid>
                     <Grid xs={6}>
                         <Typography textAlign={'center'}>
-                            <Button>
+                            <Button sx={{borderRadius: 60}}>
                                 <CircleIcon sx={{fontSize: 60, color: 'red'}}/>
                             </Button>
                         </Typography>
@@ -80,12 +82,33 @@ export default function Monetizacao(  ) {
                                                     return (
                                                         <Grid key={`MonetizacaoArrayAccordionTema-${j}`} xs={6}>
                                                             <Typography textAlign={'center'}>
-                                                                <Button>
-                                                                    <CircleIcon sx={{fontSize: 60, color: 'primary.lightestMain'}}/>
-                                                                </Button>
-                                                                <Typography>
-                                                                    {tema.titulo}
-                                                                </Typography>
+                                                                {tema.liberado ?
+                                                                    <Box sx={{mb: 1}}>
+                                                                        <Button sx={{borderRadius: 60}}>
+                                                                            <Avatar alt="tema.titulo" src={tema.imagem === '' ? imgDefault : tema.imagem}
+                                                                                sx={{border: '1px solid white',
+                                                                                color: 'font.main'
+                                                                                }}
+                                                                            />
+                                                                        </Button>
+                                                                        <Typography>
+                                                                            {tema.titulo}
+                                                                        </Typography>
+                                                                    </Box>
+                                                                :
+                                                                    <Box sx={{mb: 1}}>
+                                                                        <Button sx={{borderRadius: 60}}>
+                                                                            <Avatar alt="tema.titulo" src={tema.imagem === '' ? lockDefault : tema.imagem}
+                                                                                sx={{border: '1px solid white',
+                                                                                color: 'font.main'
+                                                                                }}
+                                                                            />
+                                                                        </Button>
+                                                                        <Typography sx={{color: 'font.emphasis'}}>
+                                                                            {tema.titulo}
+                                                                        </Typography>
+                                                                    </Box>
+                                                                }
                                                             </Typography>
                                                         </Grid>
                                                     );
@@ -113,19 +136,23 @@ const arrayMonetizacao = [
         temas: [
             {
                 titulo: 'Natal',
-                imagem: ''
+                imagem: '',
+                liberado: false,
             },
             {
                 titulo: 'Hallowen',
-                imagem: ''
+                imagem: '',
+                liberado: true,
             },
             {
                 titulo: 'Food',
-                imagem: ''
+                imagem: '',
+                liberado: false,
             },
             {
                 titulo: 'Beach',
-                imagem: ''
+                imagem: '',
+                liberado: false,
             },
         ]
     },
@@ -135,19 +162,23 @@ const arrayMonetizacao = [
         temas: [
             {
                 titulo: 'Natal',
-                imagem: ''
+                imagem: '',
+                liberado: false,
             },
             {
                 titulo: 'Hallowen',
-                imagem: ''
+                imagem: '',
+                liberado: false,
             },
             {
                 titulo: 'Food',
-                imagem: ''
+                imagem: '',
+                liberado: false,
             },
             {
                 titulo: 'Beach',
-                imagem: ''
+                imagem: '',
+                liberado: false,
             },
         ]
     },
@@ -157,19 +188,23 @@ const arrayMonetizacao = [
         temas: [
             {
                 titulo: 'Natal',
-                imagem: ''
+                imagem: '',
+                liberado: false,
             },
             {
                 titulo: 'Hallowen',
-                imagem: ''
+                imagem: '',
+                liberado: false,
             },
             {
                 titulo: 'Food',
-                imagem: ''
+                imagem: '',
+                liberado: false,
             },
             {
                 titulo: 'Beach',
-                imagem: ''
+                imagem: '',
+                liberado: false,
             },
         ]
     },
@@ -179,19 +214,23 @@ const arrayMonetizacao = [
         temas: [
             {
                 titulo: 'Natal',
-                imagem: ''
+                imagem: '',
+                liberado: false,
             },
             {
                 titulo: 'Hallowen',
-                imagem: ''
+                imagem: '',
+                liberado: false,
             },
             {
                 titulo: 'Food',
-                imagem: ''
+                imagem: '',
+                liberado: false,
             },
             {
                 titulo: 'Beach',
-                imagem: ''
+                imagem: '',
+                liberado: false,
             },
         ]
     },
@@ -201,19 +240,23 @@ const arrayMonetizacao = [
         temas: [
             {
                 titulo: 'Natal',
-                imagem: ''
+                imagem: '',
+                liberado: false,
             },
             {
                 titulo: 'Hallowen',
-                imagem: ''
+                imagem: '',
+                liberado: false,
             },
             {
                 titulo: 'Food',
-                imagem: ''
+                imagem: '',
+                liberado: false,
             },
             {
                 titulo: 'Beach',
-                imagem: ''
+                imagem: '',
+                liberado: false,
             },
         ]
     },

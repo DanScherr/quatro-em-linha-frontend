@@ -11,6 +11,7 @@ import LoadingPage from "./pages/Shared/Loading/LoadingPage";
 /** Pages */
 const SharedLayout = lazy(() => import("./pages/Shared/Layout/index"));
 const Home = lazy(() => import("./pages/Home/index"));
+const Game = lazy(() => import("./pages/Game/index"));
 const Sobre = lazy(() => import("./pages/Sobre/index"));
 const Ranking = lazy(() => import("./pages/Ranking/index"));
 
@@ -20,6 +21,7 @@ export default function Router(  ) {
             <Routes>
                 <Route element={<SharedLayout/>}>
                     <Route path="/" element={<Home />} />
+                    <Route path="/jogar" element={<Game />} />
                     <Route path="/sobre" element={<Sobre />} />
                     <Route path="/ranking" element={<Ranking />} />
                 </Route>
