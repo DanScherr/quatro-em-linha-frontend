@@ -5,18 +5,22 @@ import { useEffect, useState } from "react";
 
 export default function Tabuleiro(  ) {
     const [ gameState, setGameState ] = useState(arrayTabuleiro);
-    const [ colunaState, setColunaState ] = useState(0);
+    const [ colunaState, setColunaState ] = useState(-1);
     const [ temaState, setTemaState ] = useState('red');
 
     // Roda quando o evento do botão é gerado
     useEffect(() => {
-        console.log(gameState)
-        // Elaborar a logica para gerar novo array do tabuleiro
-        // adicioando o valor 1 ao final da coluna do botao selecionado
-        // let novoArray = ...;
+        let novoArray = gameState;
         
-        // Setar o novo array ao gameState
-        // setGameState(novoArray);
+        for (let i = novoArray.length - 1; i >= 0; i--) {
+            if (novoArray[i].casas[colunaState] === 0) {
+                novoArray[i].casas[colunaState] = 1;
+                break; // Para o loop assim que encontrar o primeiro zero
+            }
+        }
+
+        setColunaState(-1);
+        setGameState(novoArray);
     }, [colunaState]);
 
     return (
