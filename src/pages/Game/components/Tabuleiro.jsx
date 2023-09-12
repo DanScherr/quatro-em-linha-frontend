@@ -10,18 +10,18 @@ export default function Tabuleiro(  ) {
 
     // Roda quando o evento do botão é gerado
     useEffect(() => {
-        let novoArray = gameState;
-        
-        for (let i = novoArray.length - 1; i >= 0; i--) {
-            if (novoArray[i].casas[colunaState] === 0) {
-                novoArray[i].casas[colunaState] = 1;
-                break; // Para o loop assim que encontrar o primeiro zero
-            }
-        }
-
+        // Chama função para alocar ficha ao final da coluna selecionada
+        let  novoArray = posicionaFichaAoFinalDaColuna(gameState, colunaState);
+        // Chama função que envia jogada para o outro jogador
+        //
         setColunaState(-1);
         setGameState(novoArray);
     }, [colunaState]);
+
+    useEffect (() => {
+        // Roda logica para saber se alguém ganhou ou perdeu ou empatou.
+        //
+    }, [gameState])
 
     return (
         <Container sx={{mx: 'auto'}}>
@@ -56,7 +56,8 @@ export default function Tabuleiro(  ) {
                 height: '605px', m: 2, 
                 backgroundColor: 'background.card',
                 borderRadius: 5,
-                p: 2
+                p: 2,
+                minWidth: '530px'
             }}>
                 {gameState.map((item, i) => {
                 return (
@@ -113,4 +114,15 @@ const arrayTabuleiro = [
     {
         casas: [0, 0, 0, 0, 0, 0, 0]
     },
-]
+];
+
+const posicionaFichaAoFinalDaColuna = (array, indiceColuna) => {
+    for (let i = array.length - 1; i >= 0; i--) {
+        if (array[i].casas[indiceColuna] === 0) {
+            array[i].casas[indiceColuna] = 1;
+            break; // Para o loop assim que encontrar o primeiro zero
+        };
+    };
+
+    return array;
+};

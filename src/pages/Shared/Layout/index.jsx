@@ -16,7 +16,7 @@ export default function SharedLayout(  ) {
                 <Grid xs={0} md={3} className="ShareLayoutGrid">
                     <Regras />
                 </Grid>
-                <Grid xs={6} md={6} className="ShareLayoutGrid">
+                <Grid xs={6} md={6} minWidth={'600px'} className="ShareLayoutGrid">
                     <Outlet />
                 </Grid>
                 <Grid xs={0} md={3} className="ShareLayoutGrid">
