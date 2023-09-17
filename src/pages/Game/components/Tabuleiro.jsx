@@ -2,30 +2,46 @@ import { Button, Card, Container, Grid } from "@mui/material";
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 import { useEffect, useState } from "react";
 
+import ModalResultado from "./ModalResultado";
+
 
 export default function Tabuleiro(  ) {
     const [ gameState, setGameState ] = useState(arrayTabuleiro);
     const [ colunaState, setColunaState ] = useState(-1);
     const [ temaState, setTemaState ] = useState('red');
+    const [ vencedorState, setvencedorState ] = useState(false);
+    const [ mostrarModal, setMostrarModal ] = useState(false);
 
     // Roda quando o evento do botão é gerado
     useEffect(() => {
-        let novoArray = gameState;
-        
-        for (let i = novoArray.length - 1; i >= 0; i--) {
-            if (novoArray[i].casas[colunaState] === 0) {
-                novoArray[i].casas[colunaState] = 1;
-                break; // Para o loop assim que encontrar o primeiro zero
-            }
-        }
+    
+        // Chama função para alocar ficha ao final da coluna selecionada
+        let novoArray = posicionaFichaAoFinalDaColuna(gameState, colunaState);
+
+        // Chama função que envia jogada para o outro jogador
 
         setColunaState(-1);
         setGameState(novoArray);
+
+        // Roda lógica para saber se alguém ganhou ou perdeu ou empatou
+        setvencedorState(verificarVitoria(gameState));
+        console.log("vencedor " + vencedorState);
+
     }, [colunaState]);
 
-    return (
-        <Container sx={{mx: 'auto'}}>
+    // Roda quando um vencedor é determinado
+    useEffect(() => {
+        console.log("uepa: " + vencedorState);
 
+        if (vencedorState)
+            setMostrarModal(true);
+
+        console.log(mostrarModal);
+
+    }, [vencedorState]);
+    
+    return (
+        <Container sx={{mx: 'auto'}}>  
             {/* Linha de botões */}
             <Grid container spacing={2} sx={{my: 1, ml: 5}}>
                 {gameState[0].casas.map((botao, i) => {
@@ -56,7 +72,8 @@ export default function Tabuleiro(  ) {
                 height: '605px', m: 2, 
                 backgroundColor: 'background.card',
                 borderRadius: 5,
-                p: 2
+                p: 2,
+                minWidth: '530px'
             }}>
                 {gameState.map((item, i) => {
                 return (
@@ -88,6 +105,8 @@ export default function Tabuleiro(  ) {
                 )
             })}
             </Card>
+
+            <ModalResultado show={mostrarModal} isWinner={vencedorState} />  
         </Container>
     );
 };
@@ -113,4 +132,71 @@ const arrayTabuleiro = [
     {
         casas: [0, 0, 0, 0, 0, 0, 0]
     },
-]
+];
+
+const posicionaFichaAoFinalDaColuna = (array, indiceColuna) => {
+    for (let i = array.length - 1; i >= 0; i--) {
+        if (array[i].casas[indiceColuna] === 0) {
+            array[i].casas[indiceColuna] = 1;
+            break; // Para o loop assim que encontrar o primeiro zero
+        };
+    };
+
+    return array;
+};
+
+function verificarVitoria(tabuleiro) {
+    const linhas = 6;
+    const colunas = 7;
+
+    // Verificar na horizontal
+    for (let linha = 0; linha < linhas; linha++) {
+        for (let coluna = 0; coluna < colunas - 3; coluna++) {
+            if (tabuleiro[linha].casas[coluna] !== 0 &&
+                tabuleiro[linha].casas[coluna] === tabuleiro[linha].casas[coluna + 1] &&
+                tabuleiro[linha].casas[coluna] === tabuleiro[linha].casas[coluna + 2] &&
+                tabuleiro[linha].casas[coluna] === tabuleiro[linha].casas[coluna + 3]) {
+                return true;
+            }
+        }
+    }
+
+    // Verificar na vertical
+    for (let linha = 0; linha < linhas - 3; linha++) {
+        for (let coluna = 0; coluna < colunas; coluna++) {
+            if (tabuleiro[linha].casas[coluna] !== 0 &&
+                tabuleiro[linha].casas[coluna] === tabuleiro[linha + 1].casas[coluna] &&
+                tabuleiro[linha].casas[coluna] === tabuleiro[linha + 2].casas[coluna] &&
+                tabuleiro[linha].casas[coluna] === tabuleiro[linha + 3].casas[coluna]) {
+                return true;
+            }
+        }
+    }
+
+    // Verificar nas diagonais (superior esquerda para inferior direita)
+    for (let linha = 0; linha < linhas - 3; linha++) {
+        for (let coluna = 0; coluna < colunas - 3; coluna++) {
+            if (tabuleiro[linha].casas[coluna] !== 0 &&
+                tabuleiro[linha].casas[coluna] === tabuleiro[linha + 1].casas[coluna + 1] &&
+                tabuleiro[linha].casas[coluna] === tabuleiro[linha + 2].casas[coluna + 2] &&
+                tabuleiro[linha].casas[coluna] === tabuleiro[linha + 3].casas[coluna + 3]) {
+                return true;
+            }
+        }
+    }
+
+    // Verificar nas diagonais (superior direita para inferior esquerda)
+    for (let linha = 0; linha < linhas - 3; linha++) {
+        for (let coluna = 3; coluna < colunas; coluna++) {
+            if (tabuleiro[linha].casas[coluna] !== 0 &&
+                tabuleiro[linha].casas[coluna] === tabuleiro[linha + 1].casas[coluna - 1] &&
+                tabuleiro[linha].casas[coluna] === tabuleiro[linha + 2].casas[coluna - 2] &&
+                tabuleiro[linha].casas[coluna] === tabuleiro[linha + 3].casas[coluna - 3]) {
+                return true;
+            }
+        }
+    }
+
+    // Nenhum alinhamento de 4 peças foi encontrado
+    return false;
+}
