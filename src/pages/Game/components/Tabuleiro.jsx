@@ -20,6 +20,7 @@ export default function Tabuleiro(  ) {
 
         // Chama função que envia jogada para o outro jogador
 
+
         setColunaState(-1);
         setGameState(novoArray);
 
@@ -28,6 +29,11 @@ export default function Tabuleiro(  ) {
         console.log("vencedor " + vencedorState);
 
     }, [colunaState]);
+
+    useEffect (() => {
+        // Roda logica para saber se alguém ganhou ou perdeu ou empatou.
+        //
+    }, [gameState])
 
     // Roda quando um vencedor é determinado
     useEffect(() => {
