@@ -2,15 +2,15 @@ import { Button, Card, Container, Grid } from "@mui/material";
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 import { useEffect, useState } from "react";
 
-import ModalResultado from "./ModalResultado";
-
+import { ModalResultado } from "./ModalResultado";
 
 export default function Tabuleiro(  ) {
     const [ gameState, setGameState ] = useState(arrayTabuleiro);
     const [ colunaState, setColunaState ] = useState(-1);
     const [ temaState, setTemaState ] = useState('red');
-    const [ vencedorState, setvencedorState ] = useState(false);
-    const [ mostrarModal, setMostrarModal ] = useState(false);
+    const [ vencedorState, setVencedorState ] = useState(false);
+    const [ empateState, setEmpateState ] = useState(false);
+    const [ mostrarModalState, setMostrarModalState ] = useState(false);
 
     // Roda quando o evento do botão é gerado
     useEffect(() => {
@@ -20,31 +20,44 @@ export default function Tabuleiro(  ) {
 
         // Chama função que envia jogada para o outro jogador
 
-
         setColunaState(-1);
         setGameState(novoArray);
 
-        // Roda lógica para saber se alguém ganhou ou perdeu ou empatou
-        setvencedorState(verificarVitoria(gameState));
-        console.log("vencedor " + vencedorState);
+        // Roda lógica para saber se o jogador ganhou
+        setVencedorState(verificarVitoria(gameState));
+
+        // Roda lógica para saber o jogo empatou (terminou sem vitória)
+        setEmpateState(verificarEmpate(gameState));
+        //console.log("emapte " + empateState);
 
     }, [colunaState]);
 
-    useEffect (() => {
-        // Roda logica para saber se alguém ganhou ou perdeu ou empatou.
-        //
-    }, [gameState])
-
     // Roda quando um vencedor é determinado
     useEffect(() => {
-        console.log("uepa: " + vencedorState);
-
-        if (vencedorState)
-            setMostrarModal(true);
-
-        console.log(mostrarModal);
+        if (vencedorState) {
+            console.log("VITÓRIA");
+            encerrarJogo();
+        }  
+            
 
     }, [vencedorState]);
+
+    // Roda quando um empate é determinado
+    useEffect(() => {
+        if (empateState)   
+        {
+            console.log("EMPATE!");
+            encerrarJogo();
+        }
+            
+
+    }, [empateState]);
+
+    const encerrarJogo = () => {
+        // comunicar outro jogador
+        // parar o jogo
+        setMostrarModalState(true);
+    };
     
     return (
         <Container sx={{mx: 'auto'}}>  
@@ -112,7 +125,7 @@ export default function Tabuleiro(  ) {
             })}
             </Card>
 
-            <ModalResultado show={mostrarModal} isWinner={vencedorState} />  
+            <ModalResultado mostrar={mostrarModalState} isVencedor={vencedorState} isEmpate={empateState} />  
         </Container>
     );
 };
@@ -137,7 +150,7 @@ const arrayTabuleiro = [
     },
     {
         casas: [0, 0, 0, 0, 0, 0, 0]
-    },
+    }
 ];
 
 const posicionaFichaAoFinalDaColuna = (array, indiceColuna) => {
@@ -205,4 +218,67 @@ function verificarVitoria(tabuleiro) {
 
     // Nenhum alinhamento de 4 peças foi encontrado
     return false;
+}
+
+function verificarEmpate(tabuleiro) {
+    const linhas = 6;
+    const colunas = 7;
+
+    for (let linha = 0; linha < linhas; linha++) {
+        for (let coluna = 0; coluna < colunas; coluna++) {
+            if (aindaEhPossivelVencer(tabuleiro, linha, coluna)) {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+function aindaEhPossivelVencer(tabuleiro, linha, coluna) {
+    const linhas = 6;
+    const colunas = 7;
+    const posicaoAtual = tabuleiro[linha].casas[coluna];
+
+    // Verificar na horizontal
+    for (let i = 0; i < 4; i++) {
+        if (coluna + i >= colunas || (tabuleiro[linha].casas[coluna + i] !== posicaoAtual && tabuleiro[linha].casas[coluna + i] != 0)) {
+            break;
+        }
+        if (i === 3) {
+            return true;
+        }
+    }
+
+    // Verificar na vertical
+    for (let i = 0; i < 4; i++) {
+        if (linha + i >= linhas || (tabuleiro[linha + i].casas[coluna] !== posicaoAtual && tabuleiro[linha + i].casas[coluna] !== 0)) {
+            break;
+        }
+        if (i === 3) {
+            return true;
+        }
+    }
+
+    // Verificar na diagonal (superior esquerda para inferior direita)
+    for (let i = 0; i < 4; i++) {
+        if (linha + i >= linhas || coluna + i >= colunas || (tabuleiro[linha + i].casas[coluna + i] !== posicaoAtual && tabuleiro[linha + i].casas[coluna + i] != 0)) {
+            break;
+        }
+        if (i === 3) {
+            return true;
+        }
+    }
+
+    // Verificar na diagonal (superior direita para inferior esquerda)
+    for (let i = 0; i < 4; i++) {
+        if (linha + i >= linhas || coluna - i < 0 || (tabuleiro[linha + i].casas[coluna - i] !== posicaoAtual && tabuleiro[linha + i].casas[coluna - i] !== 0)) {
+            break;
+        }
+        if (i === 3) {
+            return true;
+        }
+    }
+
+    return false; // Não é possível vencer a partir dessa posição
 }
