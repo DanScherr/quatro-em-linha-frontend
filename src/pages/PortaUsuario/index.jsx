@@ -43,13 +43,13 @@ export default function PortaUsuario(  ) {
                 >
                     <Grid 
                         container 
-                        spacing={1} 
+                        spacing={0} 
                         direction='row'
                         justifyContent="center"
                         alignItems="center"
                         sx={{height: '100%', width: '100%'}}
                     >
-                        <Grid iten xs={2} sx={{mx: 2}}>
+                        <Grid iten xs={3}>
                             <Button
                                 onClick={() => setOpcao(`login`)}
                                 variant="outlined" 
@@ -62,7 +62,7 @@ export default function PortaUsuario(  ) {
                                 Logar
                             </Button>
                         </Grid>
-                        <Grid iten xs={2} sx={{mx: 2}}>
+                        <Grid iten xs={3}>
                             <Button
                                 onClick={() => setOpcao(`cadastro`)}
                                 variant="outlined"

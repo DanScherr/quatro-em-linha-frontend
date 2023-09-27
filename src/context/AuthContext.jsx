@@ -7,35 +7,59 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
 
-    const [auth, setAuth] = React.useState(false);
+    const [opcao, setOpcao] = React.useState('');
+    const [cookieAuth, setCookieAuth] = React.useState(false);
 
-    const ValidateLogin = async () => {
+    const ValidaCookie = () => {
         const authToken = Cookies.get('authToken');
-        console.log(`usario validado:`, authToken);
 
+        if (authToken) setAuth(true);
+        // else ValidateLogin(); // buscando dados do DB
+    };
+
+    const [cadastro, setCadastro] = React.useState({loading: false, cadastro: false});
+
+    const RealizaCadastro = async (nome, email, senha) => {
+        setCadastro(prev => {return {loading: true, cadastro: false}});
+        console.log('Realizando cadastro')
         try {
             let data = [];
-            const response = await axios.get(
-                `/api/v1/test`,
+            const response = await axios.post(
+                `/api/v1/usuario`,
+                {
+                    nome: nome,
+                    email: email,
+                    senha: senha
+                },
                 {mode: 'no-cors'}
             );
-            if (response.status === 200 && response.data.status === true) {
-                data = response.data.dados;
+            if (response.status === 201 && response.data.status === true) {
+                setOpcao('login');
+                setCadastro(prev => {return {loading: false, cadastro: true}});
             };
+            console.log(response)
+            
         } catch (error) {
             console.error(error);
         };
     };
 
-    const [opcao, setOpcao] = React.useState('');
+    const [auth, setAuth] = React.useState(false);
+
+    
 
     return <AuthContext.Provider
         value={{
             auth: auth,
             setAuth,
-            ValidateLogin,
+            // ValidateLogin,
             opcao: opcao,
-            setOpcao
+            setOpcao,
+            cookieAuth,
+            setCookieAuth,
+            ValidaCookie,
+            cadastro,
+            RealizaCadastro
         }}
     >
         {children}
