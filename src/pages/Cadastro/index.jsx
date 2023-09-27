@@ -163,6 +163,7 @@ export default function Cadastro( ) {
                     <FormControl error={formComponents.senha.error} required={true} sx={{mb: 3}}>
                         <InputLabel htmlFor='input-senha'>Senha:</InputLabel>
                         <Input 
+                            type="password"
                             onChange={handleInputs}
                             onBlur={() => console.log('Criar função que valida..')}
                             id="input-senha" 

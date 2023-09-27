@@ -7,6 +7,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
 
+    const [auth, setAuth] = React.useState(false);
     const [opcao, setOpcao] = React.useState('');
     const [cookieAuth, setCookieAuth] = React.useState(false);
 
@@ -36,6 +37,31 @@ export const AuthProvider = ({children}) => {
             if (response.status === 201 && response.data.status === true) {
                 setOpcao('login');
                 setCadastro(prev => {return {loading: false, cadastro: true}});
+            }
+            
+        } catch (error) {
+            setCadastro(prev => {return {loading: false, cadastro: false}});
+            console.error(error);
+        };
+    };
+
+    const [login, setLogin] = React.useState({loading: false, login: false});
+
+    const RealizaLogin = async (email, senha) => {
+        setLogin(prev => {return {loading: true, login: false}});
+        console.log('Realizando login..')
+        try {
+            const response = await axios.post(
+                `/api/v1/login`,
+                {
+                    email: email,
+                    senha: senha
+                },
+                {mode: 'no-cors'}
+            );
+            if (response.status === 200 && response.data.status === true) {
+                setLogin(prev => {return {loading: false, login: true}});
+                setAuth(true);
             };
             console.log(response)
             
@@ -43,10 +69,6 @@ export const AuthProvider = ({children}) => {
             console.error(error);
         };
     };
-
-    const [auth, setAuth] = React.useState(false);
-
-    
 
     return <AuthContext.Provider
         value={{
@@ -59,7 +81,8 @@ export const AuthProvider = ({children}) => {
             setCookieAuth,
             ValidaCookie,
             cadastro,
-            RealizaCadastro
+            RealizaCadastro,
+            RealizaLogin,
         }}
     >
         {children}

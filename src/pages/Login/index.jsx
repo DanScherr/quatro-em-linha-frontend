@@ -1,12 +1,79 @@
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Box, Button, FormControl, FormHelperText, Input, InputLabel, Stack, Typography } from "@mui/material";
 import TextField from '@mui/material/TextField';
 import AuthContext from "../../context/AuthContext";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 
 export default function Login( ) {
     const {
-        setOpcao
+        setOpcao,
+        RealizaLogin
     } = useContext(AuthContext);
+
+    // VARIAVEIS DO FORMULARIO
+    const [formComponents, setFormComponents] = useState({
+        email: {
+            value: '',
+            error: false,
+            helperText: '',
+            color: 'primary'
+        },
+        senha: {
+            value: '',
+            error: false,
+            helperText: '',
+            color: 'primary'
+        },
+    });
+
+    // LIDA COM OS INPUTS
+    const handleInputs = (e) => {
+        e.preventDefault();
+        switch (e.target.id) {
+            case 'input-email':
+                setFormComponents(prevVaules => {
+                    return {
+                        ...prevVaules, // atualiza apenas o item abaixo
+                        email: {
+                            value: e.target.value
+                        }
+                    }
+                });
+                break;
+
+            case 'input-senha':
+                setFormComponents(prevVaules => {
+                    return {
+                        ...prevVaules, // atualiza apenas o item abaixo
+                        senha: {
+                            value: e.target.value
+                        }
+                    }
+                });
+                break;
+        
+            default:
+                break;
+        };
+    };
+
+    // LIDA COM O SUBMIT
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        if (!formComponents.email.error && !formComponents.senha.error )
+        RealizaLogin(
+            formComponents.email.value,
+            formComponents.senha.value
+        );
+    };
+
+    // EFEITO QUE RODA NO MOMENTO QUE AS VARIAVEIS MUDAM
+    useEffect(() => {
+        console.log('Input de email: ', formComponents.email.value)
+    }, [formComponents.email.value])
+    useEffect(() => {
+        console.log('Input de senha: ', formComponents.senha.value)
+    }, [formComponents.senha.value])
 
     return (
         <Box
@@ -31,24 +98,37 @@ export default function Login( ) {
                 <Typography sx={{mt: 3, mb: 8, mx: "auto", fontSize: `23px`, color: 'primary.main'}}>
                     LOGIN
                 </Typography>
-                <TextField
-                    required
-                    id="outlined-required"
-                    label="Email"
-                    defaultValue=""
-                    sx={{my: 0.7, color: 'font.main'}}
-                />
-                <TextField
-                    required
-                    id="outlined-required"
-                    label="Senha"
-                    type="password"
-                    defaultValue=""
-                    sx={{my: 0.7, color: 'font.main'}}
-                />
-                <Button variant="outlined" sx={{my: 0.2}}>
+
+                {/* NOME INPUT */}
+                <FormControl error={formComponents.email.error} required={true} sx={{mb: 3}}> 
+                    <InputLabel htmlFor='input-email'>Email:</InputLabel>
+                    <Input 
+                        onChange={handleInputs}
+                        onBlur={() => console.log('Criar função que valida..')}
+                        id="input-email" 
+                        aria-describedby="input-your-name" 
+                    />
+                    <FormHelperText id='my-helper-input-email'>{formComponents.email.helperText}</FormHelperText>
+                </FormControl>
+
+                {/* SENHA INPUT */}
+                <FormControl error={formComponents.senha.error} required={true} sx={{mb: 3}}> 
+                    <InputLabel htmlFor='input-senha'>Senha:</InputLabel>
+                    <Input 
+                        type="password"
+                        onChange={handleInputs}
+                        onBlur={() => console.log('Criar função que valida..')}
+                        id="input-senha" 
+                        aria-describedby="input-your-name" 
+                    />
+                    <FormHelperText id='my-helper-input-senha'>{formComponents.senha.helperText}</FormHelperText>
+                </FormControl>
+
+                {/* BOTAO SUBMIT */}
+                <Button onClick={handleSubmit} variant="outlined" sx={{my: 0.2}}>
                     Submit
                 </Button>
+                {/* BOTAO VOLTAR */}
                 <Button onClick={() => setOpcao('')}
                     variant="outlined" sx={{my: 0.2, color: `secondary.main`, borderColor: `secondary.main`, 
                     '&:hover': {

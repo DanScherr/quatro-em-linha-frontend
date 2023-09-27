@@ -32,9 +32,6 @@ export default function SharedLayout(  ) {
     return (
         <div className="container">
             <SharedLayoutHeader />
-            <Button variant="outlined" onClick={handleClick}>
-                Open success snackbar
-            </Button>
             <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
                     This is a success message!
