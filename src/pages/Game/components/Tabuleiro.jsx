@@ -115,7 +115,7 @@ export default function Tabuleiro(  ) {
                                         borderRadius: '55px'
                                       }}
                                 >
-                                    {casa}
+                                    {''}
                                 </Container>
                             </Grid>
                         )
