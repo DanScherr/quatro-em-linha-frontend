@@ -61,7 +61,8 @@ export const AuthProvider = ({children}) => {
             );
             if (response.status === 200 && response.data.status === true) {
                 setLogin(prev => {return {loading: false, login: true}});
-                setAuth(true);
+                Cookies.set('authToken', true, { expires: 7 });
+                ValidaCookie();
             };
             console.log(response)
             

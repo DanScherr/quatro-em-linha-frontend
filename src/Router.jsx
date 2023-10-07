@@ -6,8 +6,7 @@ import {
     Route
 } from "react-router-dom";
 /** Components */
-import LoadingPage from "./pages/Shared/Loading/LoadingPage"; 
-import { AuthProvider } from "./context/AuthContext";
+import LoadingPage from "./pages/Shared/Loading/LoadingPage";
 import Auth from "./pages/Auth";
 
 /** Pages */
