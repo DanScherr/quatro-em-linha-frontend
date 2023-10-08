@@ -67,6 +67,40 @@ export default function Login( ) {
         );
     };
 
+    // LIDA COM O BLUR
+    const handleBlur = (e) => {
+        e.preventDefault();
+        
+        switch (e.target.id) {
+            case 'input-email':
+                // chama validação e se erro:
+                setFormComponents(prevVaules => {
+                    return {
+                        ...prevVaules, // atualiza apenas o item abaixo
+                        email: {
+                            
+                        }
+                    }
+                });
+                break;
+
+            case 'input-senha':
+                // chama validação e se erro:
+                setFormComponents(prevVaules => {
+                    return {
+                        ...prevVaules, // atualiza apenas o item abaixo
+                        senha: {
+                            
+                        }
+                    }
+                });
+                break;
+        
+            default:
+                break;
+        };
+    };
+
     // EFEITO QUE RODA NO MOMENTO QUE AS VARIAVEIS MUDAM
     useEffect(() => {
         console.log('Input de email: ', formComponents.email.value)
@@ -99,12 +133,12 @@ export default function Login( ) {
                     LOGIN
                 </Typography>
 
-                {/* NOME INPUT */}
+                {/* EMAIL INPUT */}
                 <FormControl error={formComponents.email.error} required={true} sx={{mb: 3}}> 
                     <InputLabel htmlFor='input-email'>Email:</InputLabel>
                     <Input 
                         onChange={handleInputs}
-                        onBlur={() => console.log('Criar função que valida..')}
+                        onBlur={handleBlur}
                         id="input-email" 
                         aria-describedby="input-your-name" 
                     />
@@ -117,7 +151,7 @@ export default function Login( ) {
                     <Input 
                         type="password"
                         onChange={handleInputs}
-                        onBlur={() => console.log('Criar função que valida..')}
+                        onBlur={handleBlur}
                         id="input-senha" 
                         aria-describedby="input-your-name" 
                     />
