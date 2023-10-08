@@ -1,34 +1,57 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Button } from "@mui/material";
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import Game from "../Game";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
+import {Modal} from "@mui/material";
+import MultiplayerContext from "../../context/MultiplayerContext";
+
 
 export default function Home(  ) {
-    const navigate = useNavigate();
+    const [open, setOpen] = useState(true)
 
-    const navegarPara = () => navigate('/jogar');
+    const {
+        iniciandoSocket
+    } = useContext(MultiplayerContext)
+
+    const onClickFunction = () => {
+        setOpen(false);
+        iniciandoSocket();
+    }
 
     return (
         <>
-            <Button onClick={navegarPara}
-                sx={{
-                    position: 'absolute',
-                    top: '57%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: 500,
-                    height: 500,
-                    bgcolor: 'background.paper',
-                    border: '2px solid #000',
-                    boxShadow: 24,
-                    p: 4,
-                    borderRadius: 40,
-                    '&:hover': {
-                        color: 'font.main',
-                        opacity: '80%',
-                    }
-                }}
+        { 
+        open ?
+            <Modal
+            open={open}
+            // onClick={navegarPara}
+            sx={{
+                position: 'absolute',
+                top: '57%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                width: 500,
+                height: 500,
+                bgcolor: 'background.paper',
+                border: '2px solid #000',
+                boxShadow: 24,
+                p: 4,
+                borderRadius: 40,
+                '&:hover': {
+                    color: 'font.main',
+                    opacity: '80%',
+                }
+            }}
+            >
+                <Button 
+                    onClick={() => onClickFunction()}
+                    sx={{
+                        borderRadius: 50,
+                        position: 'absolute',
+                        top: '25%',
+                        left: '27%',
+                    }}
                 >
                     <PlayCircleIcon sx={{fontSize: 200,
                         '&:hover': {
@@ -36,8 +59,10 @@ export default function Home(  ) {
                             opacity: '80%',
                     }}} />
                 </Button>
-
+            </Modal>
+        :
             <Game />
+        }   
         </>
         
     );

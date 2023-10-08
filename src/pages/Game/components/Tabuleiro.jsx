@@ -2,10 +2,9 @@ import { Button, Card, Container, Grid, Input } from "@mui/material";
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 import { useContext, useEffect, useState } from "react";
 /** Socket */
-import { io } from "socket.io-client";
-
 import { ModalResultado } from "./ModalResultado";
 import MultiplayerContext from "../../../context/MultiplayerContext";
+import AuthContext from "../../../context/AuthContext";
 
 export default function Tabuleiro(  ) {
     const {
@@ -25,20 +24,7 @@ export default function Tabuleiro(  ) {
         encerrarJogo,
     } = useContext(MultiplayerContext)
 
-    const iniciandoSocket = () => {
-        console.log('Tentando conectar com o socket')
-        // conectando com o socket
-        const newSocket = io({path: '/api/v1/gaming'}, {
-            transports: ['websocket'],
-            });
-        newSocket.on("connect", () => {
-            console.log('Socket connected successfully!!!')
-        });
-        newSocket.on("connect_error", (err) => {
-        console.log(`connect_error due to ${err.message}`);
-        });
-        setSocket((prev) => {return{...prev, set: true, id: newSocket}});
-    };
+    const {userId} = useContext(AuthContext);
 
     const [myTurn, setTurn] = useState(true);
 
@@ -99,6 +85,8 @@ export default function Tabuleiro(  ) {
         const multiplayerState = {
             tabuleiro: gameState,
             tema: myChosenTheme,
+            userId: userId,
+            gameStatus: vencedorState ? 'winner' : empateState ? 'empate' : 'jogando'
         };
         socket.id.emit("msg", multiplayerState);
     };
@@ -117,7 +105,7 @@ export default function Tabuleiro(  ) {
             {/* Linha de botões */}
             <Grid container spacing={2} sx={{my: 1, ml: 5}}>
                 <Grid container >
-                    <Button onClick={() => iniciandoSocket()} >Cria Socket</Button>
+                    {/* <Button onClick={() => iniciandoSocket()} >Cria Socket</Button> */}
                     <Button onClick={() => conversaComSocket()} >Teste Socket</Button>
                     <Input
                         onChange={handleInput}

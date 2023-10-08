@@ -22,8 +22,9 @@ export default function Router(  ) {
             <Suspense fallback={<LoadingPage />}>
                 <Routes>
                     <Route element={<SharedLayout/>}>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/jogar" element={<Game />} />
+                        <Route path="/" element={<Home />} >
+                            <Route path="jogar" element={<Game />} />
+                        </Route>
                         <Route path="/sobre" element={<Sobre />} />
                         <Route path="/ranking" element={<Ranking />} />
                     </Route>

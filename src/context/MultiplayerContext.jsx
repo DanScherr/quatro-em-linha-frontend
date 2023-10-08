@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { io } from "socket.io-client";
 
 const MultiplayerContext = React.createContext();
 
@@ -171,8 +172,27 @@ export const MultiplayerProvider = ({children}) => {
     const [ empateState, setEmpateState ] = React.useState(false);
     const [ mostrarModalState, setMostrarModalState ] = React.useState(false);
     const [disabledButton, setDisabledButton] = React.useState(false)
-    const [socket, setSocket] = React.useState({set: false, id: null, msg: null, it: 0})
+    const [socket, setSocket] = React.useState({
+        set: false, id: null, 
+        msg: null, it: 0,
+        
+    })
 
+    // SOCKET
+    const iniciandoSocket = () => {
+        console.log('Tentando conectar com o socket')
+        // conectando com o socket
+        const newSocket = io({path: '/api/v1/gaming'}, {
+            transports: ['websocket'],
+            });
+        newSocket.on("connect", () => {
+            console.log('Socket connected successfully!!!')
+        });
+        newSocket.on("connect_error", (err) => {
+        console.log(`connect_error due to ${err.message}`);
+        });
+        setSocket((prev) => {return{...prev, set: true, id: newSocket}});
+    };
 
 
     return <MultiplayerContext.Provider
@@ -190,7 +210,8 @@ export const MultiplayerProvider = ({children}) => {
             verificarEmpate,
             verificarVitoria,
             posicionaFichaAoFinalDaColuna,
-            encerrarJogo
+            encerrarJogo,
+            iniciandoSocket
         }}
     >
         {children}

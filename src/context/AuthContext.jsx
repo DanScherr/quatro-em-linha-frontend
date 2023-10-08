@@ -13,8 +13,12 @@ export const AuthProvider = ({children}) => {
 
     const ValidaCookie = () => {
         const authToken = Cookies.get('authToken');
+        const loginId = Cookies.get('userId');
 
-        if (authToken) setAuth(true);
+        if (authToken) {
+            setAuth(true);
+            setUserId(loginId);
+        }
         // else ValidateLogin(); // buscando dados do DB
     };
 
@@ -46,6 +50,7 @@ export const AuthProvider = ({children}) => {
     };
 
     const [login, setLogin] = React.useState({loading: false, login: false});
+    const [userId, setUserId] = React.useState(null);
 
     const RealizaLogin = async (email, senha) => {
         setLogin(prev => {return {loading: true, login: false}});
@@ -61,7 +66,10 @@ export const AuthProvider = ({children}) => {
             );
             if (response.status === 200 && response.data.status === true) {
                 setLogin(prev => {return {loading: false, login: true}});
+                setUserId(response.data.id);
+                console.log(response)
                 Cookies.set('authToken', true, { expires: 7 });
+                Cookies.set('userId', response.data.id, { expires: 7 });
                 ValidaCookie();
             };
             console.log(response)
@@ -84,6 +92,7 @@ export const AuthProvider = ({children}) => {
             cadastro,
             RealizaCadastro,
             RealizaLogin,
+            userId,
         }}
     >
         {children}
