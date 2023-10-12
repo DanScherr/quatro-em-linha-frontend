@@ -2,6 +2,7 @@ import { Box, Button, FormControl, FormHelperText, Input, InputLabel, Stack, Typ
 import TextField from '@mui/material/TextField';
 import AuthContext from "../../context/AuthContext";
 import { useContext, useEffect, useState } from "react";
+import { validaEmail, validaSenha } from "../../bin/ValidaInputs";
 
 export default function Login( ) {
     const {
@@ -73,27 +74,39 @@ export default function Login( ) {
         
         switch (e.target.id) {
             case 'input-email':
-                // chama validação e se erro:
-                setFormComponents(prevVaules => {
-                    return {
-                        ...prevVaules, // atualiza apenas o item abaixo
-                        email: {
-                            
+                let emailError = validaEmail(e.target.value);
+                console.log(e.target.value);
+                if (emailError != null)
+                {
+                    setFormComponents(prevVaules => {
+                        return {
+                            ...prevVaules, // atualiza apenas o item abaixo
+                            email: {
+                                error: true,
+                                helperText: emailError,
+                                color: 'danger'
+                            }
                         }
-                    }
-                });
+                    });
+                }
                 break;
 
             case 'input-senha':
-                // chama validação e se erro:
-                setFormComponents(prevVaules => {
-                    return {
-                        ...prevVaules, // atualiza apenas o item abaixo
-                        senha: {
-                            
+                let senhaError = validaSenha(e.target.value);
+                console.log(e.target.value);
+                if (senhaError != null)
+                {
+                    setFormComponents(prevVaules => {
+                        return {
+                            ...prevVaules, // atualiza apenas o item abaixo
+                            senha: {
+                                error: true,
+                                helperText: senhaError,
+                                color: 'danger'
+                            }
                         }
-                    }
-                });
+                    });
+                }
                 break;
         
             default:

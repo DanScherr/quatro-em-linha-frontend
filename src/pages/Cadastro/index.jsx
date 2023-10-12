@@ -2,7 +2,7 @@ import { Box, Button, FormControl, FormHelperText, Input, InputLabel, Stack, Typ
 import CircularProgress from '@mui/material/CircularProgress';
 import AuthContext from "../../context/AuthContext";
 import { useContext, useEffect, useState } from "react";
-
+import { validaNome, validaEmail, validaSenha } from "../../bin/ValidaInputs";
 
 export default function Cadastro( ) {
     // VARIAVEIS DE CONTEXTO GLOBAL DE AUTENTICACAO
@@ -94,41 +94,59 @@ export default function Cadastro( ) {
         e.preventDefault();
         
         switch (e.target.id) {
-            // chama validação e se erro:
             case 'input-nome':
-                setFormComponents(prevVaules => {
-                    return {
-                        ...prevVaules, // atualiza apenas item abaixo
-                        nome: {
-                            value: e.target.value
+                let nomeError = validaNome(e.target.value);
+                console.log(e.target.value);
+                if (nomeError != null)
+                {
+                    setFormComponents(prevVaules => {
+                        return {
+                            ...prevVaules, // atualiza apenas item abaixo
+                            nome: {
+                                error: true,
+                                helperText: nomeError,
+                                color: 'danger'
+                            }
                         }
-                    }
-                });
+                    });
+                }
                 break;
 
-            case 'input-email':
-                // chama validação e se erro:
-                setFormComponents(prevVaules => {
-                    return {
-                        ...prevVaules, // atualiza apenas o item abaixo
-                        email: {
-                            
-                        }
+                case 'input-email':
+                    let emailError = validaEmail(e.target.value);
+                    console.log(e.target.value);
+                    if (emailError != null)
+                    {
+                        setFormComponents(prevVaules => {
+                            return {
+                                ...prevVaules, // atualiza apenas o item abaixo
+                                email: {
+                                    error: true,
+                                    helperText: emailError,
+                                    color: 'danger'
+                                }
+                            }
+                        });
                     }
-                });
-                break;
-
-            case 'input-senha':
-                // chama validação e se erro:
-                setFormComponents(prevVaules => {
-                    return {
-                        ...prevVaules, // atualiza apenas o item abaixo
-                        senha: {
-                            
-                        }
+                    break;
+    
+                case 'input-senha':
+                    let senhaError = validaSenha(e.target.value);
+                    console.log(e.target.value);
+                    if (senhaError != null)
+                    {
+                        setFormComponents(prevVaules => {
+                            return {
+                                ...prevVaules, // atualiza apenas o item abaixo
+                                senha: {
+                                    error: true,
+                                    helperText: senhaError,
+                                    color: 'danger'
+                                }
+                            }
+                        });
                     }
-                });
-                break;
+                    break;
         
             default:
                 break;
