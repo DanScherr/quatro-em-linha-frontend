@@ -6,8 +6,7 @@ import {
     Route
 } from "react-router-dom";
 /** Components */
-import LoadingPage from "./pages/Shared/Loading/LoadingPage"; 
-import { AuthProvider } from "./context/AuthContext";
+import LoadingPage from "./pages/Shared/Loading/LoadingPage";
 import Auth from "./pages/Auth";
 
 /** Pages */
@@ -23,8 +22,9 @@ export default function Router(  ) {
             <Suspense fallback={<LoadingPage />}>
                 <Routes>
                     <Route element={<SharedLayout/>}>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/jogar" element={<Game />} />
+                        <Route path="/" element={<Home />} >
+                            <Route path="jogar" element={<Game />} />
+                        </Route>
                         <Route path="/sobre" element={<Sobre />} />
                         <Route path="/ranking" element={<Ranking />} />
                     </Route>

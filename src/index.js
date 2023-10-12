@@ -17,17 +17,19 @@ import './index.css';
 /** Theme */
 import { darkTheme } from './theme';
 import { AuthProvider } from './context/AuthContext';
-
+import { MultiplayerProvider } from './context/MultiplayerContext';
 
 const root = ReactDOM.createRoot(document?.getElementById('root'));
 root.render(
   <React.StrictMode>
     <AuthProvider>
-      <ThemeProvider theme={darkTheme}>
-        <BrowserRouter>
-          <Router />
-        </BrowserRouter>
-      </ThemeProvider>
+      <MultiplayerProvider>
+        <ThemeProvider theme={darkTheme}>
+          <BrowserRouter>
+            <Router />
+          </BrowserRouter>
+        </ThemeProvider>
+      </MultiplayerProvider>
     </AuthProvider>
   </React.StrictMode>
 )
