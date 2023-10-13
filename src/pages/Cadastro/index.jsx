@@ -2,7 +2,7 @@ import { Box, Button, FormControl, FormHelperText, Input, InputLabel, Stack, Typ
 import CircularProgress from '@mui/material/CircularProgress';
 import AuthContext from "../../context/AuthContext";
 import { useContext, useEffect, useState } from "react";
-
+import { validaNome, validaEmail, validaSenha } from "../../bin/ValidaInputs";
 
 export default function Cadastro( ) {
     // VARIAVEIS DE CONTEXTO GLOBAL DE AUTENTICACAO
@@ -88,6 +88,72 @@ export default function Cadastro( ) {
         );
     };
 
+    
+    // LIDA COM O BLUR
+    const handleBlur = (e) => {
+        e.preventDefault();
+        
+        switch (e.target.id) {
+            case 'input-nome':
+                let nomeError = validaNome(e.target.value);
+                console.log(e.target.value);
+                if (nomeError != null)
+                {
+                    setFormComponents(prevVaules => {
+                        return {
+                            ...prevVaules, // atualiza apenas item abaixo
+                            nome: {
+                                error: true,
+                                helperText: nomeError,
+                                color: 'danger'
+                            }
+                        }
+                    });
+                }
+                break;
+
+                case 'input-email':
+                    let emailError = validaEmail(e.target.value);
+                    console.log(e.target.value);
+                    if (emailError != null)
+                    {
+                        setFormComponents(prevVaules => {
+                            return {
+                                ...prevVaules, // atualiza apenas o item abaixo
+                                email: {
+                                    error: true,
+                                    helperText: emailError,
+                                    color: 'danger'
+                                }
+                            }
+                        });
+                    }
+                    break;
+    
+                case 'input-senha':
+                    let senhaError = validaSenha(e.target.value);
+                    console.log(e.target.value);
+                    if (senhaError != null)
+                    {
+                        setFormComponents(prevVaules => {
+                            return {
+                                ...prevVaules, // atualiza apenas o item abaixo
+                                senha: {
+                                    error: true,
+                                    helperText: senhaError,
+                                    color: 'danger'
+                                }
+                            }
+                        });
+                    }
+                    break;
+        
+            default:
+                break;
+        };
+    };
+
+
     // EFEITO QUE RODA NO MOMENTO QUE AS VARIAVEIS MUDAM
     useEffect(() => {
         console.log('Input de nome: ', formComponents.nome.value)
@@ -140,7 +206,7 @@ export default function Cadastro( ) {
                         <InputLabel htmlFor='input-nome'>Nome:</InputLabel>
                         <Input 
                             onChange={handleInputs}
-                            onBlur={() => console.log('Criar função que valida..')}
+                            onBlur={handleBlur}
                             id="input-nome" 
                             aria-describedby="input-your-name" 
                         />
@@ -152,7 +218,7 @@ export default function Cadastro( ) {
                         <InputLabel htmlFor='input-email'>Email:</InputLabel>
                         <Input
                             onChange={handleInputs}
-                            onBlur={() => console.log('Criar função que valida..')} 
+                            onBlur={handleBlur} 
                             id="input-email" 
                             aria-describedby="input-your-name" 
                         />
@@ -165,7 +231,7 @@ export default function Cadastro( ) {
                         <Input 
                             type="password"
                             onChange={handleInputs}
-                            onBlur={() => console.log('Criar função que valida..')}
+                            onBlur={handleBlur}
                             id="input-senha" 
                             aria-describedby="input-your-name" 
                         />
