@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import Game from "../Game";
 // import { useNavigate } from "react-router-dom";
-import {Modal} from "@mui/material";
+// import {Modal} from "@mui/material";
 import MultiplayerContext from "../../context/MultiplayerContext";
 
 
@@ -23,8 +23,8 @@ export default function Home(  ) {
         <>
         { 
         open ?
-            <Modal
-            open={open}
+            <Box
+            // open={open}
             // onClick={navegarPara}
             sx={{
                 position: 'absolute',
@@ -59,7 +59,7 @@ export default function Home(  ) {
                             opacity: '80%',
                     }}} />
                 </Button>
-            </Modal>
+            </Box>
         :
             <Game />
         }   

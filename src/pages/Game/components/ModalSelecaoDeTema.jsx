@@ -41,7 +41,14 @@ export function ModalSelecaoDeTema({ mostrar, setMostrar, setTemaState }) {
       <Modal open={mostrar} style={BACKGROUND_STYLE}>
         <div style={MODAL_STYLE}>
           <div style={TITLE_STYLE}>
-            <h2>{'SELECIONE SEU TEMA'}</h2>
+            <Typography sx={{
+                color: 'font.emphasis',
+                fontSize: 23,
+                fontWeight: 550,
+                letterSpacing: 2
+            }}>
+                {'SELECIONE SEU TEMA'}
+            </Typography>
             {/* <p>{!isVencedor ?? 'Revanche?'}</p> */}
           </div>
           <div style={GIF_STYLE} className='mt-4'>
