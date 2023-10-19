@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import { ModalResultado } from "./ModalResultado";
 import MultiplayerContext from "../../../context/MultiplayerContext";
 import AuthContext from "../../../context/AuthContext";
+import { ModalSelecaoDeTema } from "./ModalSelecaoDeTema";
 
 export default function Tabuleiro(  ) {
     const {
@@ -15,8 +16,11 @@ export default function Tabuleiro(  ) {
         vencedorState, setVencedorState,
         empateState, setEmpateState,
         mostrarModalState, setMostrarModalState,
+        mostrarModalTemaState, setMostrarModalTemaState,
         disabledButton, setDisabledButton,
         socket, setSocket,
+        timer, setTimer,
+        statusJogo, setStatusJogo,
         // aindaEhPossivelVencer,
         verificarEmpate,
         verificarVitoria,
@@ -35,12 +39,26 @@ export default function Tabuleiro(  ) {
             socket.id.on("msg", (arg) => {
                 console.log('socket message:', arg); // world
                 setSocket((prev) => {return {...prev, msg: arg.tema}})
-                if (arg.tabuleiro !== gameState)
-                setTurn(true)
-                setGameState(arg.tabuleiro);
+                if (arg.tabuleiro !== gameState){
+                    setTurn(true);
+                    setGameState(arg.tabuleiro);
+                    setStatusJogo(arg.gameStatus);
+                };
             });
         }
     }, [socket.set])
+
+    useEffect(() => {
+        console.log('definição de tema:', temaState)
+    }, [temaState])
+
+    // Coloca timer de 45s se o Tema estiver como valor 'grey'
+    useEffect(() => {
+        if (temaState === 'grey') {
+            setTimer(45);
+            setMostrarModalTemaState(true);
+        }
+    }, [temaState])
 
     // Roda quando o evento do botão é gerado
     useEffect(() => {
@@ -80,13 +98,17 @@ export default function Tabuleiro(  ) {
         };
     }, [empateState]);
 
+    // Envia mensagem para Socket/Multiplayer
     const conversaComSocket = () => {
         setSocket((prev) => {return {...prev, it: (socket.it + 1)}});
         const multiplayerState = {
             tabuleiro: gameState,
             tema: myChosenTheme,
             userId: userId,
-            gameStatus: vencedorState ? 'winner' : empateState ? 'empate' : 'jogando'
+            gameStatus: vencedorState ? 'winner' 
+                : empateState ? 'empate' 
+                : temaState==='grey' ? 'escolhendo-tema'
+                : 'jogando',
         };
         socket.id.emit("msg", multiplayerState);
     };
@@ -197,7 +219,8 @@ export default function Tabuleiro(  ) {
             })}
             </Card>
 
-            <ModalResultado mostrar={mostrarModalState} setMostrar={setMostrarModalState} isVencedor={vencedorState} isEmpate={empateState} />  
+            <ModalResultado mostrar={mostrarModalState} setMostrar={setMostrarModalState} isVencedor={vencedorState} isEmpate={empateState} />
+            <ModalSelecaoDeTema mostrar={mostrarModalTemaState} setMostrar={setMostrarModalTemaState} setTemaState={setTemaState} />
         </Container>
     );
 };

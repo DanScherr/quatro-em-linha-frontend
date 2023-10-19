@@ -167,16 +167,19 @@ export const MultiplayerProvider = ({children}) => {
     // STATES
     const [ gameState, setGameState ] = React.useState(arrayTabuleiro);
     const [ colunaState, setColunaState ] = React.useState(-1);
-    const [ temaState, setTemaState ] = React.useState('red');
+    const [ temaState, setTemaState ] = React.useState('grey');
     const [ vencedorState, setVencedorState ] = React.useState(false);
     const [ empateState, setEmpateState ] = React.useState(false);
     const [ mostrarModalState, setMostrarModalState ] = React.useState(false);
-    const [disabledButton, setDisabledButton] = React.useState(false)
+    const [ mostrarModalTemaState, setMostrarModalTemaState ] = React.useState(false);
+    const [disabledButton, setDisabledButton] = React.useState(false);
+    const [timer, setTimer] = React.useState(0);
+    const [statusJogo, setStatusJogo] = React.useState(null);
     const [socket, setSocket] = React.useState({
         set: false, id: null, 
         msg: null, it: 0,
         
-    })
+    });
 
     // SOCKET
     const iniciandoSocket = () => {
@@ -204,8 +207,11 @@ export const MultiplayerProvider = ({children}) => {
             vencedorState, setVencedorState,
             empateState, setEmpateState,
             mostrarModalState, setMostrarModalState,
+            mostrarModalTemaState, setMostrarModalTemaState,
             disabledButton, setDisabledButton,
             socket, setSocket,
+            timer, setTimer,
+            statusJogo, setStatusJogo,
             aindaEhPossivelVencer,
             verificarEmpate,
             verificarVitoria,

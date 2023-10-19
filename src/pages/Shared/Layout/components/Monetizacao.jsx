@@ -129,7 +129,7 @@ export default function Monetizacao(  ) {
     );
 };
 
-const arrayMonetizacao = [
+export const arrayMonetizacao = [
     {
         categoria: 'Diversos',
         liberado: false,
