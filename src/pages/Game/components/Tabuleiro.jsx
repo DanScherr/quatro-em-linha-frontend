@@ -46,7 +46,7 @@ export default function Tabuleiro(  ) {
                 };
             });
         }
-    }, [socket.set])
+    }, [])
 
     useEffect(() => {
         console.log('definição de tema:', temaState)
@@ -100,6 +100,7 @@ export default function Tabuleiro(  ) {
 
     // Envia mensagem para Socket/Multiplayer
     const conversaComSocket = () => {
+        console.log('mandando msg!')
         setSocket((prev) => {return {...prev, it: (socket.it + 1)}});
         const multiplayerState = {
             tabuleiro: gameState,
@@ -115,6 +116,10 @@ export default function Tabuleiro(  ) {
 
     const [myChosenTheme, setChosenTheme] = useState("");
 
+    useEffect(() => {
+        conversaComSocket();
+    }, [myChosenTheme])
+
     const handleInput = (e) => {
         e.preventDefault();
         console.log(e.target.value)
@@ -126,8 +131,8 @@ export default function Tabuleiro(  ) {
         <Container sx={{mx: 'auto'}}>  
             {/* Linha de botões */}
             <Grid container spacing={2} sx={{my: 1, ml: 5}}>
-                <Grid container >
-                    {/* <Button onClick={() => iniciandoSocket()} >Cria Socket</Button> */}
+                {/* <Grid container >
+                    <Button onClick={() => iniciandoSocket()} >Cria Socket</Button>
                     <Button onClick={() => conversaComSocket()} >Teste Socket</Button>
                     <Input
                         onChange={handleInput}
@@ -136,7 +141,7 @@ export default function Tabuleiro(  ) {
                         aria-describedby="input-your-name" 
                     />
                     <p>{socket.msg}</p>
-                </Grid>
+                </Grid> */}
                 
                 {gameState[0].casas.map((botao, i) => {
                     return (
