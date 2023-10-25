@@ -2,6 +2,7 @@ import { Avatar, Box, Button, Grid, List, Modal, Typography } from '@mui/materia
 import React from 'react'
 import { arrayMonetizacao } from '../../Shared/Layout/components/Monetizacao'
 import imgDefault from './../../../static/images/default-lock-icon.png'
+import ModalFichasClassicas from './ModalFichasClassicas'
 
 const BACKGROUND_STYLE = {
   position: 'fixed',
@@ -70,6 +71,7 @@ export function ModalSelecaoDeTema({ mostrar, setMostrar, setTemaState }) {
                         boxShadow: 'rgba(255, 255, 255, 0.25) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;'
                     }}
                 >
+                    <ModalFichasClassicas setMostrar={setMostrar} setTemaState={setTemaState} />
                     {arrayMonetizacao.map((item, index) => {
                         return (
                             <div key={`modalSelecaoDeTema-Categoria-${index}`}>
