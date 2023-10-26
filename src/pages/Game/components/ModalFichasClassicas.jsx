@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Grid, Typography } from "@mui/material";
+import { Avatar, Box, Button, Grid, Tooltip, Typography } from "@mui/material";
 
 export default function ModalFichasClassicas( {setMostrar, setTemaState} ) {
     return (
@@ -18,17 +18,19 @@ export default function ModalFichasClassicas( {setMostrar, setTemaState} ) {
                     return (
                         <Grid key={`modalSelecaoDeTema-Tema-${index}`} xs={3}>
                             <Box sx={{mb: 1}}>
-                                <Button
-                                    sx={{borderRadius: 60}}
-                                    onClick={() => {setMostrar(false); setTemaState(tema)} }
-                                >
-                                    <Avatar alt="tema.titulo"
-                                        sx={{border: '1px solid white',
-                                        backgroundColor: tema,
-                                        color: tema
-                                        }}
-                                    />
-                                </Button>
+                                <Tooltip followCursor arrow title={`${tema.charAt(0).toUpperCase() + tema.slice(1)}`} placement="top">
+                                    <Button
+                                        sx={{borderRadius: 60}}
+                                        onClick={() => {setMostrar(false); setTemaState(tema)} }
+                                    >
+                                        <Avatar alt="tema.titulo"
+                                            sx={{border: '1px solid white',
+                                            backgroundColor: tema,
+                                            color: tema
+                                            }}
+                                        />
+                                    </Button>
+                                </Tooltip>
                                 <Typography>
                                     {tema}
                                 </Typography>

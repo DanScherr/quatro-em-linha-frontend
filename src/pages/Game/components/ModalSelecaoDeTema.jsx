@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Grid, List, Modal, Skeleton, Typography } from '@mui/material'
+import { Avatar, Box, Button, Grid, List, Modal, Skeleton, Tooltip, Typography } from '@mui/material'
 import React, { useContext, useEffect } from 'react';
 import ModalFichasClassicas from './ModalFichasClassicas';
 import AuthContext from '../../../context/AuthContext';
@@ -106,19 +106,21 @@ export function ModalSelecaoDeTema({ mostrar, setMostrar, setChosenState, setTem
                                             return (
                                                 <Grid key={`modalSelecaoDeTema-Tema-${index}`} xs={3}>
                                                     <Box sx={{mb: 1}}>
-                                                        <Button 
-                                                            sx={{borderRadius: 60}}
-                                                            onClick={() => {setMostrar(false); setTemaState(geraPathTema(item, tema, basePathImages)); setTemaState(geraPathTema(item, tema, basePathImages))} }
-                                                        >
-                                                            <Avatar alt="" src={retornaImagemFicha(geraPathTema(item, tema, basePathImages))}
-                                                                sx={{border: '1px solid white',
-                                                                color: 'font.main',
-                                                                }}
-                                                            />
-                                                        </Button>
-                                                        <Typography>
-                                                            {tema.titulo}
-                                                        </Typography>
+                                                        <Tooltip followCursor arrow title={`${tema.nome.charAt(0).toUpperCase() + tema.nome.slice(1)}`} placement="top">
+                                                            <Button 
+                                                                    sx={{borderRadius: 60}}
+                                                                    onClick={() => {setMostrar(false); setTemaState(geraPathTema(item, tema, basePathImages)); setTemaState(geraPathTema(item, tema, basePathImages))} }
+                                                                >
+                                                                    <Avatar alt="" src={retornaImagemFicha(geraPathTema(item, tema, basePathImages))}
+                                                                        sx={{border: '1px solid white',
+                                                                        color: 'font.main',
+                                                                        }}
+                                                                    />
+                                                                </Button>
+                                                                <Typography>
+                                                                    {tema.titulo}
+                                                                </Typography>
+                                                        </Tooltip>
                                                     </Box>
                                                 </Grid>
                                             );
