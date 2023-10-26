@@ -1,11 +1,12 @@
-import { Button, Card, Container, Grid, Input } from "@mui/material";
+import { Avatar, Button, Card, Container, Grid, Input } from "@mui/material";
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 /** Socket */
 import { ModalResultado } from "./ModalResultado";
 import MultiplayerContext from "../../../context/MultiplayerContext";
 import AuthContext from "../../../context/AuthContext";
-import { ModalSelecaoDeTema } from "./ModalSelecaoDeTema";
+import { ModalSelecaoDeTema, geraPathTema } from "./ModalSelecaoDeTema";
+import { retornaImagemFicha } from "./ImportFichas";
 
 export default function Tabuleiro(  ) {
     const {
@@ -21,6 +22,8 @@ export default function Tabuleiro(  ) {
         socket, setSocket,
         timer, setTimer,
         statusJogo, setStatusJogo,
+        myTurn, setTurn,
+        myChosenTheme, setChosenTheme,
         // aindaEhPossivelVencer,
         verificarEmpate,
         verificarVitoria,
@@ -30,7 +33,7 @@ export default function Tabuleiro(  ) {
 
     const {userId} = useContext(AuthContext);
 
-    const [myTurn, setTurn] = useState(true);
+    // const [myTurn, setTurn] = useState(true);
 
     useEffect(() => {
         if (socket.set)
@@ -114,7 +117,7 @@ export default function Tabuleiro(  ) {
         socket.id.emit("msg", multiplayerState);
     };
 
-    const [myChosenTheme, setChosenTheme] = useState("");
+    // const [myChosenTheme, setChosenTheme] = useState("");
 
     useEffect(() => {
         conversaComSocket();
@@ -131,18 +134,6 @@ export default function Tabuleiro(  ) {
         <Container sx={{mx: 'auto'}}>  
             {/* Linha de botões */}
             <Grid container spacing={2} sx={{my: 1, ml: 5}}>
-                {/* <Grid container >
-                    <Button onClick={() => iniciandoSocket()} >Cria Socket</Button>
-                    <Button onClick={() => conversaComSocket()} >Teste Socket</Button>
-                    <Input
-                        onChange={handleInput}
-                        // onBlur={() => console.log('Criar função que valida..')}
-                        id="input-email" 
-                        aria-describedby="input-your-name" 
-                    />
-                    <p>{socket.msg}</p>
-                </Grid> */}
-                
                 {gameState[0].casas.map((botao, i) => {
                     return (
                         <Grid key={`JogarTabuleiroArrayBotao-${i}`} xs={1} sx={{my: 1, ml: 2.2}}>
@@ -201,21 +192,15 @@ export default function Tabuleiro(  ) {
                         return (
                             <Grid key={`JogarTabuleiroArrayItem-${i}-Casa-${j}`} xs={1} sx={{my: 2, ml: 3}}>
                                 {/* CASA DO TABULEIRO */}
-                                <Container
+                                <Avatar alt="" src={casa === 0 ? '' : retornaImagemFicha(casa)}
                                     sx={{
-                                        background: casa === 0 ? casaBackgroundVazia : casa,
-                                        boxShadow: '0px 4px 4px 0px #00000040',
-                                        '&:hover': {
-                                          backgroundColor: 'primary.main',
-                                          opacity: [0.9, 0.8, 0.7],
-                                        },
-                                        height: '55px',
-                                        width: '55px',
-                                        borderRadius: '55px'
-                                      }}
+                                        border: '1px solid white',
+                                        color: 'font.main',
+                                        backgroundColor: casa === 0 ? casaBackgroundVazia : ''
+                                    }}
                                 >
                                     {''}
-                                </Container>
+                                </Avatar>
                             </Grid>
                         )
                         })}
@@ -225,7 +210,7 @@ export default function Tabuleiro(  ) {
             </Card>
 
             <ModalResultado mostrar={mostrarModalState} setMostrar={setMostrarModalState} isVencedor={vencedorState} isEmpate={empateState} />
-            <ModalSelecaoDeTema mostrar={mostrarModalTemaState} setMostrar={setMostrarModalTemaState} setTemaState={setTemaState} />
+            <ModalSelecaoDeTema mostrar={mostrarModalTemaState} setMostrar={setMostrarModalTemaState} setChosenState={setChosenTheme} setTemaState={setChosenTheme} />
         </Container>
     );
 };

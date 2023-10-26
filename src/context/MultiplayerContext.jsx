@@ -28,7 +28,7 @@ export const MultiplayerProvider = ({children}) => {
     const posicionaFichaAoFinalDaColuna = (array, indiceColuna) => {
         for (let i = array.length - 1; i >= 0; i--) {
             if (array[i].casas[indiceColuna] === 0) {
-                array[i].casas[indiceColuna] = temaState;
+                array[i].casas[indiceColuna] = myTurn ? myChosenTheme : temaState;
                 break; // Para o loop assim que encontrar o primeiro zero
             };
         };
@@ -180,6 +180,9 @@ export const MultiplayerProvider = ({children}) => {
         msg: null, it: 0,
         
     });
+    const [myTurn, setTurn] = React.useState(true);
+    const [myChosenTheme, setChosenTheme] = React.useState("");
+    const [vsChosenTheme, setVsChosenTheme] = React.useState("");
 
     // SOCKET
     const iniciandoSocket = () => {
@@ -212,6 +215,9 @@ export const MultiplayerProvider = ({children}) => {
             socket, setSocket,
             timer, setTimer,
             statusJogo, setStatusJogo,
+            myTurn, setTurn,
+            myChosenTheme, setChosenTheme,
+            vsChosenTheme, setVsChosenTheme,
             aindaEhPossivelVencer,
             verificarEmpate,
             verificarVitoria,

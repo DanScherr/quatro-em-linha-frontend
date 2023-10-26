@@ -1,8 +1,8 @@
-import { Avatar, Box, Button, Grid, List, Modal, Typography } from '@mui/material'
-import React from 'react'
-import { arrayMonetizacao } from '../../Shared/Layout/components/Monetizacao'
-import imgDefault from './../../../static/images/default-lock-icon.png'
-import ModalFichasClassicas from './ModalFichasClassicas'
+import { Avatar, Box, Button, Grid, List, Modal, Skeleton, Typography } from '@mui/material'
+import React, { useContext, useEffect } from 'react';
+import ModalFichasClassicas from './ModalFichasClassicas';
+import AuthContext from '../../../context/AuthContext';
+import { retornaImagemFicha } from './ImportFichas';
 
 const BACKGROUND_STYLE = {
   position: 'fixed',
@@ -36,7 +36,22 @@ const GIF_STYLE = {
   paddingTop: '10px'
 }
 
-export function ModalSelecaoDeTema({ mostrar, setMostrar, setTemaState }) {
+export function ModalSelecaoDeTema({ mostrar, setMostrar, setChosenState, setTemaState }) {
+
+    let basePathImages = './../../../static/images/fichas/';
+
+    const {
+        todosTemas,
+        BuscaTemas
+    } = useContext(AuthContext);
+
+    useEffect(() => {
+        BuscaTemas();
+    }, [])
+
+    useEffect(() => {
+        console.log('temas:', todosTemas.data)
+    }, [todosTemas])
 
     return (
       <Modal open={mostrar} style={BACKGROUND_STYLE}>
@@ -72,49 +87,82 @@ export function ModalSelecaoDeTema({ mostrar, setMostrar, setTemaState }) {
                     }}
                 >
                     <ModalFichasClassicas setMostrar={setMostrar} setTemaState={setTemaState} />
-                    {arrayMonetizacao.map((item, index) => {
-                        return (
-                            <div key={`modalSelecaoDeTema-Categoria-${index}`}>
-                                <Typography
-                                    sx={{
-                                        borderRadius: 60,
-                                        color: 'font.emphasis',
-                                        mt: 2,
-                                        backgroundColor: 'background.accordionHeader'
-                                    }}
-                                >
-                                    {item.categoria}
-                                </Typography>
-                                <Grid container spacing={1} sx={{mt: 1}}>
-                                    {item.temas.map((tema, index) => {
-                                        return (
-                                            <Grid key={`modalSelecaoDeTema-Tema-${index}`} xs={3}>
-                                                <Box sx={{mb: 1}}>
-                                                    <Button 
-                                                        sx={{borderRadius: 60}}
-                                                        onClick={() => {setMostrar(false); setTemaState(tema.titulo)} }
-                                                    >
-                                                        <Avatar alt="tema.titulo" src={tema.imagem === '' ? imgDefault : tema.imagem}
-                                                            sx={{border: '1px solid white',
-                                                            color: 'font.main'
-                                                            }}
-                                                        />
-                                                    </Button>
-                                                    <Typography>
-                                                        {tema.titulo}
-                                                    </Typography>
-                                                </Box>
-                                            </Grid>
-                                        )
-                                    })}
-                                </Grid>
-                            </div>
-                        )
-                    })}
+                    { !todosTemas.loading ?
+                        todosTemas.data.map((item, index) => {
+                            return (
+                                <div key={`modalSelecaoDeTema-Categoria-${index}`}>
+                                    <Typography
+                                        sx={{
+                                            borderRadius: 60,
+                                            color: 'font.emphasis',
+                                            mt: 2,
+                                            backgroundColor: 'background.accordionHeader'
+                                        }}
+                                    >
+                                        {item.categoria}
+                                    </Typography>
+                                    <Grid container spacing={1} sx={{mt: 1}}>
+                                        {item.temas.map((tema, index) => {
+                                            return (
+                                                <Grid key={`modalSelecaoDeTema-Tema-${index}`} xs={3}>
+                                                    <Box sx={{mb: 1}}>
+                                                        <Button 
+                                                            sx={{borderRadius: 60}}
+                                                            onClick={() => {setMostrar(false); setTemaState(geraPathTema(item, tema, basePathImages)); setTemaState(geraPathTema(item, tema, basePathImages))} }
+                                                        >
+                                                            <Avatar alt="" src={retornaImagemFicha(geraPathTema(item, tema, basePathImages))}
+                                                                sx={{border: '1px solid white',
+                                                                color: 'font.main',
+                                                                }}
+                                                            />
+                                                        </Button>
+                                                        <Typography>
+                                                            {tema.titulo}
+                                                        </Typography>
+                                                    </Box>
+                                                </Grid>
+                                            );
+                                        })}
+                                    </Grid>
+                                </div>
+                            )
+                        })
+                        :
+                        <div key={`modalSelecaoDeTema-Carregando-Categoria`}>
+                            <Typography
+                                sx={{
+                                    borderRadius: 60,
+                                    color: 'font.emphasis',
+                                    mt: 2,
+                                    backgroundColor: 'background.accordionHeader'
+                                }}
+                            >
+                                {'Carregando...'}
+                            </Typography>
+                            <Grid container spacing={1} sx={{mt: 1, height: '150px'}}>
+                            {
+                                [0,1,2,3].map((i, j) => {return (
+                                    <Grid key={`modalSelecaoDeTema-Carregando-Tema-${j}`} xs={3}>
+                                        <Box sx={{mb: 1}}>
+                                            <Skeleton variant="circular" width={47} height={47} sx={{mx: 'auto'}} />
+                                        </Box>
+                                    </Grid>
+                                )})
+                            }
+                            </Grid>
+                        </div>
+                }
                 </List>
             {/* <p>ESPAÇO PARA O GIF / BOTÃO DE JOGAR NOVAMENTE</p> */}
           </div>
         </div>
       </Modal>
     );
+};
+
+export const geraPathTema = (item, tema, basePathImages) => {
+    let nome = tema.imagem.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(' ').join('').split('-').join('').replace('.png', '')
+    // let imagem = tema.imagem.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(' ').join('-');
+    // let categoria = item.categoria.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(' ').join('-');
+    return nome
 };

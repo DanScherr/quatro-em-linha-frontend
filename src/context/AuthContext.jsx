@@ -79,6 +79,81 @@ export const AuthProvider = ({children}) => {
         };
     };
 
+    // TEMAS
+    const [todosTemas, setTodosTemas] = React.useState({loading: true, data: []})
+    const BuscaTemas = async (email, senha) => {
+        let data = [];
+        try {
+            const response = await axios.get(
+                `/api/v1/monetizacao`,
+                {mode: 'no-cors'}
+            );
+            if (response.status === 200 && response.data.status === true) {
+                response.data.data.forEach(element => {
+                    let indexOfCat = findCategoria(data, element.categoria);
+
+                    if ( indexOfCat === -1 ) 
+                        data.push({
+                            categoria: element.categoria,
+                            temas: [
+                                {
+                                    id_Mon: element.id_Mon,
+                                    nome: element.nome,
+                                    descricao: element.descricao,
+                                    imagem: element.imagem,
+                                    valor: element.valor
+                                }
+                            ]
+                        })
+                    else {
+                        let indexOfCat = findCategoria(data, element.categoria);
+
+                        if (findTema(data[indexOfCat].temas, element.nome) === -1)
+                            data[indexOfCat].temas.push(
+                                {
+                                    id_Mon: element.id_Mon,
+                                    nome: element.nome,
+                                    descricao: element.descricao,
+                                    imagem: element.imagem,
+                                    valor: element.valor
+                                }
+                        )
+                }
+
+                });
+            };
+            setTodosTemas({loading: false, data: data});
+            console.log('resposta temas:',response)
+            
+        } catch (error) {
+            console.error(error);
+        };
+    };
+
+    const findCategoria = (array, value) => {
+        if (array.length !== 0){
+            for (let index = 0; index < array.length; index++) {
+                const element = array[index].categoria;
+                if (element === value) 
+                    return index
+            };
+            return -1;
+        } 
+        else return -1
+    };
+
+    const findTema = (array, value) => {
+        if (array.length !== 0){
+            for (let index = 0; index < array.length; index++) {
+                const element = array[index].nome;
+                if (element === value) 
+                    return index
+            };
+            return -1;
+        } 
+        else return -1
+    };
+
     return <AuthContext.Provider
         value={{
             auth: auth,
@@ -93,6 +168,8 @@ export const AuthProvider = ({children}) => {
             RealizaCadastro,
             RealizaLogin,
             userId,
+            todosTemas,
+            BuscaTemas
         }}
     >
         {children}
