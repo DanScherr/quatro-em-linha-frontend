@@ -52,6 +52,16 @@ export default function Tabuleiro(  ) {
     }, [])
 
     useEffect(() => {
+        if (statusJogo != null && statusJogo === 'winner'){
+            encerrarJogo();
+        }
+        else if (statusJogo != null && statusJogo === 'empate') {
+            setEmpateState(true);
+            encerrarJogo();
+        }
+    }, [statusJogo])
+
+    useEffect(() => {
         console.log('definição de tema:', temaState)
     }, [temaState])
 
