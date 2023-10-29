@@ -1,40 +1,56 @@
 import * as React from 'react';
-import { Grid } from "@mui/material";
+import { AlertTitle, Grid } from "@mui/material";
 import SharedLayoutFooter from "./components/Footer";
 import SharedLayoutHeader from "./components/Header";
 import { Outlet } from "react-router-dom";
 import "./index.css"
 import Regras from "./components/Regras";
 import Monetizacao from "./components/Monetizacao";
-import Button from '@mui/material/Button';
+// import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import MoneyRanking from './components/MoneyRank/MoneyRanking';
+import AuthContext from '../../../context/AuthContext';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
 export default function SharedLayout(  ) {
-    const [open, setOpen] = React.useState(false);
+    const {openNotificacao, setOpenNotificacao} = React.useContext(AuthContext);
 
     const handleClick = () => {
-        setOpen(true);
+        setOpenNotificacao(true);
     };
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
         return;
         }
-        setOpen(false);
+        setOpenNotificacao(false);
     };
 
 
     return (
         <div className="container">
             <SharedLayoutHeader />
-            <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-                    This is a success message!
+            <Snackbar 
+                open={openNotificacao.open} 
+                autoHideDuration={3000} 
+                onClose={() => setOpenNotificacao((prev)=>({...prev, open:false}))}
+                sx={{
+                    position: "absolute",
+                    top: -600,
+                    left: '100%',
+                    display: 'flex'
+                }}
+            >
+                <Alert 
+                    onClose={() => setOpenNotificacao(false)} 
+                    severity={openNotificacao.severity} 
+                    sx={{ width: '100%' }}
+                >
+                    {openNotificacao.msg}
                 </Alert>
             </Snackbar>
             <Grid container columnSpacing={{sm: 2}}
@@ -47,6 +63,7 @@ export default function SharedLayout(  ) {
                     <Outlet />
                 </Grid>
                 <Grid xs={0} md={3} className="ShareLayoutGrid">
+                    <MoneyRanking />
                     <Monetizacao />
                 </Grid>
             </Grid>

@@ -138,7 +138,7 @@ export default function Tabuleiro(  ) {
         console.log(e.target.value)
         setChosenTheme(e.target.value);
         setTemaState(e.target.value);
-    }
+    };
 
     return (
         <Container sx={{mx: 'auto'}}>  
@@ -202,11 +202,11 @@ export default function Tabuleiro(  ) {
                         return (
                             <Grid key={`JogarTabuleiroArrayItem-${i}-Casa-${j}`} xs={1} sx={{my: 2, ml: 3}}>
                                 {/* CASA DO TABULEIRO */}
-                                <Avatar alt="" src={casa === 0 ? '' : retornaImagemFicha(casa)}
+                                <Avatar alt="" src={casa === 0 || casa === 'red' || casa === 'yellow' ? '' : retornaImagemFicha(casa)}
                                     sx={{
                                         border: '1px solid white',
                                         color: 'font.main',
-                                        backgroundColor: casa === 0 ? casaBackgroundVazia : ''
+                                        backgroundColor: casa === 0 ? casaBackgroundVazia : (casa !== 'red' && casa !== 'yellow') ? '' : casa
                                     }}
                                 >
                                     {''}
@@ -218,7 +218,6 @@ export default function Tabuleiro(  ) {
                 )
             })}
             </Card>
-
             <ModalResultado mostrar={mostrarModalState} setMostrar={setMostrarModalState} isVencedor={vencedorState} isEmpate={empateState} />
             <ModalSelecaoDeTema mostrar={mostrarModalTemaState} setMostrar={setMostrarModalTemaState} setChosenState={setChosenTheme} setTemaState={setChosenTheme} />
         </Container>

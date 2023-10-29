@@ -1,14 +1,18 @@
 //@ts-check
 /** State */
-import React from 'react';
+import React, { useContext } from 'react';
 /** MUI */
 import { 
     Box,
     Paper
 } from '@mui/material';
+import MultiplayerContext from '../../../../context/MultiplayerContext';
 
 
 export default function SharedLayoutFooter( ) {
+    const {
+        timer
+    } = useContext(MultiplayerContext)
 
     return(
         <>
@@ -24,9 +28,9 @@ export default function SharedLayoutFooter( ) {
                 <Paper sx={{
                     display: 'block', width: '70px',
                     height: '35px', lineHeight: '35px',
-                    mx: 'auto', mt: '5px',
+                    mx: '48.3%', mt: '5px',
                     textAlign: 'center', fontSize: '18px'
-                }}> 15 </Paper>
+                }}> {timer} </Paper>
             </Box>
         </>
     );

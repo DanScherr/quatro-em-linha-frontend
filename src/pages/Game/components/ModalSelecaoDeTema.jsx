@@ -3,6 +3,7 @@ import React, { useContext, useEffect } from 'react';
 import ModalFichasClassicas from './ModalFichasClassicas';
 import AuthContext from '../../../context/AuthContext';
 import { retornaImagemFicha } from './ImportFichas';
+import MultiplayerContext from '../../../context/MultiplayerContext';
 
 const BACKGROUND_STYLE = {
   position: 'fixed',
@@ -45,13 +46,9 @@ export function ModalSelecaoDeTema({ mostrar, setMostrar, setChosenState, setTem
         BuscaTemas
     } = useContext(AuthContext);
 
-    useEffect(() => {
-        BuscaTemas();
-    }, [])
-
-    useEffect(() => {
-        console.log('temas:', todosTemas.data)
-    }, [todosTemas])
+    // useEffect(() => {
+    //     BuscaTemas();
+    // }, [])
 
     return (
       <Modal open={mostrar} style={BACKGROUND_STYLE}>
@@ -109,7 +106,7 @@ export function ModalSelecaoDeTema({ mostrar, setMostrar, setChosenState, setTem
                                                         <Tooltip followCursor arrow title={`${tema.nome.charAt(0).toUpperCase() + tema.nome.slice(1)}`} placement="top">
                                                             <Button 
                                                                     sx={{borderRadius: 60}}
-                                                                    onClick={() => {setMostrar(false); setTemaState(geraPathTema(item, tema, basePathImages)); setTemaState(geraPathTema(item, tema, basePathImages))} }
+                                                                    onClick={() => {setMostrar(false); setTemaState(geraPathTema(item, tema, basePathImages));} }
                                                                 >
                                                                     <Avatar alt="" src={retornaImagemFicha(geraPathTema(item, tema, basePathImages))}
                                                                         sx={{border: '1px solid white',
@@ -163,8 +160,6 @@ export function ModalSelecaoDeTema({ mostrar, setMostrar, setChosenState, setTem
 };
 
 export const geraPathTema = (item, tema, basePathImages) => {
-    let nome = tema.imagem.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(' ').join('').split('-').join('').replace('.png', '')
-    // let imagem = tema.imagem.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(' ').join('-');
-    // let categoria = item.categoria.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(' ').join('-');
+    let nome = tema.imagem?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(' ').join('').split('-').join('').replace('.png', '')
     return nome
 };

@@ -79,6 +79,41 @@ export const AuthProvider = ({children}) => {
         };
     };
 
+    const [carteira, setCarteira] = React.useState('0')
+
+    const ConsultaCarteira = async () => {
+        let usuario = Cookies.get('userId');
+        try {
+            const response = await axios.get(
+                `/api/v1/usuario/${usuario}`,
+                {mode: 'no-cors'}
+            );
+            if (response.status === 200 && response.data.status === true) {
+                setCarteira(response.data.data.carteira);
+            };
+            console.log('carteira: ', carteira.toString())
+        } catch (error) {
+            console.error(error);
+        };
+    };
+
+    const AlteraCarteira = async (moedas) => {
+        let usuario = Cookies.get('userId');
+        try {
+            const response = await axios.put(
+                `/api/v1/usuario/${usuario}`,
+                {
+                    carteira: moedas
+                },
+                {mode: 'no-cors'}
+            );
+            if (response.status === 200 && response.data.status === true)
+                ConsultaCarteira();
+        } catch (error) {
+            console.error(error);
+        };
+    };
+
     // TEMAS
     const [todosTemas, setTodosTemas] = React.useState({loading: true, data: []})
     const BuscaTemas = async (email, senha) => {
@@ -119,7 +154,6 @@ export const AuthProvider = ({children}) => {
                                 }
                         )
                 }
-
                 });
             };
             setTodosTemas({loading: false, data: data});
@@ -154,6 +188,13 @@ export const AuthProvider = ({children}) => {
         else return -1
     };
 
+    // Notificacao
+    const [openNotificacao, setOpenNotificacao] = React.useState({
+        msg: '',
+        open: false,
+        severity: 'info'
+    });
+
     return <AuthContext.Provider
         value={{
             auth: auth,
@@ -169,7 +210,9 @@ export const AuthProvider = ({children}) => {
             RealizaLogin,
             userId,
             todosTemas,
-            BuscaTemas
+            BuscaTemas,
+            ConsultaCarteira, AlteraCarteira, carteira,
+            openNotificacao, setOpenNotificacao
         }}
     >
         {children}
