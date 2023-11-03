@@ -1,6 +1,6 @@
 import { Avatar, Button, Card, Container, Grid, Input } from "@mui/material";
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 /** Socket */
 import { ModalResultado } from "./ModalResultado";
 import MultiplayerContext from "../../../context/MultiplayerContext";
@@ -10,17 +10,17 @@ import { retornaImagemFicha } from "./ImportFichas";
 
 export default function Tabuleiro(  ) {
     const {
-        // arrayTabuleiro,
         gameState, setGameState,
         colunaState, setColunaState,
         temaState, setTemaState,
         vencedorState, setVencedorState,
         empateState, setEmpateState,
+        loserState, setLoserState,
         mostrarModalState, setMostrarModalState,
         mostrarModalTemaState, setMostrarModalTemaState,
-        disabledButton, setDisabledButton,
+        disabledButton,
         socket, setSocket,
-        timer, setTimer,
+        stopWatch, setStopWatch,
         statusJogo, setStatusJogo,
         myTurn, setTurn,
         myChosenTheme, setChosenTheme,
@@ -29,11 +29,27 @@ export default function Tabuleiro(  ) {
         verificarVitoria,
         posicionaFichaAoFinalDaColuna,
         encerrarJogo,
-    } = useContext(MultiplayerContext)
+        setMultiplayerEstabelecido, multiplayerEstabelecido
+    } = useContext(MultiplayerContext);
 
     const {userId} = useContext(AuthContext);
 
-    // const [myTurn, setTurn] = useState(true);
+    const [delay, setDelay] = useState(1000);
+    const [isRunning, setIsRunning] = useState(false);
+  
+    useInterval(() => {
+        if (stopWatch > 0)
+            setStopWatch(stopWatch - 1);
+        else {
+            setLoserState(true);
+            conversaComSocket();
+        }
+    }, isRunning ? delay : null);
+
+    useEffect(() => {
+        if (empateState || vencedorState || loserState)
+            setIsRunning(false);
+    }, [ stopWatch ])
 
     useEffect(() => {
         if (socket.set)
@@ -42,17 +58,36 @@ export default function Tabuleiro(  ) {
             socket.id.on("msg", (arg) => {
                 console.log('socket message:', arg); // world
                 setSocket((prev) => {return {...prev, msg: arg.tema}})
-                if (arg.tabuleiro !== gameState){
+                if (!multiplayerEstabelecido) 
+                    setMultiplayerEstabelecido(true);
+                if (arg.tema !== 'escolhendo-tema')
                     setTurn(true);
+                if (arg.tema !== '')
+                    setIsRunning(true);
+                if (arg.gameStatus === 'loser') {
+                    setVencedorState(true);
+                    setIsRunning(false);
+                }
+                if (arg.tabuleiro !== gameState){
+                    if (arg.gameStatus === 'jogando')
+                        setTurn(true);
                     setGameState(arg.tabuleiro);
                     setStatusJogo(arg.gameStatus);
                 };
+                if (arg.gameStatus === 'winner') {
+                    setLoserState(true);
+                }
             });
         }
     }, [])
+    
+    useEffect(() => {
+        if (multiplayerEstabelecido) conversaComSocket();
+    }, [multiplayerEstabelecido])
 
     useEffect(() => {
         if (statusJogo != null && statusJogo === 'winner'){
+            conversaComSocket();
             encerrarJogo();
         }
         else if (statusJogo != null && statusJogo === 'empate') {
@@ -62,16 +97,23 @@ export default function Tabuleiro(  ) {
     }, [statusJogo])
 
     useEffect(() => {
-        console.log('definição de tema:', temaState)
+        if (myChosenTheme !== '' || myChosenTheme !== 'grey') conversaComSocket();
     }, [temaState])
 
     // Coloca timer de 45s se o Tema estiver como valor 'grey'
     useEffect(() => {
         if (temaState === 'grey') {
-            setTimer(45);
             setMostrarModalTemaState(true);
+        };
+    }, [temaState]);
+
+    useEffect(() => {
+        if (myTurn && (myChosenTheme !== 'grey' && myChosenTheme !== '')) {
+            setStopWatch(15);
+            setIsRunning(true);
         }
-    }, [temaState])
+        else setIsRunning(false);
+    }, [myTurn]);
 
     // Roda quando o evento do botão é gerado
     useEffect(() => {
@@ -80,7 +122,9 @@ export default function Tabuleiro(  ) {
         setTemaState(myChosenTheme);
         setTurn(false);
         // Chama função que envia jogada para o outro jogador
-        if (socket.set) conversaComSocket();
+        if (socket.set) {
+            conversaComSocket();
+        }
 
         setColunaState(-1);
         setGameState(novoArray);
@@ -111,6 +155,15 @@ export default function Tabuleiro(  ) {
         };
     }, [empateState]);
 
+    useEffect(() => {
+        if (loserState)   
+        {
+            console.log("PERDEU PLAYBAS!");
+            conversaComSocket();
+            encerrarJogo();
+        };
+    }, [loserState]);
+
     // Envia mensagem para Socket/Multiplayer
     const conversaComSocket = () => {
         console.log('mandando msg!')
@@ -121,17 +174,16 @@ export default function Tabuleiro(  ) {
             userId: userId,
             gameStatus: vencedorState ? 'winner' 
                 : empateState ? 'empate' 
-                : temaState==='grey' ? 'escolhendo-tema'
+                : myChosenTheme==='grey' || myChosenTheme==='' ? 'escolhendo-tema'
+                : loserState ? 'loser'
                 : 'jogando',
         };
         socket.id.emit("msg", multiplayerState);
     };
 
-    // const [myChosenTheme, setChosenTheme] = useState("");
-
     useEffect(() => {
         conversaComSocket();
-    }, [myChosenTheme])
+    }, [temaState])
 
     const handleInput = (e) => {
         e.preventDefault();
@@ -146,12 +198,12 @@ export default function Tabuleiro(  ) {
             <Grid container spacing={2} sx={{my: 1, ml: 5}}>
                 {gameState[0].casas.map((botao, i) => {
                     return (
-                        <Grid key={`JogarTabuleiroArrayBotao-${i}`} xs={1} sx={{my: 1, ml: 2.2}}>
+                        <Grid item key={`JogarTabuleiroArrayBotao-${i}`} xs={1} sx={{my: 1, ml: 2.2}}>
                             <Button 
                                 disabled={
                                     disabledButton ? 
                                         disabledButton : 
-                                        myTurn || socket.msg === null ? 
+                                        myTurn ? 
                                             false : 
                                             true
                                 } 
@@ -197,10 +249,10 @@ export default function Tabuleiro(  ) {
                 {gameState.map((item, i) => {
                 return (
                     // LINHA DO TABULEIRO
-                    <Grid key={`JogarTabuleiroArrayItem-${i}`} container spacing={2} sx={{my: 1, mx: 'auto'}}>
+                    <Grid item key={`JogarTabuleiroArrayItem-${i}`} container spacing={2} sx={{my: 1, mx: 'auto'}}>
                         {item.casas.map((casa, j) => {
                         return (
-                            <Grid key={`JogarTabuleiroArrayItem-${i}-Casa-${j}`} xs={1} sx={{my: 2, ml: 3}}>
+                            <Grid item key={`JogarTabuleiroArrayItem-${i}-Casa-${j}`} xs={1} sx={{my: 2, ml: 3}}>
                                 {/* CASA DO TABULEIRO */}
                                 <Avatar alt="" src={casa === 0 || casa === 'red' || casa === 'yellow' ? '' : retornaImagemFicha(casa)}
                                     sx={{
@@ -218,10 +270,29 @@ export default function Tabuleiro(  ) {
                 )
             })}
             </Card>
-            <ModalResultado mostrar={mostrarModalState} setMostrar={setMostrarModalState} isVencedor={vencedorState} isEmpate={empateState} />
+            <ModalResultado mostrar={mostrarModalState} setMostrar={setMostrarModalState} isVencedor={vencedorState} isEmpate={empateState} setLoserState={setLoserState} conversaComSocket={conversaComSocket} />
             <ModalSelecaoDeTema mostrar={mostrarModalTemaState} setMostrar={setMostrarModalTemaState} setChosenState={setChosenTheme} setTemaState={setChosenTheme} />
         </Container>
     );
 };
+
+function useInterval(callback, delay) {
+    const savedCallback = useRef();
+  
+    useEffect(() => {
+      savedCallback.current = callback;
+    });
+  
+    useEffect(() => {
+      function tick() {
+        savedCallback.current();
+      }
+  
+      if (delay !== null) {
+        let id = setInterval(tick, delay);
+        return () => clearInterval(id);
+      }
+    }, [delay]);
+  }
 
 const casaBackgroundVazia = 'radial-gradient(50% 50% at 50% 50%, rgba(39, 39, 39, 0) 0%, rgba(29, 28, 28, 0.72) 100%)';

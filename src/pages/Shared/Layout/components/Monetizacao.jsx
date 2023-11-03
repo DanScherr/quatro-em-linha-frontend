@@ -38,14 +38,14 @@ export default function Monetizacao(  ) {
                     Clássico
                 </Typography>
                 <Grid container spacing={2} sx={{my: 1}}>
-                    <Grid xs={6}>
+                    <Grid item xs={6}>
                         <Typography textAlign={'center'}>
                             <Button sx={{borderRadius: 60}}>
                                 <CircleIcon sx={{fontSize: 60, color: 'yellow'}}/>
                             </Button>
                         </Typography>
                     </Grid>
-                    <Grid xs={6}>
+                    <Grid item xs={6}>
                         <Typography textAlign={'center'}>
                             <Button sx={{borderRadius: 60}}>
                                 <CircleIcon sx={{fontSize: 60, color: 'red'}}/>
@@ -55,7 +55,7 @@ export default function Monetizacao(  ) {
                 </Grid>
 
                 {/** PAGOS */}
-                <Typography sx={{
+                <Typography variant="span" sx={{
                     textAlign: 'start', fontSize: '25px',
                     color: 'primary.lightMain', fontWeight: '700'
                 }}>
@@ -87,17 +87,17 @@ export default function Monetizacao(  ) {
                                         id={item.categoria}
                                         sx={{mt: 2}}
                                     >
-                                        <Typography sx={{fontSize: '20px', color: '#000000e4', fontWeight: '700'}}>
+                                        <Typography variant="span" sx={{fontSize: '20px', color: '#000000e4', fontWeight: '700'}}>
                                             {item.categoria}
                                         </Typography>
                                     </AccordionSummary>
                                     <AccordionDetails sx={{paddingTop: 0}}>
-                                        <Typography>
+                                        <Typography variant="span">
                                             <Grid container spacing={2} sx={{pl: 2}}>
                                                 {item.temas.map((tema, j) => {
                                                     return (
-                                                        <Grid key={`MonetizacaoArrayAccordionTema-${j}`} xs={6}>
-                                                            <Typography textAlign={'center'}>
+                                                        <Grid item key={`MonetizacaoArrayAccordionTema-${j}`} xs={6}>
+                                                            <Typography variant="span" textAlign={'center'}>
                                                                 {tema.liberado ?
                                                                     <Box sx={{mb: 1}}>
                                                                         <Button sx={{borderRadius: 60}}>
@@ -107,7 +107,7 @@ export default function Monetizacao(  ) {
                                                                                 }}
                                                                             />
                                                                         </Button>
-                                                                        <Typography>
+                                                                        <Typography variant="span">
                                                                             {tema.nome}
                                                                         </Typography>
                                                                     </Box>
@@ -116,7 +116,7 @@ export default function Monetizacao(  ) {
                                                                         <ModalCompraFicha item={itemFicha} tema={temaFicha} setMostrar={setOpen} mostrar={open}/>
                                                                         <Button sx={{borderRadius: 5}} onClick={() => {setOpen(true); setitemFicha(item); settemaFicha(tema)}}>
                                                                             <Grid container justifyContent={'center'}>
-                                                                                <Grid xs={12}>
+                                                                                <Grid item xs={12}>
                                                                                     <Avatar alt="tema.titulo" src={retornaImagemFicha(geraPathTema(item, tema, basePathImages))}
                                                                                         sx={{
                                                                                             border: '1px solid white',
@@ -125,8 +125,8 @@ export default function Monetizacao(  ) {
                                                                                         }}
                                                                                     />
                                                                                 </Grid>
-                                                                                <Grid xs={12}>
-                                                                                    <Typography sx={{
+                                                                                <Grid item xs={12}>
+                                                                                    <Typography variant="span" sx={{
                                                                                         color: 'font.emphasis', 
                                                                                         maxWidth: '110px', 
                                                                                         wordBreak: 'break-all'
@@ -134,13 +134,13 @@ export default function Monetizacao(  ) {
                                                                                         {tema.nome}
                                                                                     </Typography>
                                                                                 </Grid>
-                                                                                <Grid xs={12}>
+                                                                                <Grid item xs={12}>
                                                                                     <MonetizationOnIcon fontSize='small' sx={{
                                                                                         color: '#FADB37', 
                                                                                         display: 'inline', 
                                                                                         ml: 0
                                                                                     }}/>
-                                                                                    <Typography sx={{
+                                                                                    <Typography variant="span" sx={{
                                                                                         color: 'font.emphasis', 
                                                                                         maxWidth: '110px', 
                                                                                         wordBreak: 'break-all',
@@ -168,8 +168,13 @@ export default function Monetizacao(  ) {
                     :
                     'Carregando...'
                     }
+                    
+                    <div style={{height: '100px', display: 'block'}}>
+                        {''}
+                    </div>
+                    
                 </List>
-            </CardContent>            
+            </CardContent>          
         </Card>
     );
 };

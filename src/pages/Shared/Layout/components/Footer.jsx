@@ -1,6 +1,6 @@
 //@ts-check
 /** State */
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 /** MUI */
 import { 
     Box,
@@ -11,8 +11,15 @@ import MultiplayerContext from '../../../../context/MultiplayerContext';
 
 export default function SharedLayoutFooter( ) {
     const {
-        timer
-    } = useContext(MultiplayerContext)
+        timer,
+        stopWatch, 
+        ComecarStopWatch,
+    } = useContext(MultiplayerContext);
+
+    // useEffect(() => {
+    //     console.log('comecou cronometro')
+    //     ComecarStopWatch(15);
+    // }, [])
 
     return(
         <>
@@ -30,7 +37,7 @@ export default function SharedLayoutFooter( ) {
                     height: '35px', lineHeight: '35px',
                     mx: '48.3%', mt: '5px',
                     textAlign: 'center', fontSize: '18px'
-                }}> {timer} </Paper>
+                }}> {stopWatch} </Paper>
             </Box>
         </>
     );

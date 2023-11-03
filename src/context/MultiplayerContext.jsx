@@ -170,15 +170,15 @@ export const MultiplayerProvider = ({children}) => {
     const [ temaState, setTemaState ] = React.useState('grey');
     const [ vencedorState, setVencedorState ] = React.useState(false);
     const [ empateState, setEmpateState ] = React.useState(false);
+    const [ loserState, setLoserState ] = React.useState(false);
     const [ mostrarModalState, setMostrarModalState ] = React.useState(false);
     const [ mostrarModalTemaState, setMostrarModalTemaState ] = React.useState(false);
     const [disabledButton, setDisabledButton] = React.useState(false);
-    const [timer, setTimer] = React.useState(0);
+    const [timer, setTimer] = React.useState(15);
     const [statusJogo, setStatusJogo] = React.useState(null);
     const [socket, setSocket] = React.useState({
         set: false, id: null, 
-        msg: null, it: 0,
-        
+        msg: null, it: 0, 
     });
     const [myTurn, setTurn] = React.useState(true);
     const [myChosenTheme, setChosenTheme] = React.useState("");
@@ -200,20 +200,39 @@ export const MultiplayerProvider = ({children}) => {
         setSocket((prev) => {return{...prev, set: true, id: newSocket}});
     };
 
+    const [stopWatch, setStopWatch] = React.useState(15);
+
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+    const [cronometro, setCronometro] = React.useState(15);
+    const ComecarStopWatch = (tempo) => {
+        console.log(tempo)
+        if (tempo > 0) setCronometro(tempo);
+        if (tempo >= -1){
+            sleep(3000).then(() => {ComecarStopWatch(tempo-1)})
+        };
+    };
+
+    const [multiplayerEstabelecido, setMultiplayerEstabelecido] = React.useState(false);
+    
 
     return <MultiplayerContext.Provider
         value={{
+            cronometro,
             arrayTabuleiro,
             gameState, setGameState,
             colunaState, setColunaState,
             temaState, setTemaState,
             vencedorState, setVencedorState,
             empateState, setEmpateState,
+            loserState, setLoserState,
             mostrarModalState, setMostrarModalState,
             mostrarModalTemaState, setMostrarModalTemaState,
             disabledButton, setDisabledButton,
             socket, setSocket,
-            timer, setTimer,
+            timer, ComecarStopWatch,
+            stopWatch, setStopWatch,
             statusJogo, setStatusJogo,
             myTurn, setTurn,
             myChosenTheme, setChosenTheme,
@@ -223,7 +242,8 @@ export const MultiplayerProvider = ({children}) => {
             verificarVitoria,
             posicionaFichaAoFinalDaColuna,
             encerrarJogo,
-            iniciandoSocket
+            iniciandoSocket,
+            multiplayerEstabelecido, setMultiplayerEstabelecido
         }}
     >
         {children}

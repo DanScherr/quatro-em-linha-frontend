@@ -33,7 +33,10 @@ export default function SharedLayout(  ) {
 
     return (
         <div className="container">
+            {/* Header */}
             <SharedLayoutHeader />
+            
+            {/* Notificacao */}
             <Snackbar 
                 open={openNotificacao.open} 
                 autoHideDuration={3000} 
@@ -53,20 +56,24 @@ export default function SharedLayout(  ) {
                     {openNotificacao.msg}
                 </Alert>
             </Snackbar>
+
+            {/* Conteudo */}
             <Grid container columnSpacing={{sm: 2}}
                 sx={{justifyContent: 'center', alignContent: 'center'}}
             >
-                <Grid xs={0} md={3} className="ShareLayoutGrid">
+                <Grid item xs={0} md={3} className="ShareLayoutGrid">
                     <Regras />
                 </Grid>
-                <Grid xs={6} md={6} minWidth={'600px'} className="ShareLayoutGrid">
+                <Grid item xs={6} md={6} minWidth={'600px'} className="ShareLayoutGrid">
                     <Outlet />
                 </Grid>
-                <Grid xs={0} md={3} className="ShareLayoutGrid">
+                <Grid item xs={0} md={3} className="ShareLayoutGrid">
                     <MoneyRanking />
                     <Monetizacao />
                 </Grid>
             </Grid>
+
+            {/* Footer */}
             <div className="fixed-bottom">
                 <SharedLayoutFooter />
             </div>

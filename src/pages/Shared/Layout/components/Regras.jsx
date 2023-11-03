@@ -11,7 +11,7 @@ export default function Regras(  ) {
             mt: 11.6
         }}>
             <CardContent>
-                <Typography sx={{
+                <Typography variant="span" sx={{
                     textAlign: 'center', fontSize: '25px',
                     color: 'primary.lightMain', fontWeight: '700'
                 }}>
@@ -45,7 +45,7 @@ export default function Regras(  ) {
                                             }
                                             secondary={
                                                 <React.Fragment>
-                                                    <Typography sx={{textAlign: 'justify'}}>
+                                                    <Typography variant="span" sx={{textAlign: 'justify'}}>
                                                         {item}
                                                     </Typography>
                                                     

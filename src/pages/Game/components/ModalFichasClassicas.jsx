@@ -1,6 +1,6 @@
 import { Avatar, Box, Button, Grid, Tooltip, Typography } from "@mui/material";
 
-export default function ModalFichasClassicas( {setMostrar, setTemaState} ) {
+export default function ModalFichasClassicas( {setMostrar, setTemaState, disableButton} ) {
     return (
         <div key={`modalSelecaoDeTema-Categoria-Classicos`}>
             <Typography
@@ -16,10 +16,11 @@ export default function ModalFichasClassicas( {setMostrar, setTemaState} ) {
             <Grid container justifyContent={'center'} spacing={1} sx={{mt: 1}}>
                 {['red','yellow'].map((tema, index) => {
                     return (
-                        <Grid key={`modalSelecaoDeTema-Tema-${index}`} xs={3}>
+                        <Grid item key={`modalSelecaoDeTema-Tema-${index}`} xs={3}>
                             <Box sx={{mb: 1}}>
                                 <Tooltip followCursor arrow title={`${tema.charAt(0).toUpperCase() + tema.slice(1)}`} placement="top">
                                     <Button
+                                        disabled={!disableButton}
                                         sx={{borderRadius: 60}}
                                         onClick={() => {setMostrar(false); setTemaState(tema)} }
                                     >

@@ -79,7 +79,15 @@ export const AuthProvider = ({children}) => {
         };
     };
 
-    const [carteira, setCarteira] = React.useState('0')
+    const RealizaLogout = () => {
+        Cookies.remove('authToken');
+        Cookies.remove('userId');
+        setLogin(prev => {return {loading: false, login: false}});
+    }
+
+    // MONETIZACAO
+
+    const [carteira, setCarteira] = React.useState(0)
 
     const ConsultaCarteira = async () => {
         let usuario = Cookies.get('userId');
@@ -109,6 +117,24 @@ export const AuthProvider = ({children}) => {
             );
             if (response.status === 200 && response.data.status === true)
                 ConsultaCarteira();
+        } catch (error) {
+            console.error(error);
+        };
+    };
+
+    const CompraFicha = async (idMonetizacao) => {
+        let usuario = Cookies.get('userId');
+        try {
+            const response = await axios.post(
+                `/api/v1/usuarioMonetizacao/`,
+                {
+                    id_usuario: usuario,
+                    id_monetizacao: idMonetizacao
+                },
+                {mode: 'no-cors'}
+            );
+            if (response.status === 200 && response.data.status === true)
+                console.log('Ficha comprada com sucesso!!')
         } catch (error) {
             console.error(error);
         };
@@ -188,6 +214,54 @@ export const AuthProvider = ({children}) => {
         else return -1
     };
 
+    const [usuarioTemas, setusuarioTemas] = React.useState({loading: true, data: []})
+    const ConsultaUsuarioTemas = async () => {
+        let usuario = Cookies.get('userId');
+        let data = [];
+        try {
+            const response = await axios.get(
+                `/api/v1/usuarioMonetizacao/${usuario}/with-monetizacao-by-usuario`,
+                {mode: 'no-cors'}
+            );
+            if (response.status === 200 && response.data.status === true) {
+                response.data.data.forEach(element => {
+                    let indexOfCat = findCategoria(data, element.categoria);
+
+                    if ( indexOfCat === -1 ) 
+                        data.push({
+                            categoria: element.categoria,
+                            temas: [
+                                {
+                                    id_Mon: element.id_Mon,
+                                    nome: element.nome,
+                                    descricao: element.descricao,
+                                    imagem: element.imagem,
+                                    valor: element.valor
+                                }
+                            ]
+                        })
+                    else {
+                        let indexOfCat = findCategoria(data, element.categoria);
+
+                        if (findTema(data[indexOfCat].temas, element.nome) === -1)
+                            data[indexOfCat].temas.push(
+                                {
+                                    id_Mon: element.id_Mon,
+                                    nome: element.nome,
+                                    descricao: element.descricao,
+                                    imagem: element.imagem,
+                                    valor: element.valor
+                                }
+                        )
+                }
+                });
+            };
+            setusuarioTemas({loading: false, data: data});
+        } catch (error) {
+            console.error(error);
+        };
+    };
+
     // Notificacao
     const [openNotificacao, setOpenNotificacao] = React.useState({
         msg: '',
@@ -206,12 +280,14 @@ export const AuthProvider = ({children}) => {
             setCookieAuth,
             ValidaCookie,
             cadastro,
-            RealizaCadastro,
+            RealizaCadastro, RealizaLogout,
             RealizaLogin,
             userId,
             todosTemas,
             BuscaTemas,
+            ConsultaUsuarioTemas, usuarioTemas,
             ConsultaCarteira, AlteraCarteira, carteira,
+            CompraFicha,
             openNotificacao, setOpenNotificacao
         }}
     >

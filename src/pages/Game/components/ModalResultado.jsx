@@ -1,5 +1,5 @@
-import { Box, Modal } from '@mui/material'
-import React from 'react'
+import { Box, Modal, Typography } from '@mui/material'
+import React, { useEffect } from 'react'
 
 const BACKGROUND_STYLE = {
   position: 'fixed',
@@ -33,17 +33,17 @@ const GIF_STYLE = {
   paddingTop: '10px'
 }
 
-export function ModalResultado({ mostrar, setMostrar, isVencedor, isEmpate }) {
+export function ModalResultado({ mostrar, setMostrar, isVencedor, isEmpate, setLoserState, conversaComSocket }) {
 
     return (
       <Modal onClose={() => setMostrar(false) } open={mostrar} style={BACKGROUND_STYLE}>
         <div style={MODAL_STYLE}>
           <div style={TITLE_STYLE}>
             <h2>{isVencedor ? 'Você Venceu!' : isEmpate ? "Empate!" : 'Game Over!'}</h2>
-            <p>{!isVencedor ?? 'Revanche?'}</p>
+            <Typography variant='span'>{!isVencedor ?? 'Revanche?'}</Typography>
           </div>
           <div style={GIF_STYLE}>
-            <p>ESPAÇO PARA O GIF / BOTÃO DE JOGAR NOVAMENTE</p>
+            <Typography variant='span'>ESPAÇO PARA O GIF / BOTÃO DE JOGAR NOVAMENTE</Typography>
           </div>
         </div>
       </Modal>

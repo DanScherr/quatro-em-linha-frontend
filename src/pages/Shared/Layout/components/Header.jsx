@@ -1,6 +1,6 @@
 //@ts-check
 /** State */
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 /** Navigate */
 import { useNavigate } from 'react-router-dom';
 /** MUI */
@@ -23,9 +23,11 @@ import ExtensionIcon from '@mui/icons-material/Extension';
 import MenuIcon from '@mui/icons-material/Menu';
 /** Assets */
 import profileImg from './../../../../static/images/avatar/logo-profile-01.png'
+import AuthContext from '../../../../context/AuthContext';
 
 
 export default function SharedLayoutHeader( ) {
+    const {RealizaLogout} = useContext(AuthContext)
 
     /** Hide Bar when Scroll */
     const trigger = useScrollTrigger();
@@ -50,11 +52,12 @@ export default function SharedLayoutHeader( ) {
     const navigate = useNavigate();
     const navegarPagina = ((page) => {
         navigate(`/${page}`)
+        if (page === '') window.location.reload();
     })
 
     /** Mockup */
     let paginas = [ 'jogue', 'sobre' ]
-    let configuracao = [ 'perfil', 'login/logout', 'configurações' ]
+    let configuracao = [ 'logout' ]
 
     return(
         <>
@@ -184,7 +187,8 @@ export default function SharedLayoutHeader( ) {
                                     onClose={handleCloseUserMenu}
                                     >
                                     {configuracao.map((setting) => (
-                                        <MenuItem key={setting} onClick={handleCloseUserMenu} sx={{
+                                        <MenuItem key={setting} onClick={() => {handleCloseUserMenu(); RealizaLogout(); window.location.reload();}} 
+                                            sx={{
                                                 color: 'font.emphasis',
                                             }}>
                                             <Typography textAlign="center" sx={{color: 'primary.lightestMain'}} >

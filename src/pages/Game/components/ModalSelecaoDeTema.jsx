@@ -42,13 +42,38 @@ export function ModalSelecaoDeTema({ mostrar, setMostrar, setChosenState, setTem
     let basePathImages = './../../../static/images/fichas/';
 
     const {
-        todosTemas,
-        BuscaTemas
+        ConsultaUsuarioTemas, 
+        usuarioTemas,
+        setOpenNotificacao
     } = useContext(AuthContext);
 
-    // useEffect(() => {
-    //     BuscaTemas();
-    // }, [])
+    const {
+        multiplayerEstabelecido
+    } = useContext(MultiplayerContext);
+
+    useEffect(() => {
+        ConsultaUsuarioTemas();
+    }, [])
+
+    useEffect(() => {
+        if (mostrar && !multiplayerEstabelecido) {
+            setOpenNotificacao({
+                msg: 'Esperando jogador entrar na sala...',
+                open: true,
+                severity: 'warning'
+            });
+        };
+    }, [mostrar]);
+
+    useEffect(() => {
+        if (multiplayerEstabelecido) {
+            setOpenNotificacao({
+                msg: 'Escolha sua ficha e jogue!',
+                open: true,
+                severity: 'success'
+            });
+        };
+    }, [multiplayerEstabelecido]);
 
     return (
       <Modal open={mostrar} style={BACKGROUND_STYLE}>
@@ -83,9 +108,9 @@ export function ModalSelecaoDeTema({ mostrar, setMostrar, setChosenState, setTem
                         boxShadow: 'rgba(255, 255, 255, 0.25) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;'
                     }}
                 >
-                    <ModalFichasClassicas setMostrar={setMostrar} setTemaState={setTemaState} />
-                    { !todosTemas.loading ?
-                        todosTemas.data.map((item, index) => {
+                    <ModalFichasClassicas setMostrar={setMostrar} setTemaState={setTemaState} disableButton={multiplayerEstabelecido} />
+                    { !usuarioTemas.loading ?
+                        usuarioTemas.data.map((item, index) => {
                             return (
                                 <div key={`modalSelecaoDeTema-Categoria-${index}`}>
                                     <Typography
@@ -101,10 +126,11 @@ export function ModalSelecaoDeTema({ mostrar, setMostrar, setChosenState, setTem
                                     <Grid container spacing={1} sx={{mt: 1}}>
                                         {item.temas.map((tema, index) => {
                                             return (
-                                                <Grid key={`modalSelecaoDeTema-Tema-${index}`} xs={3}>
+                                                <Grid item key={`modalSelecaoDeTema-Tema-${index}`} xs={3}>
                                                     <Box sx={{mb: 1}}>
                                                         <Tooltip followCursor arrow title={`${tema.nome.charAt(0).toUpperCase() + tema.nome.slice(1)}`} placement="top">
                                                             <Button 
+                                                                    disabled={!multiplayerEstabelecido}
                                                                     sx={{borderRadius: 60}}
                                                                     onClick={() => {setMostrar(false); setTemaState(geraPathTema(item, tema, basePathImages));} }
                                                                 >
@@ -141,7 +167,7 @@ export function ModalSelecaoDeTema({ mostrar, setMostrar, setChosenState, setTem
                             <Grid container spacing={1} sx={{mt: 1, height: '150px'}}>
                             {
                                 [0,1,2,3].map((i, j) => {return (
-                                    <Grid key={`modalSelecaoDeTema-Carregando-Tema-${j}`} xs={3}>
+                                    <Grid item key={`modalSelecaoDeTema-Carregando-Tema-${j}`} xs={3}>
                                         <Box sx={{mb: 1}}>
                                             <Skeleton variant="circular" width={47} height={47} sx={{mx: 'auto'}} />
                                         </Box>
