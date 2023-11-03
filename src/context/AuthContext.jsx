@@ -11,14 +11,29 @@ export const AuthProvider = ({children}) => {
     const [opcao, setOpcao] = React.useState('');
     const [cookieAuth, setCookieAuth] = React.useState(false);
 
-    const ValidaCookie = () => {
+    const ValidaCookie = async () => {
         const authToken = Cookies.get('authToken');
         const loginId = Cookies.get('userId');
 
-        if (authToken) {
-            setAuth(true);
-            setUserId(loginId);
-        }
+        try {
+            const response = await axios.get(
+                `/api/v1/usuario/${loginId}`,
+                {mode: 'no-cors'}
+            );
+            if (response.status === 200 && response.data.status === true) {
+                if (authToken) {
+                    setAuth(true);
+                    setUserId(loginId);
+                };
+            }
+            else RealizaLogout();
+            
+        } catch (error) {
+            setCadastro(prev => {return {loading: false, cadastro: false}});
+            console.error(error);
+        };
+
+        
         // else ValidateLogin(); // buscando dados do DB
     };
 
