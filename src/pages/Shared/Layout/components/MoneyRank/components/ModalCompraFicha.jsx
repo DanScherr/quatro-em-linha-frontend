@@ -43,7 +43,6 @@ export function ModalCompraFicha({ mostrar, setMostrar, item, tema }) {
     } = useContext(AuthContext);
 
     let basePathImages = './../../../static/images/fichas/';
-    console.log(`tema:`, tema, ` item: `, item)
     // VARIAVEIS DO FORMULARIO
     const resolveClick = (e) => {
         if (Number(carteira) - Number(tema.valor) >= 0){

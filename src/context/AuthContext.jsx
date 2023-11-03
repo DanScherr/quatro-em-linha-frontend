@@ -86,12 +86,14 @@ export const AuthProvider = ({children}) => {
                 Cookies.set('authToken', true, { expires: 7 });
                 Cookies.set('userId', response.data.id, { expires: 7 });
                 ValidaCookie();
-            };
+            }
             console.log(response)
             
         } catch (error) {
             console.error(error);
-        };
+        }
+        setLogin(prev => {return {loading: false}});
+        
     };
 
     const RealizaLogout = () => {
@@ -296,7 +298,7 @@ export const AuthProvider = ({children}) => {
             ValidaCookie,
             cadastro,
             RealizaCadastro, RealizaLogout,
-            RealizaLogin,
+            RealizaLogin, login,
             userId,
             todosTemas,
             BuscaTemas,

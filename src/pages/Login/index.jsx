@@ -7,7 +7,9 @@ import { validaEmail, validaSenha } from "../../bin/ValidaInputs";
 export default function Login( ) {
     const {
         setOpcao,
-        RealizaLogin
+        RealizaLogin,
+        setOpenNotificacao,
+        login,
     } = useContext(AuthContext);
 
     // VARIAVEIS DO FORMULARIO
@@ -122,6 +124,23 @@ export default function Login( ) {
         console.log('Input de senha: ', formComponents.senha.value)
     }, [formComponents.senha.value])
 
+    const [msgLogin, setMsgLogin] = useState(false);
+
+    // GERA MSG SE LOGIN FOR SUCESSO OU FALHA
+    useEffect(() => {
+        console.log('loading:', login.loading)
+        if (!login.loading && login.login)
+            setOpenNotificacao({
+                msg: 'Login realizado com sucesso!',
+                open: true,
+                severity: 'success'
+            })
+        else {
+            console.log('entrou no esle.')
+            setMsgLogin(true);
+        }
+    }, [login]);
+
     return (
         <Box
             sx={{
@@ -187,6 +206,15 @@ export default function Login( ) {
                 }}}>
                     Voltar
                 </Button>
+
+                <Typography 
+                    sx={{
+                        display: msgLogin ? 'block' : 'none',
+                        mt: 3, mb: 8, mx: "auto", fontSize: `14px`, color: '#f44336'
+                    }}
+                >
+                    {'Login falhou! Tente novamente.'}
+                </Typography>
             </Stack>
         </Box>
     )

@@ -9,7 +9,8 @@ export default function Cadastro( ) {
     const {
         setOpcao,
         cadastro,
-        RealizaCadastro
+        RealizaCadastro,
+        setOpenNotificacao,
     } = useContext(AuthContext);
 
     // VARIAVEIS DO FORMULARIO
