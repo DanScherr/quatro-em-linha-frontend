@@ -1,70 +1,74 @@
-import { Card, List, Typography } from "@mui/material";
+import React from "react";
+import { Card, CardContent, List, ListItem, ListItemText, Typography } from "@mui/material";
+import LabelIcon from '@mui/icons-material/Label';
 
 export default function Sobre(  ) {
     
     return (
         <Card sx={{
-            height: '98%', m: 2, 
+            height: '605px', m: 2, 
             backgroundColor: 'background.card',
             borderRadius: 5,
-            p: 2,
+            mt: 11.6,
         }}>
-            <List
-                sx={{
-                    width: '100%',
-                    position: 'relative',
-                    overflow: 'auto',
-                    maxHeight: '100%',
-                    '& ul': { padding: 0 },
-                    px: 4
-                }}
-            >
-                {/* Intro */}
-                <Typography variant="span" sx={{fontSize: '25px', fontWeight: '800', textAlign: 'justify', color: 'primary.lightestMain'}}>
-                    {'Projeto Universitário para Turma de Engenharia de Software 3: Jogo "Quatro em Linha" Online'}
-                </Typography>
-                <Typography variant="span" sx={{fontSize: '20px', fontWeight: '600', mt: 2, color: 'primary.lightestMain'}}>
-                    {'Objetivo:'}
-                </Typography>
-                <Typography variant="span" sx={{fontSize: '16px', fontWeight: '500', mt: 1, textAlign: 'justify', color: 'font.main'}}>
-                    {'Desenvolver um jogo online "Quatro em Linha" baseado na web que permita a dois jogadores jogarem simultaneamente.'}
+            <CardContent>
+                <Typography variant="span" sx={{
+                    textAlign: 'center', fontSize: '25px',
+                    color: 'primary.lightMain', fontWeight: '700'
+                }}>
+                    Regras
                 </Typography>
 
-                {/* Caracteristicas principais */}
-                <Typography variant="span" sx={{fontSize: '25px', fontWeight: '800', textAlign: 'justify', mt: 5, color: 'primary.lightestMain'}}>
-                    {'Componentes e Características Principais:'}
-                </Typography>
-                <Typography variant="span" sx={{fontSize: '20px', fontWeight: '600', mt: 2, color: 'primary.lightestMain'}}>
-                    {'Frontend:'}
-                </Typography>
-                <Typography variant="span" sx={{fontSize: '16px', fontWeight: '500', mt: 1, textAlign: 'justify', color: 'font.main'}}>
-                    {'Interface de usuário limpa e intuitiva com botões, tabuleiro do jogo, indicadores de jogadores e status do jogo.'}
-                </Typography>
-                <Typography variant="span" sx={{fontSize: '20px', fontWeight: '600', mt: 2, color: 'primary.lightestMain'}}>
-                    {'Comunicação em Tempo Real:'}
-                </Typography>
-                <Typography variant="span" sx={{fontSize: '16px', fontWeight: '500', mt: 1, textAlign: 'justify', color: 'font.main'}}>
-                    {'Use WebSockets ou tecnologia similar para permitir atualizações em tempo real entre dois jogadores. Bibliotecas como Socket.io podem ser úteis.'}
-                </Typography>
-                <Typography variant="span" sx={{fontSize: '20px', fontWeight: '600', mt: 2, color: 'primary.lightestMain'}}>
-                    {'Banco de dados:'}
-                </Typography>
-                <Typography variant="span" sx={{fontSize: '16px', fontWeight: '500', mt: 1, textAlign: 'justify', color: 'font.main'}}>
-                    {'Criar ao mínimo 2 tabelas.'}
-                </Typography>
-                <Typography variant="span" sx={{fontSize: '20px', fontWeight: '600', mt: 2, color: 'primary.lightestMain'}}>
-                    {'Rede:'}
-                </Typography>
-                <Typography variant="span" sx={{fontSize: '16px', fontWeight: '500', mt: 1, textAlign: 'justify', color: 'font.main'}}>
-                    {'Gerenciar sessões de jogadores garantindo que permaneçam conectados durante o jogo.'}
-                </Typography>
-                <Typography variant="span" sx={{fontSize: '20px', fontWeight: '600', mt: 2, color: 'primary.lightestMain'}}>
-                    {'Segurança:'}
-                </Typography>
-                <Typography variant="span" sx={{fontSize: '16px', fontWeight: '500', mt: 1, textAlign: 'justify', color: 'font.main'}}>
-                    {'Autenticação de Usuário: Sistema seguro de registro e login do usuário.'}
-                </Typography>
-            </List>
+                <Card sx={{
+                    height: '100%', m: 2, display: 'block', 
+                    borderRadius: 5
+                }}>
+                    <CardContent sx={{p: 2}}>
+                        <List
+                            sx={{
+                                width: '100%',
+                                // maxWidth: 360,
+                                position: 'relative',
+                                overflow: 'auto',
+                                maxHeight: 450,
+                                '& ul': { padding: 0 },
+                                my: 'auto'
+                            }}
+                        >
+                            {regrasDoJogo.map((item, i) => {
+                                return (
+                                    <ListItem key={`RegraTextoLista-${i}`}>
+                                        <ListItemText
+                                            primary={
+                                                <React.Fragment>
+                                                    <LabelIcon sx={{display: 'inline', mr: 1, fontWeight: 700}} />
+                                                    {`nº ${i + 1}`}
+                                                </React.Fragment>
+                                            }
+                                            secondary={
+                                                <React.Fragment>
+                                                    <Typography variant="span" sx={{textAlign: 'justify'}}>
+                                                        {item}
+                                                    </Typography>
+                                                    
+                                                </React.Fragment>
+                                            }
+                                        />
+                                    </ListItem>
+                                )
+                            })}
+                        </List>
+                    </CardContent>
+                </Card>
+            </CardContent>
         </Card>
     )
 }
+
+const regrasDoJogo = [
+    ' Joga-se sempre entre 2 jogadores e sobre um tabuleiro de 7x6 espaços.',
+    'Em cada turno cada jogador coloca uma ficha da sua cor numa coluna e esta se posiciona na primeira casa disponível.',
+    'Cada turno tem 15 segundos.',
+    'O que conseguir colocar 4 fichas da mesma cor seguidas na horizontal, vertical ou diagonal ganha.',
+    'Se ninguém conseguir a partida termina em empate.'
+];

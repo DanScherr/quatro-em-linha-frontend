@@ -19,18 +19,6 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 export default function SharedLayout(  ) {
     const {openNotificacao, setOpenNotificacao} = React.useContext(AuthContext);
 
-    const handleClick = () => {
-        setOpenNotificacao(true);
-    };
-
-    const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-        return;
-        }
-        setOpenNotificacao(false);
-    };
-
-
     return (
         <div className="container">
             {/* Header */}

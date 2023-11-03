@@ -36,6 +36,9 @@ export default function SharedLayoutFooter( ) {
             }}
             >
                 <Grid container justifyContent={'center'}>
+                    <Grid item xs={0.15} alignContent={'flex-end'}>
+                        &#32;
+                    </Grid>
                     <Grid item xs={0.3} alignContent={'flex-end'}>
                         <TimerIcon className={myTurn 
                         &&(myChosenTheme !== 'grey' && myChosenTheme !== '')&&vsChosenTheme!==''

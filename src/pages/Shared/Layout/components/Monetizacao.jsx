@@ -1,5 +1,4 @@
 import { Card, CardContent, Grid, Typography, Button, Accordion, AccordionSummary, List, AccordionDetails, Avatar, Box } from "@mui/material";
-import CircleIcon from '@mui/icons-material/Circle';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import './Monetizacao.css'
 import imgDefault from './../../../../static/images/default-image-icon.png';
@@ -29,31 +28,7 @@ export default function Monetizacao(  ) {
             borderRadius: 5,
             mt: 1.5
         }}>
-            {/** CLASSICOS */}
             <CardContent>
-                <Typography sx={{
-                    textAlign: 'start', fontSize: '25px',
-                    color: 'primary.lightMain', fontWeight: '700'
-                }}>
-                    Clássico
-                </Typography>
-                <Grid container spacing={2} sx={{my: 1}}>
-                    <Grid item xs={6}>
-                        <Typography textAlign={'center'}>
-                            <Button sx={{borderRadius: 60}}>
-                                <CircleIcon sx={{fontSize: 60, color: 'yellow'}}/>
-                            </Button>
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={6}>
-                        <Typography textAlign={'center'}>
-                            <Button sx={{borderRadius: 60}}>
-                                <CircleIcon sx={{fontSize: 60, color: 'red'}}/>
-                            </Button>
-                        </Typography>
-                    </Grid>
-                </Grid>
-
                 {/** PAGOS */}
                 <Typography variant="span" sx={{
                     textAlign: 'start', fontSize: '25px',
@@ -67,7 +42,7 @@ export default function Monetizacao(  ) {
                         maxWidth: 360,
                         position: 'relative',
                         overflow: 'auto',
-                        maxHeight: 500,
+                        maxHeight: 550,
                         padding: 0,
                         '& ul': { padding: 0 },
                         mt: 0

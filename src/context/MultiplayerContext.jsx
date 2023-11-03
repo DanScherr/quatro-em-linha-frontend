@@ -205,12 +205,12 @@ export const MultiplayerProvider = ({children}) => {
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
-    const [cronometro, setCronometro] = React.useState(15);
+    const [cronometro, setCronometro] = React.useState(0);
     const ComecarStopWatch = (tempo) => {
-        console.log(tempo)
-        if (tempo > 0) setCronometro(tempo);
+        if (tempo >= 0) setCronometro(tempo);
+        if (tempo===-1) ComecarStopWatch(3);
         if (tempo >= -1){
-            sleep(3000).then(() => {ComecarStopWatch(tempo-1)})
+            sleep(10000).then(() => {ComecarStopWatch(tempo-1)})
         };
     };
 
