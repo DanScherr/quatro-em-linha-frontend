@@ -1,28 +1,31 @@
 //@ts-check
 /** State */
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 /** MUI */
 import { 
     Box,
+    Grid,
     Paper
 } from '@mui/material';
 import MultiplayerContext from '../../../../context/MultiplayerContext';
+import TimerIcon from '@mui/icons-material/Timer';
+import './Footer.css'
 
 
 export default function SharedLayoutFooter( ) {
     const {
-        timer,
-        stopWatch, 
-        ComecarStopWatch,
+        stopWatch,
+        myTurn,
+        myChosenTheme,
+        vsChosenTheme,
+        vencedorState,
+        empateState,
+        loserState
     } = useContext(MultiplayerContext);
-
-    // useEffect(() => {
-    //     console.log('comecou cronometro')
-    //     ComecarStopWatch(15);
-    // }, [])
 
     return(
         <>
+            
             <Box sx={{
                 color: 'primary.lightMain', 
                 bgcolor: 'background.footBox', 
@@ -32,12 +35,33 @@ export default function SharedLayoutFooter( ) {
                 alignItems: 'center'
             }}
             >
-                <Paper sx={{
-                    display: 'block', width: '70px',
-                    height: '35px', lineHeight: '35px',
-                    mx: '48.3%', mt: '5px',
-                    textAlign: 'center', fontSize: '18px'
-                }}> {stopWatch} </Paper>
+                <Grid container justifyContent={'center'}>
+                    <Grid item xs={0.3} alignContent={'flex-end'}>
+                        <TimerIcon className={myTurn 
+                        &&(myChosenTheme !== 'grey' && myChosenTheme !== '')&&vsChosenTheme!==''
+                        &&!vencedorState&&!empateState&&!loserState
+                        ? 'blink' : ''} sx={{mt: 1}}
+                        />
+                    </Grid>
+                    <Grid item xs={0.9}>
+                        <Paper sx={{
+                            display: 'inline-block', width: '100px',
+                            height: '35px', lineHeight: '35px',
+                            // mx: '48.3%'
+                            mt: '1px',
+                            textAlign: 'center', fontSize: '18px'
+                        }}> {stopWatch} </Paper>
+                    </Grid>
+                    <Grid item xs={0.3} alignContent={'flex-end'}>
+                        <TimerIcon className={myTurn 
+                        &&(myChosenTheme !== 'grey' && myChosenTheme !== '')&&vsChosenTheme!==''
+                        &&!vencedorState&&!empateState&&!loserState
+                        ? 'blink' : ''} sx={{mt: 1}}
+                        />
+                    </Grid>
+                </Grid>
+                
+                
             </Box>
         </>
     );

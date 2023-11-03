@@ -180,7 +180,7 @@ export const MultiplayerProvider = ({children}) => {
         set: false, id: null, 
         msg: null, it: 0, 
     });
-    const [myTurn, setTurn] = React.useState(true);
+    const [myTurn, setTurn] = React.useState(false);
     const [myChosenTheme, setChosenTheme] = React.useState("");
     const [vsChosenTheme, setVsChosenTheme] = React.useState("");
 

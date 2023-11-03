@@ -29,7 +29,8 @@ export default function Tabuleiro(  ) {
         verificarVitoria,
         posicionaFichaAoFinalDaColuna,
         encerrarJogo,
-        setMultiplayerEstabelecido, multiplayerEstabelecido
+        setMultiplayerEstabelecido, multiplayerEstabelecido,
+        vsChosenTheme, setVsChosenTheme,
     } = useContext(MultiplayerContext);
 
     const {userId} = useContext(AuthContext);
@@ -62,8 +63,10 @@ export default function Tabuleiro(  ) {
                     setMultiplayerEstabelecido(true);
                 if (arg.tema !== 'escolhendo-tema')
                     setTurn(true);
-                if (arg.tema !== '')
+                if (arg.tema !== '') {
+                    setVsChosenTheme(arg.tema);
                     setIsRunning(true);
+                }
                 if (arg.gameStatus === 'loser') {
                     setVencedorState(true);
                     setIsRunning(false);
