@@ -60,14 +60,17 @@ export default function Login( ) {
     };
 
     // LIDA COM O SUBMIT
+    const [tentouLogar, setTentouLogar] = useState(false)
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (!formComponents.email.error && !formComponents.senha.error )
-        RealizaLogin(
-            formComponents.email.value,
-            formComponents.senha.value
-        );
+        if (!formComponents.email.error && !formComponents.senha.error ) {
+            RealizaLogin(
+                formComponents.email.value,
+                formComponents.senha.value
+            );
+            setTentouLogar(true);
+        }
     };
 
     // LIDA COM O BLUR
@@ -124,19 +127,17 @@ export default function Login( ) {
         console.log('Input de senha: ', formComponents.senha.value)
     }, [formComponents.senha.value])
 
+    // GERA MSG SE LOGIN FOR SUCESSO OU FALHA
     const [msgLogin, setMsgLogin] = useState(false);
 
-    // GERA MSG SE LOGIN FOR SUCESSO OU FALHA
     useEffect(() => {
-        console.log('loading:', login.loading)
-        if (!login.loading && login.login)
+        if (!login.loading && login.login && tentouLogar)
             setOpenNotificacao({
                 msg: 'Login realizado com sucesso!',
                 open: true,
                 severity: 'success'
             })
-        else {
-            console.log('entrou no esle.')
+        else if (!login.loading && !login.login && tentouLogar) {
             setMsgLogin(true);
         }
     }, [login]);

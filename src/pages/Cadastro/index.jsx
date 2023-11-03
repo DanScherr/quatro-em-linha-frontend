@@ -10,7 +10,6 @@ export default function Cadastro( ) {
         setOpcao,
         cadastro,
         RealizaCadastro,
-        setOpenNotificacao,
     } = useContext(AuthContext);
 
     // VARIAVEIS DO FORMULARIO
@@ -78,15 +77,18 @@ export default function Cadastro( ) {
     };
 
     // LIDA COM O SUBMIT
+    const [tentouCadastrar, setTentouCadastrar] = useState(false)
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (!formComponents.nome.error && !formComponents.email.error && !formComponents.senha.error )
-        RealizaCadastro(
-            formComponents.nome.value,
-            formComponents.email.value,
-            formComponents.senha.value
-        );
+        if (!formComponents.nome.error && !formComponents.email.error && !formComponents.senha.error ){
+            RealizaCadastro(
+                formComponents.nome.value,
+                formComponents.email.value,
+                formComponents.senha.value
+            );
+            setTentouCadastrar(true);
+        }
     };
 
     
@@ -165,6 +167,14 @@ export default function Cadastro( ) {
     useEffect(() => {
         console.log('Input de senha: ', formComponents.senha.value)
     }, [formComponents.senha.value])
+
+    // GERA MSG SE LOGIN FOR SUCESSO OU FALHA
+    const [msgCadastro, setMsgCadastro] = useState(false);
+
+    useEffect(() => {
+        if (!cadastro.loading && !cadastro.cadastro && tentouCadastrar)
+            setMsgCadastro(true);
+    }, [cadastro]);
 
     return (
         <Box
@@ -256,6 +266,15 @@ export default function Cadastro( ) {
                     }}}>
                         Voltar
                 </Button>
+
+                <Typography 
+                    sx={{
+                        display: msgCadastro ? 'block' : 'none',
+                        mt: 3, mb: 8, mx: "auto", fontSize: `14px`, color: '#f44336'
+                    }}
+                >
+                    {'Cadastro falhou! Tente novamente.'}
+                </Typography>
             </Stack>
             }
         </Box>
