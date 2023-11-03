@@ -18,13 +18,14 @@ import {
     Tooltip, 
     Avatar,
     Button,
+    Icon,
 } from '@mui/material';
 import ExtensionIcon from '@mui/icons-material/Extension';
 import MenuIcon from '@mui/icons-material/Menu';
 /** Assets */
 import profileImg from './../../../../static/images/avatar/logo-profile-01.png'
 import AuthContext from '../../../../context/AuthContext';
-
+import icon from './../../../../static/images/icon/logo192.png'
 
 export default function SharedLayoutHeader( ) {
     const {RealizaLogout} = useContext(AuthContext)
@@ -70,9 +71,13 @@ export default function SharedLayoutHeader( ) {
                             {/** Logo */}
                             <Box sx={{display: { xs: 'none', md: 'flex' }, flexGrow: 1}}>
                                 <Button onClick={() => navegarPagina('/')} >
-                                    <ExtensionIcon sx={{ 
+                                    <Icon 
+                                        sx={{ 
                                             display: { xs: 'none', md: 'flex'}, 
-                                            mr: 1, fontSize: '30px', 
+                                            mr: 1, fontSize: '30px',
+                                            backgroundImage: `url(${icon})`,
+                                            backgroundSize: 'contain',
+                                            backgroundRepeat: 'no-repeat'
                                         }} 
                                     />
                                     <Typography

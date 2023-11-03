@@ -5,6 +5,7 @@ import Game from "../Game";
 // import { useNavigate } from "react-router-dom";
 // import {Modal} from "@mui/material";
 import MultiplayerContext from "../../context/MultiplayerContext";
+import icon from './../../static/images/icon/logo192.png'
 
 
 export default function Home(  ) {
@@ -24,8 +25,6 @@ export default function Home(  ) {
         { 
         open ?
             <Box
-            // open={open}
-            // onClick={navegarPara}
             sx={{
                 position: 'absolute',
                 top: '57%',
