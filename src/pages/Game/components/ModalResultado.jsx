@@ -1,5 +1,5 @@
-import { Box, Modal, Typography } from '@mui/material'
-import React, { useEffect } from 'react'
+import { Box, Grid, Modal, Typography, Button } from '@mui/material'
+import React from 'react'
 
 const BACKGROUND_STYLE = {
   position: 'fixed',
@@ -35,6 +35,10 @@ const GIF_STYLE = {
 
 export function ModalResultado({ mostrar, setMostrar, isVencedor, isEmpate, setLoserState, conversaComSocket }) {
 
+  const resolveClick = () => {
+    window.location.reload()
+  };
+
     return (
       <Modal onClose={() => setMostrar(false) } open={mostrar} style={BACKGROUND_STYLE}>
         <div style={MODAL_STYLE}>
@@ -45,6 +49,22 @@ export function ModalResultado({ mostrar, setMostrar, isVencedor, isEmpate, setL
           <div style={GIF_STYLE}>
             <Typography variant='span'>ESPAÇO PARA O GIF / BOTÃO DE JOGAR NOVAMENTE</Typography>
           </div>
+          {/* Button */}
+          <Grid container justifyContent={'center'}>
+                <Grid item xs={4.3}>
+                    <Button
+                        onClick={resolveClick}
+                        variant='contained' 
+                        sx={{
+                            mx: 'auto', 
+                            mt: 10, 
+                            color: 'font.emphasis'
+                        }}
+                    >
+                        JOGAR NOVAMENTE
+                    </Button>
+                </Grid>
+            </Grid>
         </div>
       </Modal>
     );
