@@ -29,7 +29,7 @@ export default function Regras(  ) {
                     textAlign: 'center', fontSize: '25px',
                     color: 'primary.lightMain', fontWeight: '700'
                 }}>
-                    Adds
+                    Ads
                 </Typography>
 
                 <Card sx={{

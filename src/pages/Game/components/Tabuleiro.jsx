@@ -198,10 +198,10 @@ export default function Tabuleiro(  ) {
     return (
         <Container sx={{mx: 'auto'}}>  
             {/* Linha de botões */}
-            <Grid container spacing={2} sx={{my: 1, ml: 5}}>
+            <Grid container spacing={2} sx={{my: 1, ml: 4}}>
                 {gameState[0].casas.map((botao, i) => {
                     return (
-                        <Grid item key={`JogarTabuleiroArrayBotao-${i}`} xs={1} sx={{my: 1, ml: 2.2}}>
+                        <Grid item key={`JogarTabuleiroArrayBotao-${i}`} xs={1} sx={{my: 0.7, ml: 2.2}}>
                             <Button 
                                 disabled={
                                     disabledButton ? 
@@ -212,7 +212,7 @@ export default function Tabuleiro(  ) {
                                 } 
                                 onClick={() => {setColunaState(i)}}
                                 sx={{
-                                    mr: 5, borderRadius: '40px',
+                                    mr: 4, borderRadius: '30px',
                                     '&:hover': {
                                         backgroundColor: 'none',
                                         opacity: '80%',
@@ -220,7 +220,7 @@ export default function Tabuleiro(  ) {
                                 }}>
                                 <KeyboardDoubleArrowDownIcon sx={disabledButton ?
                                     {
-                                        fontSize: "40px",
+                                        fontSize: "30px",
                                         color: 'font.main',
                                         '&:hover': {
                                             color: 'primary.main'
@@ -228,7 +228,7 @@ export default function Tabuleiro(  ) {
                                     }
                                     : 
                                     {
-                                        fontSize: "40px",
+                                        fontSize: "30px",
                                         color: '#5C92FF',
                                         '&:hover': {
                                             color: 'primary.main'
