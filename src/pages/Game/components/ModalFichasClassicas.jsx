@@ -1,6 +1,6 @@
 import { Avatar, Box, Button, Grid, Tooltip, Typography } from "@mui/material";
 
-export default function ModalFichasClassicas( {setMostrar, setTemaState, disableButton} ) {
+export default function ModalFichasClassicas( {setMostrar, setTemaState, disableButton, vsChosenTheme} ) {
     return (
         <div key={`modalSelecaoDeTema-Categoria-Classicos`}>
             <Typography
@@ -20,7 +20,7 @@ export default function ModalFichasClassicas( {setMostrar, setTemaState, disable
                             <Box sx={{mb: 1}}>
                                 <Tooltip followCursor arrow title={`${tema.charAt(0).toUpperCase() + tema.slice(1)}`} placement="top">
                                     <Button
-                                        disabled={!disableButton}
+                                        disabled={!disableButton || (vsChosenTheme === tema)}
                                         sx={{borderRadius: 60}}
                                         onClick={() => {setMostrar(false); setTemaState(tema)} }
                                     >

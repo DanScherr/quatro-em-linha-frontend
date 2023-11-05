@@ -37,12 +37,13 @@ export default function Tabuleiro(  ) {
 
     const [delay, setDelay] = useState(1000);
     const [isRunning, setIsRunning] = useState(false);
-  
+
     useInterval(() => {
         if (stopWatch > 0)
             setStopWatch(stopWatch - 1);
         else {
-            setLoserState(true);
+            //setLoserState(true);
+            setTurn(false);
             conversaComSocket();
         }
     }, isRunning ? delay : null);
@@ -100,11 +101,13 @@ export default function Tabuleiro(  ) {
     }, [statusJogo])
 
     useEffect(() => {
+        console.log('mudou tema');
         if (myChosenTheme !== '' || myChosenTheme !== 'grey') conversaComSocket();
     }, [temaState])
 
     // Coloca timer de 45s se o Tema estiver como valor 'grey'
     useEffect(() => {
+        console.log('mudou tema');
         if (temaState === 'grey') {
             setMostrarModalTemaState(true);
         };
@@ -186,7 +189,12 @@ export default function Tabuleiro(  ) {
 
     useEffect(() => {
         conversaComSocket();
-    }, [temaState])
+    }, [temaState]);
+
+    useEffect(() => {
+        console.log('mudou temaaaa');
+        conversaComSocket();
+    }, [myChosenTheme]);
 
     const handleInput = (e) => {
         e.preventDefault();
@@ -274,7 +282,7 @@ export default function Tabuleiro(  ) {
             })}
             </Card>
             <ModalResultado mostrar={mostrarModalState} setMostrar={setMostrarModalState} isVencedor={vencedorState} isEmpate={empateState} setLoserState={setLoserState} conversaComSocket={conversaComSocket} />
-            <ModalSelecaoDeTema mostrar={mostrarModalTemaState} setMostrar={setMostrarModalTemaState} setChosenState={setChosenTheme} setTemaState={setChosenTheme} />
+            <ModalSelecaoDeTema mostrar={mostrarModalTemaState} setMostrar={setMostrarModalTemaState} setChosenState={setChosenTheme} setTemaState={setChosenTheme} vsChosenTheme={vsChosenTheme} />
         </Container>
     );
 };

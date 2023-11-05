@@ -37,7 +37,8 @@ const GIF_STYLE = {
   paddingTop: '10px'
 }
 
-export function ModalSelecaoDeTema({ mostrar, setMostrar, setChosenState, setTemaState }) {
+export function ModalSelecaoDeTema({ mostrar, setMostrar, setChosenState, setTemaState, vsChosenTheme }) {
+    console.log("Tema do outro user - modal: " + vsChosenTheme);
 
     let basePathImages = './../../../static/images/fichas/';
 
@@ -108,7 +109,7 @@ export function ModalSelecaoDeTema({ mostrar, setMostrar, setChosenState, setTem
                         boxShadow: 'rgba(255, 255, 255, 0.25) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;'
                     }}
                 >
-                    <ModalFichasClassicas setMostrar={setMostrar} setTemaState={setTemaState} disableButton={multiplayerEstabelecido} />
+                    <ModalFichasClassicas setMostrar={setMostrar} setTemaState={setTemaState} disableButton={multiplayerEstabelecido} vsChosenTheme={vsChosenTheme} />
                     { !usuarioTemas.loading ?
                         usuarioTemas.data.map((item, index) => {
                             return (
@@ -130,7 +131,7 @@ export function ModalSelecaoDeTema({ mostrar, setMostrar, setChosenState, setTem
                                                     <Box sx={{mb: 1}}>
                                                         <Tooltip followCursor arrow title={`${tema.nome.charAt(0).toUpperCase() + tema.nome.slice(1)}`} placement="top">
                                                             <Button 
-                                                                    disabled={!multiplayerEstabelecido}
+                                                                    disabled={!multiplayerEstabelecido || (vsChosenTheme === tema.nome.toLowerCase())}
                                                                     sx={{borderRadius: 60}}
                                                                     onClick={() => {setMostrar(false); setTemaState(geraPathTema(item, tema, basePathImages));} }
                                                                 >
@@ -178,7 +179,6 @@ export function ModalSelecaoDeTema({ mostrar, setMostrar, setChosenState, setTem
                         </div>
                 }
                 </List>
-            {/* <p>ESPAÇO PARA O GIF / BOTÃO DE JOGAR NOVAMENTE</p> */}
           </div>
         </div>
       </Modal>
