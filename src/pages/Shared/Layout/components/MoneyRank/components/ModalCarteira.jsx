@@ -35,19 +35,22 @@ const TITLE_STYLE = {
 export function ModalCarteira({ mostrar, setMostrar }) {
 
     const {
+        carteira,
         AlteraCarteira,
         ConsultaCarteira, 
         setOpenNotificacao,
     } = useContext(AuthContext);
 
     // VARIAVEIS DO FORMULARIO
-    const [moedas, setMoedas] = useState('0');
-    const [real, setReal] = useState('0');
+    const [moedas, setMoedas] = useState(0);
+    const [real, setReal] = useState(0);
 
     const handleInputs = (e) => {
         e.preventDefault();
-        setMoedas(e.target.value);
-        setReal(moedas/50);
+        let varMoedas = e.target.value;
+        let soma = parseInt(carteira) + parseInt(varMoedas);
+        setMoedas(soma);
+        setReal(varMoedas/50);
     };
 
     const resolveClick = () => {
@@ -151,7 +154,7 @@ export function ModalCarteira({ mostrar, setMostrar }) {
                         label=""
                         type="number"
                         InputLabelProps={{
-                            shrink: true,
+                            shrink: true
                         }}
                         onChange={handleInputs}
                     />
