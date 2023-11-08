@@ -49,13 +49,13 @@ export default function SharedLayout(  ) {
             <Grid container columnSpacing={{sm: 2}}
                 sx={{justifyContent: 'center', alignContent: 'center'}}
             >
-                <Grid item xs={0} md={3} className="ShareLayoutGrid">
+                <Grid item xs={2} md={3} className="ShareLayoutGrid">
                     <Regras />
                 </Grid>
-                <Grid item xs={6} md={6} minWidth={'600px'} className="ShareLayoutGrid">
+                <Grid item xs={4} md={4} minWidth={'600px'} className="ShareLayoutGrid">
                     <Outlet />
                 </Grid>
-                <Grid item xs={0} md={3} className="ShareLayoutGrid">
+                <Grid item xs={2} md={3} className="ShareLayoutGrid">
                     <MoneyRanking />
                     <Monetizacao />
                 </Grid>

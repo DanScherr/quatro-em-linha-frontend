@@ -54,6 +54,5 @@ export default function Regras(  ) {
                 </Card>
             </CardContent>
         </Card>
-        
     );
 };

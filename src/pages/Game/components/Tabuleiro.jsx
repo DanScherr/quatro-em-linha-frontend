@@ -204,12 +204,12 @@ export default function Tabuleiro(  ) {
     };
 
     return (
-        <Container sx={{mx: 'auto'}}>  
+        <Container sx={{mx: 'auto', justifyContent: 'center'}}>  
             {/* Linha de botões */}
-            <Grid container spacing={2} sx={{my: 1, ml: 4}}>
+            <Grid container spacing={2} sx={{my: 1, pl: 2, pr: 4}}>
                 {gameState[0].casas.map((botao, i) => {
                     return (
-                        <Grid item key={`JogarTabuleiroArrayBotao-${i}`} xs={1} sx={{my: 0.7, ml: 2.2}}>
+                        <Grid item key={`JogarTabuleiroArrayBotao-${i}`} xs={1} sx={{my: 0.7, mx: 'auto'}}>
                             <Button 
                                 disabled={
                                     disabledButton ? 
@@ -251,7 +251,7 @@ export default function Tabuleiro(  ) {
 
             {/* Tabuleiro */}
             <Card sx={{
-                height: '605px', m: 2, 
+                height: '585px', m: 2, 
                 backgroundColor: 'background.card',
                 borderRadius: 5,
                 p: 2,
@@ -260,10 +260,10 @@ export default function Tabuleiro(  ) {
                 {gameState.map((item, i) => {
                 return (
                     // LINHA DO TABULEIRO
-                    <Grid item key={`JogarTabuleiroArrayItem-${i}`} container spacing={2} sx={{my: 1, mx: 'auto'}}>
+                    <Grid item key={`JogarTabuleiroArrayItem-${i}`} container spacing={0} sx={{my: 2, mx: 'auto'}}>
                         {item.casas.map((casa, j) => {
                         return (
-                            <Grid item key={`JogarTabuleiroArrayItem-${i}-Casa-${j}`} xs={1} sx={{my: 2, ml: 3}}>
+                            <Grid item key={`JogarTabuleiroArrayItem-${i}-Casa-${j}`} xs={1} sx={{my: 2, ml: 3, mx: 'auto'}}>
                                 {/* CASA DO TABULEIRO */}
                                 <Avatar alt="" src={casa === 0 || casa === 'red' || casa === 'yellow' ? '' : retornaImagemFicha(casa)}
                                     sx={{
