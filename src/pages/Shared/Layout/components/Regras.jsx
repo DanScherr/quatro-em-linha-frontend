@@ -19,10 +19,10 @@ export default function Regras(  ) {
 
     return (
         <Card sx={{
-            height: '605px', m: 2, 
+            height: '585px', m: 2, 
             backgroundColor: 'background.card',
             borderRadius: 5,
-            mt: 11.6,
+            mt: 6.6,
         }}>
             <CardContent>
                 <Typography variant="span" sx={{
@@ -34,7 +34,7 @@ export default function Regras(  ) {
 
                 <Card sx={{
                     height: '100%', m: 2, display: 'block', 
-                    borderRadius: 5, mt: 4
+                    borderRadius: 5, mt: 11
                 }}>
                     <CardContent sx={{p: 2}}>
                     <div id="carouselExampleSlidesOnly" className="carousel slide" data-bs-ride="carousel">

@@ -81,14 +81,15 @@ export function ModalCarteira({ mostrar, setMostrar }) {
                 {/* Subtitulo */}
                 <Typography variant='span'
                 sx={{
-                    // ml: 5,
+                    ml: 5,
+                    mt: 3,
                     fontFamily: 'Play',
                     fontSize: '20px',
                     fontWeight: 700,
                     LineWeight: '23px',
                     textAlign: 'left',
                     color: 'font.emphasis',
-                    display: 'inline'
+                    display: 'block'
                 }}>
                     {'Cotação'}
                 </Typography>

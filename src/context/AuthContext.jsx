@@ -161,9 +161,10 @@ export const AuthProvider = ({children}) => {
     const [todosTemas, setTodosTemas] = React.useState({loading: true, data: []})
     const BuscaTemas = async (email, senha) => {
         let data = [];
+        let usuario = Cookies.get('userId');
         try {
             const response = await axios.get(
-                `/api/v1/monetizacao`,
+                `/api/v1/monetizacao/${usuario}`,
                 {mode: 'no-cors'}
             );
             if (response.status === 200 && response.data.status === true) {
@@ -204,6 +205,52 @@ export const AuthProvider = ({children}) => {
             
         } catch (error) {
             console.error(error);
+            let data = [];
+            // let usuario = Cookies.get('userId');
+            try {
+                const response = await axios.get(
+                    `/api/v1/monetizacao`,
+                    {mode: 'no-cors'}
+                );
+                if (response.status === 200 && response.data.status === true) {
+                    response.data.data.forEach(element => {
+                        let indexOfCat = findCategoria(data, element.categoria);
+
+                        if ( indexOfCat === -1 ) 
+                            data.push({
+                                categoria: element.categoria,
+                                temas: [
+                                    {
+                                        id_Mon: element.id_Mon,
+                                        nome: element.nome,
+                                        descricao: element.descricao,
+                                        imagem: element.imagem,
+                                        valor: element.valor
+                                    }
+                                ]
+                            })
+                        else {
+                            let indexOfCat = findCategoria(data, element.categoria);
+
+                            if (findTema(data[indexOfCat].temas, element.nome) === -1)
+                                data[indexOfCat].temas.push(
+                                    {
+                                        id_Mon: element.id_Mon,
+                                        nome: element.nome,
+                                        descricao: element.descricao,
+                                        imagem: element.imagem,
+                                        valor: element.valor
+                                    }
+                            )
+                    }
+                    });
+                };
+                setTodosTemas({loading: false, data: data});
+                console.log('resposta temas:',response)
+                
+            } catch (error) {
+                console.error(error);
+            };
         };
     };
 

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { AlertTitle, Grid } from "@mui/material";
+import { AlertTitle, Box, Grid } from "@mui/material";
 import SharedLayoutFooter from "./components/Footer";
 import SharedLayoutHeader from "./components/Header";
 import { Outlet } from "react-router-dom";
@@ -45,19 +45,72 @@ export default function SharedLayout(  ) {
                 </Alert>
             </Snackbar>
 
-            {/* Conteudo */}
+            {/* Conteudo tela X-Grande */}
             <Grid container columnSpacing={{sm: 2}}
-                sx={{justifyContent: 'center', alignContent: 'center'}}
+                sx={{
+                    justifyContent: 'center', alignContent: 'center',
+                    display: {xs: 'none', md: 'none', lg: 'none', xl: 'flex'}, width: '100%'
+                }}
             >
-                <Grid item xs={2} md={3} className="ShareLayoutGrid">
+                <Grid item lg={3} className="ShareLayoutGrid">
                     <Regras />
                 </Grid>
-                <Grid item xs={4} md={4} minWidth={'600px'} className="ShareLayoutGrid">
+                <Grid item lg={4} minWidth={'600px'} className="ShareLayoutGrid">
                     <Outlet />
                 </Grid>
-                <Grid item xs={2} md={3} className="ShareLayoutGrid">
+                <Grid item lg={3} className="ShareLayoutGrid">
                     <MoneyRanking />
                     <Monetizacao />
+                    <Box sx={{height: '60px'}}/>
+                </Grid>
+            </Grid>
+
+            {/* Conteudo tela Grande */}
+            <Grid container 
+                sx={{
+                    justifyContent: 'center', alignContent: 'center',
+                    display: {xs: 'none', md: 'none', lg: 'flex', xl: 'none'}, width: '100%'
+                }}
+            >
+                <Grid item lg={2.5} className="ShareLayoutGrid">
+                    <Regras />
+                </Grid>
+                <Grid item lg={3.5} minWidth={'600px'} className="ShareLayoutGrid">
+                    <Outlet />
+                </Grid>
+                <Grid item lg={2.5} className="ShareLayoutGrid">
+                    <MoneyRanking />
+                    <Monetizacao />
+                    <Box sx={{height: '60px'}}/>
+                </Grid>
+            </Grid>
+
+            {/* Conteudo tela Média */}
+            <Grid container columnSpacing={{sm: 2}}
+                sx={{
+                    justifyContent: 'center', alignContent: 'center',
+                    display: {xs: 'none', md: 'flex', lg: 'none'}, width: '100%'
+                }}
+            >
+                <Grid item md={12} minWidth={'600px'} className="ShareLayoutGrid">
+                    <Outlet />
+                </Grid>
+                <Grid item md={5} className="ShareLayoutGrid">
+                    <MoneyRanking />
+                    <Monetizacao />
+                    <Box sx={{height: '80px'}}/>
+                </Grid>
+            </Grid>
+
+            {/* Conteudo tela pequena */}
+            <Grid container columnSpacing={{sm: 2}}
+                sx={{
+                    justifyContent: 'center', alignContent: 'center',
+                    display: {xs: 'flex', md: 'none', lg: 'none'}
+                }}
+            >
+                <Grid item xs={4} minWidth={'600px'} className="ShareLayoutGrid">
+                    <Outlet />
                 </Grid>
             </Grid>
 

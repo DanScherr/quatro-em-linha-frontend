@@ -23,10 +23,10 @@ export default function Monetizacao(  ) {
     let basePathImages = './../../../static/images/fichas/';
     return (
         <Card sx={{
-            height: '605px', m: 2, 
+            height: '585px', m: 2, 
             backgroundColor: 'background.card',
             borderRadius: 5,
-            mt: 1.5
+            mt: 1
         }}>
             <CardContent>
                 {/** PAGOS */}
@@ -62,7 +62,7 @@ export default function Monetizacao(  ) {
                                         id={item.categoria}
                                         sx={{mt: 2}}
                                     >
-                                        <Typography variant="span" sx={{fontSize: '20px', color: '#000000e4', fontWeight: '700'}}>
+                                        <Typography variant="span" sx={{fontSize: '18px', color: '#000000e4', fontWeight: '700'}}>
                                             {item.categoria}
                                         </Typography>
                                     </AccordionSummary>

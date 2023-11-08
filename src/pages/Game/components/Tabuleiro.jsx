@@ -206,10 +206,10 @@ export default function Tabuleiro(  ) {
     return (
         <Container sx={{mx: 'auto', justifyContent: 'center'}}>  
             {/* Linha de botões */}
-            <Grid container spacing={2} sx={{my: 1, pl: 2, pr: 4}}>
+            <Grid container spacing={2} sx={{mt: 0.2, mb: 1, pl: 2, pr: 4}}>
                 {gameState[0].casas.map((botao, i) => {
                     return (
-                        <Grid item key={`JogarTabuleiroArrayBotao-${i}`} xs={1} sx={{my: 0.7, mx: 'auto'}}>
+                        <Grid item key={`JogarTabuleiroArrayBotao-${i}`} xs={1} sx={{my: 0, mx: 'auto'}}>
                             <Button 
                                 disabled={
                                     disabledButton ? 
@@ -220,7 +220,9 @@ export default function Tabuleiro(  ) {
                                 } 
                                 onClick={() => {setColunaState(i)}}
                                 sx={{
-                                    mr: 4, borderRadius: '30px',
+                                    height: '20px',
+                                    mr: 4, mt: 0,
+                                    borderRadius: '30px',
                                     '&:hover': {
                                         backgroundColor: 'none',
                                         opacity: '80%',
@@ -263,7 +265,7 @@ export default function Tabuleiro(  ) {
                     <Grid item key={`JogarTabuleiroArrayItem-${i}`} container spacing={0} sx={{my: 2, mx: 'auto'}}>
                         {item.casas.map((casa, j) => {
                         return (
-                            <Grid item key={`JogarTabuleiroArrayItem-${i}-Casa-${j}`} xs={1} sx={{my: 2, ml: 3, mx: 'auto'}}>
+                            <Grid item key={`JogarTabuleiroArrayItem-${i}-Casa-${j}`} xs={1} sx={{my: 2, ml: 0, mx: 'auto'}}>
                                 {/* CASA DO TABULEIRO */}
                                 <Avatar alt="" src={casa === 0 || casa === 'red' || casa === 'yellow' ? '' : retornaImagemFicha(casa)}
                                     sx={{
