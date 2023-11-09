@@ -19,7 +19,7 @@ export default function SharedLayout(  ) {
     const {openNotificacao, setOpenNotificacao} = React.useContext(AuthContext);
 
     return (
-        <div className="container">
+        <Grid container alignItems={'center'} height={'100vh'}>
             {/* Header */}
             <SharedLayoutHeader />
             
@@ -120,6 +120,6 @@ export default function SharedLayout(  ) {
             <div className="fixed-bottom mt-0">
                 <SharedLayoutFooter />
             </div>
-        </div>
+        </Grid>
     );
 };

@@ -25,7 +25,7 @@ export default function Regras(  ) {
             mt: 6.6,
             position: 'relative'
         }}>
-            <CardContent sx={{position: 'absolute', top: '50%', msTransform: 'translateY(-50%)', transform: 'translateY(-50%)'}}>
+            <CardContent sx={{p: 3,position: 'absolute', top: '50%', msTransform: 'translateY(-50%)', transform: 'translateY(-50%)'}}>
                 <Card sx={{
                     height: '100%', 
                     m: 2, 
