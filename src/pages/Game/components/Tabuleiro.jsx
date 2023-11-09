@@ -206,7 +206,7 @@ export default function Tabuleiro(  ) {
     return (
         <Container sx={{mx: 'auto', justifyContent: 'center'}}>  
             {/* Linha de botões */}
-            <Grid container spacing={2} sx={{mt: 0.2, mb: 1, pl: 2, pr: 4}}>
+            <Grid container spacing={2} sx={{mt: 0.2, mb: 1, pl: 0.5, pr: 4}}>
                 {gameState[0].casas.map((botao, i) => {
                     return (
                         <Grid item key={`JogarTabuleiroArrayBotao-${i}`} xs={1} sx={{my: 0, mx: 'auto'}}>
@@ -253,16 +253,16 @@ export default function Tabuleiro(  ) {
 
             {/* Tabuleiro */}
             <Card sx={{
-                height: '555px', m: 2, 
+                height: '515px', m: 2, 
                 backgroundColor: 'background.card',
                 borderRadius: 5,
-                p: 2,
+                p: 0,
                 minWidth: '530px'
             }}>
                 {gameState.map((item, i) => {
                 return (
                     // LINHA DO TABULEIRO
-                    <Grid item key={`JogarTabuleiroArrayItem-${i}`} container spacing={0} sx={{my: 2, mx: 'auto'}}>
+                    <Grid item key={`JogarTabuleiroArrayItem-${i}`} container spacing={0} sx={{mt: i===0?0:2, marginBottom: i===(gameState.length)?0:2, mx: 'auto'}}>
                         {item.casas.map((casa, j) => {
                         return (
                             <Grid item key={`JogarTabuleiroArrayItem-${i}-Casa-${j}`} xs={1} sx={{my: 2, ml: 0, mx: 'auto'}}>

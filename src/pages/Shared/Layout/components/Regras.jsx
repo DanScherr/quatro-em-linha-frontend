@@ -19,7 +19,7 @@ export default function Regras(  ) {
 
     return (
         <Card sx={{
-            height: '550px', 
+            height: '515px', 
             backgroundColor: 'background.card',
             borderRadius: 5,
             mt: 6.6,
