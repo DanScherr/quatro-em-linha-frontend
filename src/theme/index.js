@@ -15,7 +15,7 @@ export const darkTheme = createTheme({
             accordionHeader: '#777777'
         },
         primary: {
-            main: color1['A400'], //#c6ff00
+            main: color1['A400'], //#d500f9
             lightMain: color1['A200'], //#eeff41
             veryLightMain: color1['A100'], //#f4ff81
             lightestMain: color1['50'], //#f9fbe7

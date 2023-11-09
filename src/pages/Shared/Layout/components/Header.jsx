@@ -88,7 +88,7 @@ export default function SharedLayoutHeader( ) {
                                         sx={{
                                         display: { xs: 'none', md: 'flex' },
                                         fontFamily: '"Roboto","Helvetica","Arial",sans-serif',
-                                        fontSize: '25px',
+                                        fontSize: '17px',
                                         fontWeight: '700',
                                         letterSpacing: '.2rem',
                                         color: 'inherit',
@@ -106,8 +106,8 @@ export default function SharedLayoutHeader( ) {
                                     key={`${page}`}
                                     onClick={() => navegarPagina(page==='jogue'? '' : page)}
                                     sx={{ 
-                                        my: 2, color: 'primary.lightMain',  mr: 2,
-                                        display: 'block', fontSize: '16px',
+                                        my: 'auto', color: 'primary.lightMain',  mr: 2,
+                                        display: 'block', fontSize: '13px',
                                         fontFamily: '"Roboto","Helvetica","Arial",sans-serif',
                                         fontWeight: 700
                                     }}
@@ -172,7 +172,7 @@ export default function SharedLayoutHeader( ) {
                             <Box sx={{ flexGrow: 0 }}>
                                 <Tooltip title="User Options">
                                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                        <Avatar alt="Avatar" src={profileImg} sx={{ width: 70, height: 70 }} />
+                                        <Avatar alt="Avatar" src={profileImg} sx={{ width: 50, height: 50 }} />
                                     </IconButton>
                                 </Tooltip>
                                 <Menu
@@ -207,7 +207,7 @@ export default function SharedLayoutHeader( ) {
                     </Container>
                 </AppBar>
             </Slide>
-            <Box sx={{height: 80}} />
+            <Box sx={{height: 50}} />
         </>
     )
 }

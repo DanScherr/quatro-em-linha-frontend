@@ -24,8 +24,7 @@ export default function SharedLayoutFooter( ) {
     } = useContext(MultiplayerContext);
 
     return(
-        <>
-            
+        <>  
             <Box sx={{
                 color: 'primary.lightMain', 
                 bgcolor: 'background.footBox', 
@@ -65,8 +64,6 @@ export default function SharedLayoutFooter( ) {
                         />
                     </Grid>
                 </Grid>
-                
-                
             </Box>
         </>
     );

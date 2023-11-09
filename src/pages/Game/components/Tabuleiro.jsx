@@ -253,7 +253,7 @@ export default function Tabuleiro(  ) {
 
             {/* Tabuleiro */}
             <Card sx={{
-                height: '585px', m: 2, 
+                height: '555px', m: 2, 
                 backgroundColor: 'background.card',
                 borderRadius: 5,
                 p: 2,

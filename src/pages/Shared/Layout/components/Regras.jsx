@@ -19,24 +19,21 @@ export default function Regras(  ) {
 
     return (
         <Card sx={{
-            height: '585px', m: 2, 
+            height: '550px', 
             backgroundColor: 'background.card',
             borderRadius: 5,
             mt: 6.6,
+            position: 'relative'
         }}>
-            <CardContent>
-                <Typography variant="span" sx={{
-                    textAlign: 'center', fontSize: '25px',
-                    color: 'primary.lightMain', fontWeight: '700'
-                }}>
-                    Ads
-                </Typography>
-
+            <CardContent sx={{position: 'absolute', top: '50%', msTransform: 'translateY(-50%)', transform: 'translateY(-50%)'}}>
                 <Card sx={{
-                    height: '100%', m: 2, display: 'block', 
-                    borderRadius: 5, mt: 11
+                    height: '100%', 
+                    m: 2, 
+                    display: 'block', 
+                    borderRadius: 5,
+                    my: 'auto'
                 }}>
-                    <CardContent sx={{p: 2}}>
+                    <CardContent sx={{p: 2, my: 'auto'}}>
                     <div id="carouselExampleSlidesOnly" className="carousel slide" data-bs-ride="carousel">
                         <div className="carousel-inner">
                             {

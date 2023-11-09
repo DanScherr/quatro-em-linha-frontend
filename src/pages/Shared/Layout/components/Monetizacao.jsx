@@ -23,7 +23,7 @@ export default function Monetizacao(  ) {
     let basePathImages = './../../../static/images/fichas/';
     return (
         <Card sx={{
-            height: '585px', m: 2, 
+            height: '550px', 
             backgroundColor: 'background.card',
             borderRadius: 5,
             mt: 1
@@ -62,7 +62,7 @@ export default function Monetizacao(  ) {
                                         id={item.categoria}
                                         sx={{mt: 2}}
                                     >
-                                        <Typography variant="span" sx={{fontSize: '18px', color: '#000000e4', fontWeight: '700'}}>
+                                        <Typography variant="span" sx={{fontSize: 17, color: '#000000e4', fontWeight: '700'}}>
                                             {item.categoria}
                                         </Typography>
                                     </AccordionSummary>
@@ -82,7 +82,7 @@ export default function Monetizacao(  ) {
                                                                                 }}
                                                                             />
                                                                         </Button>
-                                                                        <Typography variant="span">
+                                                                        <Typography variant="span" sx={{fontSize: "10px"}}>
                                                                             {tema.nome}
                                                                         </Typography>
                                                                     </Box>
@@ -104,7 +104,8 @@ export default function Monetizacao(  ) {
                                                                                     <Typography variant="span" sx={{
                                                                                         color: 'font.emphasis', 
                                                                                         maxWidth: '110px', 
-                                                                                        wordBreak: 'break-all'
+                                                                                        wordBreak: 'break-all',
+                                                                                        fontSize: "12px"
                                                                                     }}>
                                                                                         {tema.nome}
                                                                                     </Typography>

@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { AlertTitle, Box, Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import SharedLayoutFooter from "./components/Footer";
 import SharedLayoutHeader from "./components/Header";
 import { Outlet } from "react-router-dom";
 import "./index.css"
 import Regras from "./components/Regras";
 import Monetizacao from "./components/Monetizacao";
-// import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import MoneyRanking from './components/MoneyRank/MoneyRanking';
@@ -48,7 +47,7 @@ export default function SharedLayout(  ) {
             {/* Conteudo tela X-Grande */}
             <Grid container columnSpacing={{sm: 2}}
                 sx={{
-                    justifyContent: 'center', alignContent: 'center',
+                    justifyContent: 'center', alignContent: 'center', verticalAlign: 'center', my: 'auto',
                     display: {xs: 'none', md: 'none', lg: 'none', xl: 'flex'}, width: '100%'
                 }}
             >
@@ -68,7 +67,7 @@ export default function SharedLayout(  ) {
             {/* Conteudo tela Grande */}
             <Grid container 
                 sx={{
-                    justifyContent: 'center', alignContent: 'center',
+                    justifyContent: 'center', alignContent: 'center', verticalAlign: 'center',
                     display: {xs: 'none', md: 'none', lg: 'flex', xl: 'none'}, width: '100%'
                 }}
             >
@@ -88,7 +87,7 @@ export default function SharedLayout(  ) {
             {/* Conteudo tela Média */}
             <Grid container columnSpacing={{sm: 2}}
                 sx={{
-                    justifyContent: 'center', alignContent: 'center',
+                    justifyContent: 'center', alignContent: 'center', verticalAlign: 'center', my: 'auto',
                     display: {xs: 'none', md: 'flex', lg: 'none'}, width: '100%'
                 }}
             >
@@ -105,7 +104,7 @@ export default function SharedLayout(  ) {
             {/* Conteudo tela pequena */}
             <Grid container columnSpacing={{sm: 2}}
                 sx={{
-                    justifyContent: 'center', alignContent: 'center',
+                    justifyContent: 'center', alignContent: 'center', verticalAlign: 'center', my: 'auto',
                     display: {xs: 'flex', md: 'none', lg: 'none'}
                 }}
             >
@@ -115,7 +114,10 @@ export default function SharedLayout(  ) {
             </Grid>
 
             {/* Footer */}
-            <div className="fixed-bottom">
+            {/* <Box height={'50px'}>
+
+            </Box> */}
+            <div className="fixed-bottom mt-0">
                 <SharedLayoutFooter />
             </div>
         </div>
