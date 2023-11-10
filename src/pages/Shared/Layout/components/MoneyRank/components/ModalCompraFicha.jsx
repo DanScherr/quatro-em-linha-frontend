@@ -41,10 +41,15 @@ export function ModalCompraFicha({ mostrar, setMostrar, item, tema }) {
         carteira,
         CompraFicha
     } = useContext(AuthContext);
-
+    
+    useEffect(() => {
+        console.log('tema:', tema)
+    }, [])
+    
     let basePathImages = './../../../static/images/fichas/';
     // VARIAVEIS DO FORMULARIO
     const resolveClick = (e) => {
+        console.log(`Carteira: ${(carteira)} Tema valor: ${Number(tema.valor)}`)
         if (Number(carteira) - Number(tema.valor) >= 0){
             AlteraCarteira(Number(carteira) - Number(tema.valor));
             CompraFicha(tema.id_Mon);

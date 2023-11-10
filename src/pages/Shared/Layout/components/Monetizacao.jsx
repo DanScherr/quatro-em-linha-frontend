@@ -73,20 +73,7 @@ export default function Monetizacao(  ) {
                                                     return (
                                                         <Grid item key={`MonetizacaoArrayAccordionTema-${j}`} xs={6}>
                                                             <Typography variant="span" textAlign={'center'}>
-                                                                {tema.liberado ?
-                                                                    <Box sx={{mb: 1}}>
-                                                                        <Button sx={{borderRadius: 60}}>
-                                                                            <Avatar alt="tema.titulo" src={tema.imagem === '' ? imgDefault : tema.imagem}
-                                                                                sx={{border: '1px solid white',
-                                                                                color: 'font.main'
-                                                                                }}
-                                                                            />
-                                                                        </Button>
-                                                                        <Typography variant="span" sx={{fontSize: "10px"}}>
-                                                                            {tema.nome}
-                                                                        </Typography>
-                                                                    </Box>
-                                                                :
+
                                                                     <Box sx={{mb: 1}}>
                                                                         <ModalCompraFicha item={itemFicha} tema={temaFicha} setMostrar={setOpen} mostrar={open}/>
                                                                         <Button sx={{borderRadius: 5}} onClick={() => {setOpen(true); setitemFicha(item); settemaFicha(tema)}}>
@@ -130,7 +117,7 @@ export default function Monetizacao(  ) {
                                                                             </Grid>
                                                                         </Button>
                                                                     </Box>
-                                                                }
+                                                                
                                                             </Typography>
                                                         </Grid>
                                                     );
