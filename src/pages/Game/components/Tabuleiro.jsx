@@ -31,6 +31,7 @@ export default function Tabuleiro(  ) {
         encerrarJogo,
         setMultiplayerEstabelecido, multiplayerEstabelecido,
         vsChosenTheme, setVsChosenTheme,
+        categoriaTemaState, setCategoriaTemaState
     } = useContext(MultiplayerContext);
 
     const {userId} = useContext(AuthContext);
@@ -101,13 +102,11 @@ export default function Tabuleiro(  ) {
     }, [statusJogo])
 
     useEffect(() => {
-        console.log('mudou tema');
         if (myChosenTheme !== '' || myChosenTheme !== 'grey') conversaComSocket();
     }, [temaState])
 
     // Coloca timer de 45s se o Tema estiver como valor 'grey'
     useEffect(() => {
-        console.log('mudou tema');
         if (temaState === 'grey') {
             setMostrarModalTemaState(true);
         };
@@ -192,7 +191,6 @@ export default function Tabuleiro(  ) {
     }, [temaState]);
 
     useEffect(() => {
-        console.log('mudou temaaaa');
         conversaComSocket();
     }, [myChosenTheme]);
 
@@ -283,8 +281,8 @@ export default function Tabuleiro(  ) {
                 )
             })}
             </Card>
-            <ModalResultado mostrar={mostrarModalState} setMostrar={setMostrarModalState} isVencedor={vencedorState} isEmpate={empateState} setLoserState={setLoserState} conversaComSocket={conversaComSocket} />
-            <ModalSelecaoDeTema mostrar={mostrarModalTemaState} setMostrar={setMostrarModalTemaState} setChosenState={setChosenTheme} setTemaState={setChosenTheme} vsChosenTheme={vsChosenTheme} />
+            <ModalResultado mostrar={mostrarModalState} setMostrar={setMostrarModalState} isVencedor={vencedorState} isEmpate={empateState} temaUser={myChosenTheme} categoriaTemaUser={categoriaTemaState} />
+            <ModalSelecaoDeTema mostrar={mostrarModalTemaState} setMostrar={setMostrarModalTemaState} setChosenState={setChosenTheme} setTemaState={setChosenTheme} vsChosenTheme={vsChosenTheme} setCategoriaTemaState={setCategoriaTemaState} />
         </Container>
     );
 };

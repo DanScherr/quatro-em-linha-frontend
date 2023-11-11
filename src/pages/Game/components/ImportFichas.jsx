@@ -74,7 +74,7 @@ export const retornaImagemFicha= (nome) => {
         case 'jedi':
             return jedi;
         case 'jangofett':
-            return jedi
+            return jangofett;
         case 'luke':
             return luke; 
         case 'ahsoka':
