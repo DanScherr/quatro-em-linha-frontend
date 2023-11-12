@@ -1,4 +1,5 @@
 import { Box, Grid, Modal, Typography, Button } from '@mui/material'
+import { retornaGif } from "./ImportGifs";
 import React from 'react'
 
 const BACKGROUND_STYLE = {
@@ -28,16 +29,29 @@ const TITLE_STYLE = {
   color: 'rgba(0, 0, 0, 1)'
 }
 
-const GIF_STYLE = {
+const GIF_DIV_STYLE = {
   textAlign: 'center',
   paddingTop: '10px'
 }
 
-export function ModalResultado({ mostrar, setMostrar, isVencedor, isEmpate, setLoserState, conversaComSocket }) {
+const GIF_STYLE = {
+  maxWidth: '250px'
+}
+
+export function ModalResultado({ mostrar, setMostrar, isVencedor, isEmpate, temaUser, categoriaTemaUser }) {
 
   const resolveClick = () => {
     window.location.reload()
   };
+
+  let srcGif = "";
+  
+  if (retornaGif(temaUser) != null && retornaGif(temaUser) != '')
+    srcGif = retornaGif(temaUser);
+  else
+    srcGif = retornaGif(categoriaTemaUser);
+
+  console.log('TESTE GIF AAA: ' + srcGif);
 
     return (
       <Modal onClose={() => setMostrar(false) } open={mostrar} style={BACKGROUND_STYLE}>
@@ -46,8 +60,8 @@ export function ModalResultado({ mostrar, setMostrar, isVencedor, isEmpate, setL
             <h2>{isVencedor ? 'Você Venceu!' : isEmpate ? "Empate!" : 'Game Over!'}</h2>
             <Typography variant='span'>{!isVencedor ?? 'Revanche?'}</Typography>
           </div>
-          <div style={GIF_STYLE}>
-            <Typography variant='span'>ESPAÇO PARA O GIF / BOTÃO DE JOGAR NOVAMENTE</Typography>
+          <div style={GIF_DIV_STYLE}>
+            <img style={GIF_STYLE} src={isVencedor ? srcGif : ""} />
           </div>
           {/* Button */}
           <Grid container justifyContent={'center'}>
