@@ -1,6 +1,7 @@
 import { Box, Grid, Modal, Typography, Button } from '@mui/material'
 import { retornaGif } from "./ImportGifs";
-import React from 'react'
+import React, { useState } from 'react';
+import { retornaAudio } from "./ImportAudios";
 
 const BACKGROUND_STYLE = {
   position: 'fixed',
@@ -39,19 +40,45 @@ const GIF_STYLE = {
 }
 
 export function ModalResultado({ mostrar, setMostrar, isVencedor, isEmpate, temaUser, categoriaTemaUser }) {
+  const [audioPlayed, setAudioPlayed] = useState(false);
+
+ if (mostrar && !audioPlayed)
+    playAudio(isVencedor, isEmpate);
 
   const resolveClick = () => {
     window.location.reload()
   };
 
+  // GIFS
   let srcGif = "";
-  
   if (retornaGif(temaUser) != null && retornaGif(temaUser) != '')
     srcGif = retornaGif(temaUser);
   else
     srcGif = retornaGif(categoriaTemaUser);
 
-  console.log('TESTE GIF AAA: ' + srcGif);
+    // useEffect(() => {
+    //   console.log("BATEU AQUI");
+
+    //   // Tocar som com base na condição
+    //   let audioSrc = '';
+    //   if (isVencedor) {
+    //     audioSrc = somVitoria;
+    //   } else if (isEmpate) {
+    //     audioSrc = somEmpate;
+    //   } else {
+    //     audioSrc = somGameOver;
+    //   }
+
+    //   console.log("AUDIO: " + audioSrc);
+    //   console.log(audioRef.current);
+  
+    //   // Verificar se o áudio está carregado antes de tentar reproduzi-lo
+    //   if (audioRef.current && audioSrc) {
+    //     console.log("ENTROU AQUI: ");
+    //     audioRef.current.src = audioSrc;
+    //     audioRef.current.play();
+    //   }
+    // }, []);
 
     return (
       <Modal onClose={() => setMostrar(false) } open={mostrar} style={BACKGROUND_STYLE}>
@@ -82,4 +109,19 @@ export function ModalResultado({ mostrar, setMostrar, isVencedor, isEmpate, tema
         </div>
       </Modal>
     );
+
+    function playAudio(vencedor, empate) {
+      console.log("VAI TOCAR AUDIO MODAL!");
+      var audioFicha = new Audio();
+
+      if (vencedor)
+        audioFicha.src = retornaAudio('vitoria');
+      else if (empate)
+        audioFicha.src = retornaAudio('empate');
+      else 
+        audioFicha.src = retornaAudio('derrota');
+
+      audioFicha.play();
+      setAudioPlayed(true);
+    }
 };

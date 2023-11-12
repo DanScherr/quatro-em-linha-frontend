@@ -38,8 +38,6 @@ const GIF_STYLE = {
 }
 
 export function ModalSelecaoDeTema({ mostrar, setMostrar, setChosenState, setTemaState, vsChosenTheme, setCategoriaTemaState}) {
-    console.log("Tema do outro user - modal: " + vsChosenTheme);
-
     let basePathImages = './../../../static/images/fichas/';
 
     const {
