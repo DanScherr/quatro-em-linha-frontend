@@ -56,30 +56,6 @@ export function ModalResultado({ mostrar, setMostrar, isVencedor, isEmpate, tema
   else
     srcGif = retornaGif(categoriaTemaUser);
 
-    // useEffect(() => {
-    //   console.log("BATEU AQUI");
-
-    //   // Tocar som com base na condição
-    //   let audioSrc = '';
-    //   if (isVencedor) {
-    //     audioSrc = somVitoria;
-    //   } else if (isEmpate) {
-    //     audioSrc = somEmpate;
-    //   } else {
-    //     audioSrc = somGameOver;
-    //   }
-
-    //   console.log("AUDIO: " + audioSrc);
-    //   console.log(audioRef.current);
-  
-    //   // Verificar se o áudio está carregado antes de tentar reproduzi-lo
-    //   if (audioRef.current && audioSrc) {
-    //     console.log("ENTROU AQUI: ");
-    //     audioRef.current.src = audioSrc;
-    //     audioRef.current.play();
-    //   }
-    // }, []);
-
     return (
       <Modal onClose={() => setMostrar(false) } open={mostrar} style={BACKGROUND_STYLE}>
         <div style={MODAL_STYLE}>
