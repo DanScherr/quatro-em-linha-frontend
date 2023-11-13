@@ -1,6 +1,6 @@
 {
   "name": "quatro-em-linha-frontend",
-  "version": "0.1.2",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@babel/cli": "^7.23.0",
