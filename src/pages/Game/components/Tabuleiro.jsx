@@ -7,6 +7,7 @@ import MultiplayerContext from "../../../context/MultiplayerContext";
 import AuthContext from "../../../context/AuthContext";
 import { ModalSelecaoDeTema, geraPathTema } from "./ModalSelecaoDeTema";
 import { retornaImagemFicha } from "./ImportFichas";
+import { retornaAudio } from "./ImportAudios";
 
 export default function Tabuleiro(  ) {
     const {
@@ -216,7 +217,7 @@ export default function Tabuleiro(  ) {
                                             false : 
                                             true
                                 } 
-                                onClick={() => {setColunaState(i)}}
+                                onClick={() => {setColunaState(i); playAudio()}}
                                 sx={{
                                     height: '20px',
                                     mr: 4, mt: 0,
@@ -304,6 +305,15 @@ function useInterval(callback, delay) {
         return () => clearInterval(id);
       }
     }, [delay]);
+  }
+
+  function playAudio() {
+    console.log("VAI TOCAR AUDIO!");
+
+    var audioFicha = new Audio();
+    audioFicha.src = retornaAudio('ficha');
+
+    audioFicha.play();
   }
 
 const casaBackgroundVazia = 'radial-gradient(50% 50% at 50% 50%, rgba(39, 39, 39, 0) 0%, rgba(29, 28, 28, 0.72) 100%)';
