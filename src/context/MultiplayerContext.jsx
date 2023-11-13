@@ -184,6 +184,7 @@ export const MultiplayerProvider = ({children}) => {
     const [myTurn, setTurn] = React.useState(false);
     const [myChosenTheme, setChosenTheme] = React.useState("");
     const [vsChosenTheme, setVsChosenTheme] = React.useState("");
+    const [categoriaTemaState, setCategoriaTemaState] = React.useState("");
 
     // SOCKET
     const iniciandoSocket = () => {
@@ -244,7 +245,8 @@ export const MultiplayerProvider = ({children}) => {
             posicionaFichaAoFinalDaColuna,
             encerrarJogo,
             iniciandoSocket,
-            multiplayerEstabelecido, setMultiplayerEstabelecido
+            multiplayerEstabelecido, setMultiplayerEstabelecido,
+            categoriaTemaState, setCategoriaTemaState
         }}
     >
         {children}

@@ -7,6 +7,7 @@ import MultiplayerContext from "../../../context/MultiplayerContext";
 import AuthContext from "../../../context/AuthContext";
 import { ModalSelecaoDeTema, geraPathTema } from "./ModalSelecaoDeTema";
 import { retornaImagemFicha } from "./ImportFichas";
+import { retornaAudio } from "./ImportAudios";
 
 export default function Tabuleiro(  ) {
     const {
@@ -31,6 +32,7 @@ export default function Tabuleiro(  ) {
         encerrarJogo,
         setMultiplayerEstabelecido, multiplayerEstabelecido,
         vsChosenTheme, setVsChosenTheme,
+        categoriaTemaState, setCategoriaTemaState
     } = useContext(MultiplayerContext);
 
     const {userId} = useContext(AuthContext);
@@ -101,13 +103,11 @@ export default function Tabuleiro(  ) {
     }, [statusJogo])
 
     useEffect(() => {
-        console.log('mudou tema');
         if (myChosenTheme !== '' || myChosenTheme !== 'grey') conversaComSocket();
     }, [temaState])
 
     // Coloca timer de 45s se o Tema estiver como valor 'grey'
     useEffect(() => {
-        console.log('mudou tema');
         if (temaState === 'grey') {
             setMostrarModalTemaState(true);
         };
@@ -192,7 +192,6 @@ export default function Tabuleiro(  ) {
     }, [temaState]);
 
     useEffect(() => {
-        console.log('mudou temaaaa');
         conversaComSocket();
     }, [myChosenTheme]);
 
@@ -218,7 +217,7 @@ export default function Tabuleiro(  ) {
                                             false : 
                                             true
                                 } 
-                                onClick={() => {setColunaState(i)}}
+                                onClick={() => {setColunaState(i); playAudio()}}
                                 sx={{
                                     height: '20px',
                                     mr: 4, mt: 0,
@@ -283,8 +282,8 @@ export default function Tabuleiro(  ) {
                 )
             })}
             </Card>
-            <ModalResultado mostrar={mostrarModalState} setMostrar={setMostrarModalState} isVencedor={vencedorState} isEmpate={empateState} setLoserState={setLoserState} conversaComSocket={conversaComSocket} />
-            <ModalSelecaoDeTema mostrar={mostrarModalTemaState} setMostrar={setMostrarModalTemaState} setChosenState={setChosenTheme} setTemaState={setChosenTheme} vsChosenTheme={vsChosenTheme} />
+            <ModalResultado mostrar={mostrarModalState} setMostrar={setMostrarModalState} isVencedor={vencedorState} isEmpate={empateState} temaUser={myChosenTheme} categoriaTemaUser={categoriaTemaState} />
+            <ModalSelecaoDeTema mostrar={mostrarModalTemaState} setMostrar={setMostrarModalTemaState} setChosenState={setChosenTheme} setTemaState={setChosenTheme} vsChosenTheme={vsChosenTheme} setCategoriaTemaState={setCategoriaTemaState} />
         </Container>
     );
 };
@@ -306,6 +305,15 @@ function useInterval(callback, delay) {
         return () => clearInterval(id);
       }
     }, [delay]);
+  }
+
+  function playAudio() {
+    console.log("VAI TOCAR AUDIO!");
+
+    var audioFicha = new Audio();
+    audioFicha.src = retornaAudio('ficha');
+
+    audioFicha.play();
   }
 
 const casaBackgroundVazia = 'radial-gradient(50% 50% at 50% 50%, rgba(39, 39, 39, 0) 0%, rgba(29, 28, 28, 0.72) 100%)';

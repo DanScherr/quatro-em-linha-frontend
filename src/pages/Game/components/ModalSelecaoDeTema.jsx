@@ -37,9 +37,7 @@ const GIF_STYLE = {
   paddingTop: '10px'
 }
 
-export function ModalSelecaoDeTema({ mostrar, setMostrar, setChosenState, setTemaState, vsChosenTheme }) {
-    console.log("Tema do outro user - modal: " + vsChosenTheme);
-
+export function ModalSelecaoDeTema({ mostrar, setMostrar, setChosenState, setTemaState, vsChosenTheme, setCategoriaTemaState}) {
     let basePathImages = './../../../static/images/fichas/';
 
     const {
@@ -133,7 +131,7 @@ export function ModalSelecaoDeTema({ mostrar, setMostrar, setChosenState, setTem
                                                             <Button 
                                                                     disabled={!multiplayerEstabelecido || (vsChosenTheme === tema.nome.toLowerCase())}
                                                                     sx={{borderRadius: 60}}
-                                                                    onClick={() => {setMostrar(false); setTemaState(geraPathTema(item, tema, basePathImages));} }
+                                                                    onClick={() => {setMostrar(false); setTemaState(geraPathTema(item, tema, basePathImages)); setCategoriaTemaState(item.categoria);} }
                                                                 >
                                                                     <Avatar alt="" src={retornaImagemFicha(geraPathTema(item, tema, basePathImages))}
                                                                         sx={{border: '1px solid white',
@@ -187,5 +185,6 @@ export function ModalSelecaoDeTema({ mostrar, setMostrar, setChosenState, setTem
 
 export const geraPathTema = (item, tema, basePathImages) => {
     let nome = tema.imagem?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(' ').join('').split('-').join('').replace('.png', '')
+    
     return nome
 };
