@@ -27,7 +27,13 @@ const MODAL_STYLE = {
 const TITLE_STYLE = {
   textAlign: 'center',
   marginTop: '30px',
-  color: 'rgba(0, 0, 0, 1)'
+  color: 'rgba(0, 0, 0, 1)',
+  fontFamily: 'Roboto',
+  fontSize: '55px',
+  fontWeight: 700,
+  lineHeight: '55px',
+  letterSpacing: '0em',
+  textAlign: 'center'
 }
 
 const GIF_DIV_STYLE = {
@@ -60,8 +66,8 @@ export function ModalResultado({ mostrar, setMostrar, isVencedor, isEmpate, tema
       <Modal onClose={() => setMostrar(false) } open={mostrar} style={BACKGROUND_STYLE}>
         <div style={MODAL_STYLE}>
           <div style={TITLE_STYLE}>
-            <h2>{isVencedor ? 'Você Venceu!' : isEmpate ? "Empate!" : 'Game Over!'}</h2>
-            <Typography variant='span'>{!isVencedor ?? 'Revanche?'}</Typography>
+            <p>{isVencedor ? 'Você Venceu!' : isEmpate ? "Empate!" : 'Game Over!'}</p>
+            <div style={{marginTop: '30px', fontSize: '40px'}}>{!isVencedor && 'Revanche?'}</div>
           </div>
           <div style={GIF_DIV_STYLE}>
             <img style={GIF_STYLE} src={isVencedor ? srcGif : ""} />
@@ -74,7 +80,7 @@ export function ModalResultado({ mostrar, setMostrar, isVencedor, isEmpate, tema
                         variant='contained' 
                         sx={{
                             mx: 'auto', 
-                            mt: 10, 
+                            mt: isVencedor ? 5 : 24, 
                             color: 'font.emphasis'
                         }}
                     >
