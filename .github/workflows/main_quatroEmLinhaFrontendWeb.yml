@@ -23,14 +23,14 @@ jobs:
       uses: docker/login-action@v2
       with:
         registry: https://index.docker.io/v1/
-        username: ${{ secrets.AzureAppService_ContainerUsername_b10ce841297342c98038eed2273412a9 }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_03acaa4734d54f499a7ce13972cd1144 }}
+        username: ${{ secrets.AzureAppService_ContainerUsername_51d7f3b8f5c444a7958bd5211a1255a9 }}
+        password: ${{ secrets.AzureAppService_ContainerPassword_aee7de4348074990bd8972d69ccafbbc }}
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_b10ce841297342c98038eed2273412a9 }}/danielschei/quatro-em-linha-frontend-img:${{ github.sha }}
+        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_51d7f3b8f5c444a7958bd5211a1255a9 }}/quatro-em-linha-frontend-img:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -47,5 +47,5 @@ jobs:
       with:
         app-name: 'quatroEmLinhaFrontendWeb'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_268fb97b6f4c41ca809045fc14ac403e }}
-        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_b10ce841297342c98038eed2273412a9 }}/danielschei/quatro-em-linha-frontend-img:${{ github.sha }}'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_57263e5d7f28474cbea02d3296104cdd }}
+        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_51d7f3b8f5c444a7958bd5211a1255a9 }}/quatro-em-linha-frontend-img:${{ github.sha }}'
