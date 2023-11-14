@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkquatro_em_linha_frontend=self.webpackChunkquatro_em_linha_frontend||[]).push([[693],{6693:(e,n,a)=>{a.r(n),a.d(n,{default:()=>r});var t=a(184);function r(){return(0,t.jsx)("div",{className:"body-text",children:"Ranking"})}}}]);
+//# sourceMappingURL=693.6adb78ad.chunk.js.map

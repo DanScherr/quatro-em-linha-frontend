@@ -1,10 +1,10 @@
 
 #docker build -t image_name
-# FROM nginx:stable-alpine
-# COPY build /usr/share/nginx/html
-# COPY nginx.conf /etc/nginx/conf.d/default.conf
-# EXPOSE 3000
-# CMD ["nginx","-g","daemon off;"]
+FROM nginx:stable-alpine
+COPY build /usr/share/nginx/html/
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 3000
+CMD ["nginx","-g","daemon off;"]
 
 
 # docker com nginx e 2 layers
@@ -29,39 +29,41 @@
 # CMD ["nginx","-g","daemon off;"]
 
 # SEM NGINX
-# FROM node:13.12.0-alpine
+# FROM node:21-alpine3.17
 # WORKDIR /app
 # ENV PATH /app/node_modules/.bin:$PATH
 # COPY package.json ./
 # COPY package-lock.json ./
-# RUN npm install --silent
+# RUN npm install -g npm@latest
+# RUN npm install
 # RUN npm install react-scripts@3.4.1 -g --silent
 # COPY . ./
 # CMD ["npm", "start"]
 
 
 # bb
-FROM node:21-alpine3.17
+# FROM node:16-slim
 
-USER root
+# WORKDIR /app
 
-RUN \
-    mkdir -p /usr/src/app/node_modules \
-    mkdir -p /usr/src/app/tmp
+# ENV PATH /app/node_modules/.bin:$PATH
 
-WORKDIR /usr/src/app
+# COPY package.json ./
+# COPY package-lock.json ./
 
-COPY --chown=node:node package.json ./
-COPY --chown=node:node node_modules node_modules
-COPY --chown=node:node . .
 
-RUN npm install -g npm@latest \
-    npm run build && \
-    chown -R node:node ./
+# RUN npm install --silent
+# RUN npm install react-scripts -g --silent
 
-USER node
+# COPY . ./
 
-ENTRYPOINT ["/bin/sh", "-c", "npm run server"]
+# RUN npm install -g npm@latest \
+#     npm run build && \
+#     chown -R node:node ./
+
+# USER node
+
+# ENTRYPOINT ["npm run -S server"]
 
 
 
