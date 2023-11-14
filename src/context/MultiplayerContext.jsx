@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { io } from "socket.io-client";
-import { apiAdress } from '../bin/api';
 
 const MultiplayerContext = React.createContext();
 
@@ -190,7 +189,7 @@ export const MultiplayerProvider = ({children}) => {
     const iniciandoSocket = () => {
         console.log('Tentando conectar com o socket')
         // conectando com o socket
-        const newSocket = io({path: `${apiAdress}/api/v1/gaming`}, {
+        const newSocket = io({path: '/api/v1/gaming'}, {
             transports: ['websocket'],
             });
         newSocket.on("connect", () => {

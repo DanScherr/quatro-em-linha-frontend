@@ -8,6 +8,21 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
 
+    let production = true;
+
+    const Headers = () => {
+        if (production) {
+            return {headers: {
+                'Access-Control-Allow-Origin': '*',
+                "Access-Control-Allow-Headers": "Authorization", 
+                "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+            }}
+        }
+        else {
+            return {mode: 'no-cors'}
+        }
+    }
+
     const [auth, setAuth] = React.useState(false);
     const [opcao, setOpcao] = React.useState('');
     const [cookieAuth, setCookieAuth] = React.useState(false);
@@ -19,11 +34,7 @@ export const AuthProvider = ({children}) => {
         try {
             const response = await axios.get(
                 `${apiAdress}/api/v1/usuario/${loginId}`,
-                {headers: {
-                    'Access-Control-Allow-Origin': '*',
-                    "Access-Control-Allow-Headers": "Authorization", 
-                    "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-                }}
+                Headers()
             );
             if (response.status === 200 && response.data.status === true) {
                 if (authToken) {
@@ -56,11 +67,7 @@ export const AuthProvider = ({children}) => {
                     email: email,
                     senha: senha
                 },
-                {headers: {
-                    'Access-Control-Allow-Origin': '*',
-                    "Access-Control-Allow-Headers": "Authorization", 
-                    "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-                }}
+                Headers()
             );
             if (response.status === 201 && response.data.status === true) {
                 setOpcao('login');
@@ -86,11 +93,7 @@ export const AuthProvider = ({children}) => {
                     email: email,
                     senha: senha
                 },
-                {headers: {
-                    'Access-Control-Allow-Origin': '*',
-                    "Access-Control-Allow-Headers": "Authorization", 
-                    "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-                }}
+                Headers()
             );
             if (response.status === 200 && response.data.status === true) {
                 setLogin(prev => {return {loading: false, login: true}});
@@ -124,11 +127,7 @@ export const AuthProvider = ({children}) => {
         try {
             const response = await axios.get(
                 `${apiAdress}/api/v1/usuario/${usuario}`,
-                {headers: {
-                    'Access-Control-Allow-Origin': '*',
-                    "Access-Control-Allow-Headers": "Authorization", 
-                    "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-                }}
+                Headers()
             );
             if (response.status === 200 && response.data.status === true) {
                 setCarteira(response.data.data.carteira);
@@ -147,11 +146,7 @@ export const AuthProvider = ({children}) => {
                 {
                     carteira: moedas
                 },
-                {headers: {
-                    'Access-Control-Allow-Origin': '*',
-                    "Access-Control-Allow-Headers": "Authorization", 
-                    "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-                }}
+                Headers()
             );
             if (response.status === 200 && response.data.status === true)
                 ConsultaCarteira();
@@ -169,11 +164,7 @@ export const AuthProvider = ({children}) => {
                     id_usuario: usuario,
                     id_monetizacao: idMonetizacao
                 },
-                {headers: {
-                    'Access-Control-Allow-Origin': '*',
-                    "Access-Control-Allow-Headers": "Authorization", 
-                    "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-                }}
+                Headers()
             );
             if (response.status === 200 && response.data.status === true)
                 console.log('Ficha comprada com sucesso!!')
@@ -190,11 +181,7 @@ export const AuthProvider = ({children}) => {
         try {
             const response = await axios.get(
                 `${apiAdress}/api/v1/monetizacao/${usuario}`,
-                {headers: {
-                    'Access-Control-Allow-Origin': '*',
-                    "Access-Control-Allow-Headers": "Authorization", 
-                    "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-                }}
+                Headers()
             );
             if (response.status === 200 && response.data.status === true) {
                 response.data.data.forEach(element => {
@@ -239,11 +226,7 @@ export const AuthProvider = ({children}) => {
             try {
                 const response = await axios.get(
                     `${apiAdress}/api/v1/monetizacao`,
-                    {headers: {
-                    'Access-Control-Allow-Origin': '*',
-                    "Access-Control-Allow-Headers": "Authorization", 
-                    "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-                }}
+                    Headers()
                 );
                 if (response.status === 200 && response.data.status === true) {
                     response.data.data.forEach(element => {
@@ -318,11 +301,7 @@ export const AuthProvider = ({children}) => {
         try {
             const response = await axios.get(
                 `${apiAdress}/api/v1/usuarioMonetizacao/${usuario}/with-monetizacao-by-usuario`,
-                {headers: {
-                    'Access-Control-Allow-Origin': '*',
-                    "Access-Control-Allow-Headers": "Authorization", 
-                    "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-                }}
+                Headers()
             );
             if (response.status === 200 && response.data.status === true) {
                 response.data.data.forEach(element => {

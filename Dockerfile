@@ -9,41 +9,24 @@
 
 # docker com nginx e 2 layers
 # --- first layer
-FROM node:21-alpine3.17 as buildingStage
+# FROM node:21-alpine3.17 as buildingStage
 
-LABEL stage="buildingStage"
-
-WORKDIR /app
-
-COPY ["/public", "/src", "nginx.conf", "package.json", "package-lock.json", "/app/" ]
-
-RUN [ "npm", "run", "build" ]
-RUN [ "rm", "-rf", "node_modules" ]
-
-# --- second layer
-FROM nginx:stable-alpine
-COPY --from=buildingStage build /usr/share/nginx/html
-COPY --from=buildingStage nginx.conf /etc/nginx/conf.d/default.conf
-EXPOSE 3000
-CMD ["nginx","-g","daemon off;"]
-
-
-# FROM node:21-alpine3.17 as productionStage
-
-# LABEL author="Daniel Scheicher<danielscheicher@gmail.com>"
-
-# RUN apk update && apk add bash
+# LABEL stage="buildingStage"
 
 # WORKDIR /app
 
-# RUN addgroup -S container-group && adduser -S container-user -G container-group
+# COPY . /app
 
-# USER container-user
+# RUN npm install
+# RUN npm run build
+# RUN rm -rf node_modules
 
-# COPY --from=buildingStage /app/dist/ /app/
-# COPY --from=buildingStage /app/node_modules/ /app/node_modules
-
-# CMD [ "node", "src/index.js" ]
+# --- second layer
+# FROM nginx:stable-alpine
+# COPY --from=buildingStage build /usr/share/nginx/html
+# COPY --from=buildingStage nginx.conf /etc/nginx/conf.d/default.conf
+# EXPOSE 3000
+# CMD ["nginx","-g","daemon off;"]
 
 # SEM NGINX
 # FROM node:13.12.0-alpine
@@ -55,6 +38,30 @@ CMD ["nginx","-g","daemon off;"]
 # RUN npm install react-scripts@3.4.1 -g --silent
 # COPY . ./
 # CMD ["npm", "start"]
+
+
+# bb
+FROM node:21-alpine3.17
+
+USER root
+
+RUN \
+    mkdir -p /usr/src/app/node_modules \
+    mkdir -p /usr/src/app/tmp
+
+WORKDIR /usr/src/app
+
+COPY --chown=node:node package.json ./
+COPY --chown=node:node node_modules node_modules
+COPY --chown=node:node . .
+
+RUN npm install -g npm@latest \
+    npm run build && \
+    chown -R node:node ./
+
+USER node
+
+ENTRYPOINT ["/bin/sh", "-c", "npm run server"]
 
 
 
