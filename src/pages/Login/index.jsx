@@ -81,7 +81,7 @@ export default function Login( ) {
             case 'input-email':
                 let emailError = validaEmail(e.target.value);
                 console.log(e.target.value);
-                if (emailError != null)
+                if (emailError !== null)
                 {
                     setFormComponents(prevVaules => {
                         return {
@@ -99,7 +99,7 @@ export default function Login( ) {
             case 'input-senha':
                 let senhaError = validaSenha(e.target.value);
                 console.log(e.target.value);
-                if (senhaError != null)
+                if (senhaError !== null)
                 {
                     setFormComponents(prevVaules => {
                         return {

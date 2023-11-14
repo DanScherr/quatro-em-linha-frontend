@@ -1,4 +1,4 @@
-import { Box, Grid, Modal, Typography, Button } from '@mui/material'
+import { Grid, Modal, Button } from '@mui/material'
 import { retornaGif } from "./ImportGifs";
 import React, { useState } from 'react';
 import { retornaAudio } from "./ImportAudios";
@@ -32,8 +32,7 @@ const TITLE_STYLE = {
   fontSize: '55px',
   fontWeight: 700,
   lineHeight: '55px',
-  letterSpacing: '0em',
-  textAlign: 'center'
+  letterSpacing: '0em'
 }
 
 const GIF_DIV_STYLE = {
@@ -57,7 +56,7 @@ export function ModalResultado({ mostrar, setMostrar, isVencedor, isEmpate, tema
 
   // GIFS
   let srcGif = "";
-  if (retornaGif(temaUser) != null && retornaGif(temaUser) != '')
+  if (retornaGif(temaUser) !== null && retornaGif(temaUser) !== '')
     srcGif = retornaGif(temaUser);
   else
     srcGif = retornaGif(categoriaTemaUser);
@@ -70,7 +69,7 @@ export function ModalResultado({ mostrar, setMostrar, isVencedor, isEmpate, tema
             <div style={{marginTop: '30px', fontSize: '40px'}}>{!isVencedor && 'Revanche?'}</div>
           </div>
           <div style={GIF_DIV_STYLE}>
-            <img style={GIF_STYLE} src={isVencedor ? srcGif : ""} />
+            <img style={GIF_STYLE} alt='img' src={isVencedor ? srcGif : ""} />
           </div>
           {/* Button */}
           <Grid container justifyContent={'center'}>

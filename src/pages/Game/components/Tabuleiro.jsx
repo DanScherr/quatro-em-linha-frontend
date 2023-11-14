@@ -1,11 +1,11 @@
-import { Avatar, Button, Card, Container, Grid, Input } from "@mui/material";
+import { Avatar, Button, Card, Container, Grid } from "@mui/material";
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 import { useContext, useEffect, useRef, useState } from "react";
 /** Socket */
 import { ModalResultado } from "./ModalResultado";
 import MultiplayerContext from "../../../context/MultiplayerContext";
 import AuthContext from "../../../context/AuthContext";
-import { ModalSelecaoDeTema, geraPathTema } from "./ModalSelecaoDeTema";
+import { ModalSelecaoDeTema } from "./ModalSelecaoDeTema";
 import { retornaImagemFicha } from "./ImportFichas";
 import { retornaAudio } from "./ImportAudios";
 
@@ -25,7 +25,6 @@ export default function Tabuleiro(  ) {
         statusJogo, setStatusJogo,
         myTurn, setTurn,
         myChosenTheme, setChosenTheme,
-        // aindaEhPossivelVencer,
         verificarEmpate,
         verificarVitoria,
         posicionaFichaAoFinalDaColuna,
@@ -37,7 +36,7 @@ export default function Tabuleiro(  ) {
 
     const {userId} = useContext(AuthContext);
 
-    const [delay, setDelay] = useState(1000);
+    const [delay] = useState(1000);
     const [isRunning, setIsRunning] = useState(false);
 
     useInterval(() => {
@@ -92,11 +91,11 @@ export default function Tabuleiro(  ) {
     }, [multiplayerEstabelecido])
 
     useEffect(() => {
-        if (statusJogo != null && statusJogo === 'winner'){
+        if (statusJogo !== null && statusJogo === 'winner'){
             conversaComSocket();
             encerrarJogo();
         }
-        else if (statusJogo != null && statusJogo === 'empate') {
+        else if (statusJogo !== null && statusJogo === 'empate') {
             setEmpateState(true);
             encerrarJogo();
         }
@@ -194,13 +193,6 @@ export default function Tabuleiro(  ) {
     useEffect(() => {
         conversaComSocket();
     }, [myChosenTheme]);
-
-    const handleInput = (e) => {
-        e.preventDefault();
-        console.log(e.target.value)
-        setChosenTheme(e.target.value);
-        setTemaState(e.target.value);
-    };
 
     return (
         <Container sx={{mx: 'auto', justifyContent: 'center'}}>  

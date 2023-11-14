@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { Card, CardContent, Typography } from "@mui/material";
+import { Card, CardContent } from "@mui/material";
 import p0 from './../../../../static/images/propaganda/propaganda-0.png'
 import p1 from './../../../../static/images/propaganda/propaganda-1.png'
 import p2 from './../../../../static/images/propaganda/propaganda-2.png'

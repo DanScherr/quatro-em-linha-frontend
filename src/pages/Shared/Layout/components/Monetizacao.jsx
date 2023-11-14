@@ -1,7 +1,6 @@
 import { Card, CardContent, Grid, Typography, Button, Accordion, AccordionSummary, List, AccordionDetails, Avatar, Box } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import './Monetizacao.css'
-import imgDefault from './../../../../static/images/default-image-icon.png';
 import AuthContext from "../../../../context/AuthContext";
 import { useContext, useEffect, useState } from "react";
 import { retornaImagemFicha } from "../../../Game/components/ImportFichas";

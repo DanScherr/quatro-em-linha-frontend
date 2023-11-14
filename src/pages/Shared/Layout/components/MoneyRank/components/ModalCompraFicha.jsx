@@ -1,5 +1,5 @@
-import { Avatar, Box, Button, Grid, Modal } from '@mui/material'
-import React, { useContext, useEffect, useState } from 'react';
+import { Avatar, Button, Grid, Modal } from '@mui/material'
+import React, { useContext, useEffect } from 'react';
 import { Typography } from "@mui/material";
 import AuthContext from '../../../../../../context/AuthContext';
 import { retornaImagemFicha } from '../../../../../Game/components/ImportFichas';

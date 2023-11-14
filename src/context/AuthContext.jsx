@@ -59,7 +59,6 @@ export const AuthProvider = ({children}) => {
         setCadastro(prev => {return {loading: true, cadastro: false}});
         console.log('Realizando cadastro')
         try {
-            let data = [];
             const response = await axios.post(
                 `${apiAdress}/api/v1/usuario`,
                 {

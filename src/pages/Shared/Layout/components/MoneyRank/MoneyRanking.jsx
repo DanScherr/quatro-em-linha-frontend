@@ -6,7 +6,7 @@ import AuthContext from "../../../../../context/AuthContext";
 import { ModalCarteira } from "./components/ModalCarteira";
 import AddIcon from '@mui/icons-material/Add';
 
-export default function MoneyRanking( {} ) {
+export default function MoneyRanking( ) {
     const {
         ConsultaCarteira,
         carteira

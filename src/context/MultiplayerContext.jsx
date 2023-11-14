@@ -116,7 +116,7 @@ export const MultiplayerProvider = ({children}) => {
     
         // Verificar na horizontal
         for (let i = 0; i < 4; i++) {
-            if (coluna + i >= colunas || (tabuleiro[linha].casas[coluna + i] !== posicaoAtual && tabuleiro[linha].casas[coluna + i] != 0)) {
+            if (coluna + i >= colunas || (tabuleiro[linha].casas[coluna + i] !== posicaoAtual && tabuleiro[linha].casas[coluna + i] !== 0)) {
                 break;
             }
             if (i === 3) {
@@ -136,7 +136,7 @@ export const MultiplayerProvider = ({children}) => {
     
         // Verificar na diagonal (superior esquerda para inferior direita)
         for (let i = 0; i < 4; i++) {
-            if (linha + i >= linhas || coluna + i >= colunas || (tabuleiro[linha + i].casas[coluna + i] !== posicaoAtual && tabuleiro[linha + i].casas[coluna + i] != 0)) {
+            if (linha + i >= linhas || coluna + i >= colunas || (tabuleiro[linha + i].casas[coluna + i] !== posicaoAtual && tabuleiro[linha + i].casas[coluna + i] !== 0)) {
                 break;
             }
             if (i === 3) {
@@ -174,7 +174,7 @@ export const MultiplayerProvider = ({children}) => {
     const [ mostrarModalState, setMostrarModalState ] = React.useState(false);
     const [ mostrarModalTemaState, setMostrarModalTemaState ] = React.useState(false);
     const [disabledButton, setDisabledButton] = React.useState(false);
-    const [timer, setTimer] = React.useState(15);
+    const [timer] = React.useState(15);
     const [statusJogo, setStatusJogo] = React.useState(null);
     const [socket, setSocket] = React.useState({
         set: false, id: null, 

@@ -2,10 +2,7 @@ import React, { useContext, useState } from "react";
 import { Box, Button } from "@mui/material";
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import Game from "../Game";
-// import { useNavigate } from "react-router-dom";
-// import {Modal} from "@mui/material";
 import MultiplayerContext from "../../context/MultiplayerContext";
-import icon from './../../static/images/icon/logo192.png'
 
 
 export default function Home(  ) {
