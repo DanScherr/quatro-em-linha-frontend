@@ -191,9 +191,8 @@ export const MultiplayerProvider = ({children}) => {
         console.log('Tentando conectar com o socket')
         // conectando com o socket
         const newSocket = io(`
-            ${apiAdress}`, 
+            ${apiAdress}/api/v1/gaming}`, 
             {
-                path: `/api/v1/gaming`}, {
                 transports: ['websocket'],
             });
         newSocket.on("connect", () => {
