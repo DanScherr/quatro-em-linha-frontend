@@ -8,7 +8,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
 
-    let production = true;
+    let production = false;
 
     const Headers = () => {
         if (production) {
@@ -33,7 +33,7 @@ export const AuthProvider = ({children}) => {
 
         try {
             const response = await axios.get(
-                `${apiAdress}/api/v1/usuario/${loginId}`,
+                production?`${apiAdress}`: '' + `/api/v1/usuario/${loginId}`,
                 Headers()
             );
             if (response.status === 200 && response.data.status === true) {
@@ -61,7 +61,7 @@ export const AuthProvider = ({children}) => {
         try {
             let data = [];
             const response = await axios.post(
-                `${apiAdress}/api/v1/usuario`,
+                production?`${apiAdress}`: '' + `/api/v1/usuario`,
                 {
                     nome: nome,
                     email: email,
@@ -88,7 +88,7 @@ export const AuthProvider = ({children}) => {
         console.log('Realizando login..')
         try {
             const response = await axios.post(
-                `${apiAdress}/api/v1/login`,
+                production?`${apiAdress}`: '' + `/api/v1/login`,
                 {
                     email: email,
                     senha: senha
@@ -126,7 +126,7 @@ export const AuthProvider = ({children}) => {
         let usuario = Cookies.get('userId');
         try {
             const response = await axios.get(
-                `${apiAdress}/api/v1/usuario/${usuario}`,
+                production?`${apiAdress}`: '' + `/api/v1/usuario/${usuario}`,
                 Headers()
             );
             if (response.status === 200 && response.data.status === true) {
@@ -142,7 +142,7 @@ export const AuthProvider = ({children}) => {
         let usuario = Cookies.get('userId');
         try {
             const response = await axios.put(
-                `${apiAdress}/api/v1/usuario/${usuario}`,
+                production?`${apiAdress}`: '' + `/api/v1/usuario/${usuario}`,
                 {
                     carteira: moedas
                 },
@@ -159,7 +159,7 @@ export const AuthProvider = ({children}) => {
         let usuario = Cookies.get('userId');
         try {
             const response = await axios.post(
-                `${apiAdress}/api/v1/usuarioMonetizacao/`,
+                production?`${apiAdress}`: '' + `/api/v1/usuarioMonetizacao/`,
                 {
                     id_usuario: usuario,
                     id_monetizacao: idMonetizacao
@@ -180,7 +180,7 @@ export const AuthProvider = ({children}) => {
         let usuario = Cookies.get('userId');
         try {
             const response = await axios.get(
-                `${apiAdress}/api/v1/monetizacao/${usuario}`,
+                production?`${apiAdress}`: '' + `/api/v1/monetizacao/${usuario}`,
                 Headers()
             );
             if (response.status === 200 && response.data.status === true) {
@@ -225,7 +225,7 @@ export const AuthProvider = ({children}) => {
             // let usuario = Cookies.get('userId');
             try {
                 const response = await axios.get(
-                    `${apiAdress}/api/v1/monetizacao`,
+                    production?`${apiAdress}`: '' + `/api/v1/monetizacao`,
                     Headers()
                 );
                 if (response.status === 200 && response.data.status === true) {
@@ -300,7 +300,7 @@ export const AuthProvider = ({children}) => {
         let data = [];
         try {
             const response = await axios.get(
-                `${apiAdress}/api/v1/usuarioMonetizacao/${usuario}/with-monetizacao-by-usuario`,
+                production?`${apiAdress}`: '' + `/api/v1/usuarioMonetizacao/${usuario}/with-monetizacao-by-usuario`,
                 Headers()
             );
             if (response.status === 200 && response.data.status === true) {
