@@ -191,7 +191,7 @@ export const MultiplayerProvider = ({children}) => {
         console.log('Tentando conectar com o socket')
         // conectando com o socket
         const newSocket = io(
-            `https://quatroemlinhabackendweb.azurewebsites.net/api/v1/gaming}`, 
+            `https://quatroemlinhabackendweb.azurewebsites.net/api/v1/gaming`, 
             {
                 transports: ['websocket']
             });
