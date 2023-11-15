@@ -193,7 +193,7 @@ export const MultiplayerProvider = ({children}) => {
         const newSocket = io(
             `https://quatroemlinhabackendweb.azurewebsites.net`, 
             {
-                path: '/api/v1/gaming/'
+                path: '/api/v1/gaming'
             },
             {
                 transports: ['websocket']
