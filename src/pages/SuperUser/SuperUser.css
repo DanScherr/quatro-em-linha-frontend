@@ -1,0 +1,65 @@
+
+.superuser-background{
+    position: fixed !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background-color: #212121 !important;
+    z-index: 1005 !important;
+}
+
+.superuser-card{
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    background-color: #e0e0e0 !important;
+    width: 500px !important;
+    height: 600px !important;
+    border-radius: 30px !important;
+}
+
+.superuser-title{
+    text-align: center !important;
+    margin-top: 32px !important;
+    color: rgba(0, 0, 0, 1) !important;
+    font-family: Roboto !important;
+    font-size: 28px !important;
+    font-weight: 400 !important;
+    line-height: 42px !important;
+    letter-spacing: 0em
+}
+
+.superuser.MuiInput-root:before, :not(.Mui-error){
+    border-bottom-color: #000 !important;
+}
+
+.superuser-button-primary{
+    background-color: #9500ae !important
+}
+
+.superuser-button-primary:hover{
+    background-color: #d500f9 !important;
+    border-color: #fff !important;
+    box-shadow: none !important;
+    color: #fff !important
+}
+
+.superuser-button-secondary{
+    border: 1px solid #ff4081 !important; 
+    background-color: #e0e0e0 !important;
+    color: #ff4081 !important;
+    margin-top: 5px !important;
+    margin-bottom: 5px !important
+}
+
+.superuser-button-secondary:hover{
+    background-color: #ff4081 !important; 
+    border-color: #fff !important;
+    box-shadow: none !important;
+    color: #fff !important;
+    opacity: 75% !important
+} 

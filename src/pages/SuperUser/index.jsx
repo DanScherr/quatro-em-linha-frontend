@@ -1,67 +1,92 @@
-import { Grid, Modal, Button } from '@mui/material'
-import React from 'react';
+import { Box, Button, Stack } from "@mui/material";
+import CadastroFicha from "./CadastroFicha";
+import CadastroPropaganda from "./CadastroPropaganda";
+import Cotacao from "./Cotacao";
+import { useContext } from "react";
+import AuthContext from "../../context/AuthContext";
+import './SuperUser.css';
 
-const BACKGROUND_STYLE = {
-  position: 'fixed',
-  top: '0',
-  bottom: '0',
-  left: '0',
-  right: '0',
-  backgroundColor: 'rgb(255, 255, 255, 0.7)',
-  zIndex: '1005'
-}
+export default function SuperUser() {
+    const {
+        opcao,
+        setOpcao
+    } = useContext(AuthContext);
 
-const MODAL_STYLE = {
-  position: 'fixed',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  backgroundColor: 'rgba(255, 255, 255, 0.6)',
-  width: '500px',
-  height: '500px',
-  borderRadius: '21px'
-}
-
-const TITLE_STYLE = {
-  textAlign: 'center',
-  marginTop: '30px',
-  color: 'rgba(0, 0, 0, 1)',
-  fontFamily: 'Roboto',
-  fontSize: '55px',
-  fontWeight: 700,
-  lineHeight: '55px',
-  letterSpacing: '0em',
-  textAlign: 'center'
-}
-
-export default function ModalResultado() {
-    const resolveClick = () => {
-        console.log('botao')
-    };
+    const {RealizaLogout} = useContext(AuthContext)
 
     return (
-      <Modal open={true} style={BACKGROUND_STYLE}>
-        <div style={MODAL_STYLE}>
-          <div style={TITLE_STYLE}>
-            UM TITULO
-          </div>
-
-          {/* Button */}
-          <Grid container justifyContent={'center'}>
-                <Grid item xs={4.3}>
-                    <Button
-                        onClick={resolveClick}
-                        variant='contained' 
-                        sx={{
-                            mx: 'auto', 
-                            color: 'font.emphasis'
-                        }}
+        <>
+        {
+        opcao === `ficha`?
+            // Ficha
+            <CadastroFicha />
+        : opcao === `propaganda`?
+            // Propaganda
+            <CadastroPropaganda />
+        : opcao === `cotacao`?
+        // cotacao
+            <Cotacao />
+        :
+            // Escolha entre as opçoes
+            <>
+                <Box 
+                    className='superuser-background'
+                >
+                    <Stack container 
+                        spacing={4} 
+                        direction='column'
+                        justifyContent="center"
+                        alignItems="center"
+                        className='superuser-card'
                     >
-                        Botao
-                    </Button>
-                </Grid>
-            </Grid>
-        </div>
-      </Modal>
-    );
-};
+                        <Button
+                            onClick={() => setOpcao(`ficha`)}
+                            variant="outlined" 
+                            sx={{
+                                color: `black`, width: '250px', mx: 'auto', borderColor: `black`,
+                                '&:hover': {
+                                    color: 'primary.main',
+                                }
+                            }}>
+                            CADASTRAR FICHAS
+                        </Button>
+                        <Button
+                            onClick={() => setOpcao(`propaganda`)}
+                            variant="outlined"
+                            sx={{
+                                color: `black`, width: '250px', mx: 'auto', borderColor: `black`,
+                                '&:hover': {
+                                    color: 'primary.main',
+                                }
+                            }}>
+                            CADASTRAR PROPAGANDA
+                        </Button>
+                        <Button
+                            onClick={() => setOpcao(`cotacao`)}
+                            variant="outlined"
+                            sx={{
+                                color: `black`, width: '250px', mx: 'auto', borderColor: `black`,
+                                '&:hover': {
+                                    color: 'primary.main',
+                                }
+                            }}>
+                            ALTERAR COTAÇÃO
+                        </Button>
+                        <Button
+                            onClick={() => {RealizaLogout();}}
+                            variant="outlined"
+                            sx={{
+                                color: `black`, width: '250px', mx: 'auto', borderColor: `black`,
+                                '&:hover': {
+                                    color: 'primary.main',
+                                }
+                            }}>
+                            LOGOUT
+                        </Button>
+                    </Stack>
+                </Box>           
+            </>
+            }
+        </>  
+    )
+}
