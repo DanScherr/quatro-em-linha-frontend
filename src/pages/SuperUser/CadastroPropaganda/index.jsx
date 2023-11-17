@@ -28,7 +28,7 @@ export default function CadastroPropaganda() {
                     <FormControl sx={{mb: 3, marginTop: '20px'}}> 
                         <InputLabel sx={{color:'#000'}} htmlFor='input-nome-anuncio'>Nome do anúncio:</InputLabel>
                         <Input 
-                            className='superuser MuiInput-underline-root'
+                            className='superuser'
                             // onChange={handleInputs}
                             // onBlur={handleBlur}
                             id="input-nome-anuncio" 
@@ -41,7 +41,7 @@ export default function CadastroPropaganda() {
                     <FormControl sx={{mb: 3}}>
                         <InputLabel sx={{color:'#000'}} htmlFor='input-empresa-anuncio'>Empresa do Anúncio:</InputLabel>
                         <Input
-                            className='superuser MuiInput-underline-root'
+                            className='superuser'
                             // onChange={handleInputs}
                             // onBlur={handleBlur} 
                             id="input-empresa-anuncio" 
@@ -54,7 +54,7 @@ export default function CadastroPropaganda() {
                     <FormControl /*error={formComponents.senha.error} required={true}*/ sx={{mb: 3}}>
                         <InputLabel sx={{color:'#000'}} htmlFor='input-imagem-anuncio'>Imagem do Anúncio:</InputLabel>
                         <Input 
-                            className='superuser MuiInput-underline-root'
+                            className='superuser'
                             // onChange={handleInputs}
                             // onBlur={handleBlur}
                             id="input-imagem-anuncio" 
