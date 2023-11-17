@@ -39,19 +39,36 @@ export function ModalCarteira({ mostrar, setMostrar }) {
         AlteraCarteira,
         ConsultaCarteira, 
         setOpenNotificacao,
+        obterCotacaoDoBancoDeDados,
     } = useContext(AuthContext);
 
     // VARIAVEIS DO FORMULARIO
     const [moedas, setMoedas] = useState(0);
     const [real, setReal] = useState(0);
+    const [cotacao, setCotacao] = useState(null);
+
+    useEffect(() => {
+        const fetchCotacao = async () => {
+            try {
+                const cotacaoDoBanco = await obterCotacaoDoBancoDeDados();
+                setCotacao(cotacaoDoBanco || []);
+            } catch (error) {
+                console.error('Erro ao obter cotação do banco de dados:', error);
+            }
+        };
+
+        fetchCotacao();
+    }, []);
 
     const handleInputs = (e) => {
         e.preventDefault();
         let varMoedas = e.target.value;
         let soma = parseInt(carteira) + parseInt(varMoedas);
         setMoedas(soma);
-        setReal(varMoedas/50);
+        setReal((cotacao*varMoedas) / 100);
     };
+
+
 
     const resolveClick = () => {
         AlteraCarteira(moedas);
@@ -104,7 +121,7 @@ export function ModalCarteira({ mostrar, setMostrar }) {
                     color: 'font.main',
                     display: 'inline'
                 }}>
-                    {'R$ 2,00'}
+                    {cotacao ? `R$ ${cotacao.toFixed(2)}` : 'Carregando...'}
                 </Typography>
                 <Typography variant='span'
                 sx={{

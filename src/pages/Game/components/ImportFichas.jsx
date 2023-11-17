@@ -207,6 +207,6 @@ export const retornaImagemFicha= (nome) => {
             return  dccomicsatt;
 
         default:
-            break;
+            return "";
     }
 }
