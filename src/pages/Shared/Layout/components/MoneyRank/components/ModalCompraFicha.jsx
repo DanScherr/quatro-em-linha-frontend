@@ -53,6 +53,7 @@ export function ModalCompraFicha({ mostrar, setMostrar, item, tema }) {
         if (Number(carteira) - Number(tema.valor) >= 0){
             AlteraCarteira(Number(carteira) - Number(tema.valor));
             CompraFicha(tema.id_Mon);
+            window.location.reload();
             setOpenNotificacao({
                 msg: 'Compra realizada com sucesso!',
                 open: true,
@@ -87,7 +88,7 @@ export function ModalCompraFicha({ mostrar, setMostrar, item, tema }) {
                     <Grid item xs={12}>
                         <Avatar
                             alt="tema.titulo" 
-                            src={retornaImagemFicha(geraPathTema(item, tema, basePathImages))}
+                            src={retornaImagemFicha(geraPathTema(item, tema, basePathImages)) == "" ? geraPathTema(item, tema, basePathImages) : retornaImagemFicha(geraPathTema(item, tema, basePathImages))}
                             sx={{
                                 border: '1px solid white',
                                 color: 'font.main',

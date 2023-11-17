@@ -3,6 +3,7 @@ import { createContext } from "react";
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { apiAdress } from '../bin/api';
+import { redirect } from 'react-router-dom';
 
 const AuthContext = createContext();
 
@@ -136,6 +137,24 @@ export const AuthProvider = ({children}) => {
         } catch (error) {
             console.error(error);
         };
+    };
+
+    const obterCotacaoDoBancoDeDados = async () => {
+        try {
+            const response = await axios.get(
+                production ? `${apiAdress}` : '' + `/api/v1/cotacao/1`,
+                Headers()
+            );
+            if (response.status === 200 && response.data.status === true) {
+                return response.data.data.valor_Con; // Supondo que a cotação está no campo 'cotacao'
+            } else {
+                console.error('Erro ao obter cotação do banco de dados:', response);
+                return null;
+            }
+        } catch (error) {
+            console.error('Erro ao obter cotação do banco de dados:', error);
+            return null;
+        }
     };
 
     const AlteraCarteira = async (moedas) => {
@@ -342,7 +361,27 @@ export const AuthProvider = ({children}) => {
         };
     };
 
-    // Notificacao
+    //Propaganda
+
+    const propagandaData = async () => {
+        try {
+            const response = await axios.get(
+                production ? `${apiAdress}` : '' + `/api/v1/anuncio`,
+                Headers()
+            );
+            if (response.status === 200 && response.data.status === true) {
+                return response.data.data; // Supondo que a cotação está no campo 'cotacao'
+            } else {
+                console.error('Erro ao obter Propaganda do banco de dados:', response);
+                return null;
+            }
+        } catch (error) {
+            console.error('Erro ao obter Propaganda do banco de dados:', error);
+            return null;
+        }
+    };
+
+    // Notificacaozz
     const [openNotificacao, setOpenNotificacao] = React.useState({
         msg: '',
         open: false,
@@ -368,6 +407,7 @@ export const AuthProvider = ({children}) => {
             ConsultaUsuarioTemas, usuarioTemas,
             ConsultaCarteira, AlteraCarteira, carteira,
             CompraFicha,
+            obterCotacaoDoBancoDeDados, propagandaData,
             openNotificacao, setOpenNotificacao
         }}
     >
