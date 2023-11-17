@@ -28,7 +28,7 @@ export default function CadastroPropaganda() {
                     <FormControl /*error={formComponents.senha.error} required={true}*/ sx={{mb: 3, marginTop: '80px'}}>
                         <InputLabel sx={{color:'#000'}} htmlFor='input-valor-cotacao'>Valor de 100 moedas do jogo em R$:</InputLabel>
                         <Input
-                            className='superuser MuiInput-underline-root'
+                            className='superuser'
                             type="number"
                             // onChange={handleInputs}
                             // onBlur={handleBlur}
