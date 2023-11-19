@@ -68,6 +68,7 @@ import flash from './../../../static/images/fichas/dc/flash.png';
 import dccomicsatt from './../../../static/images/fichas/dc/dc-comics-att.png';
 
 export const retornaImagemFicha= (nome) => {
+
     switch (nome) {
         case 'rey':
             return rey;
@@ -207,6 +208,6 @@ export const retornaImagemFicha= (nome) => {
             return  dccomicsatt;
 
         default:
-            return "";
+            return nome;
     }
 }

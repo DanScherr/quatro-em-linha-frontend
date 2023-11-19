@@ -88,7 +88,7 @@ export function ModalCompraFicha({ mostrar, setMostrar, item, tema }) {
                     <Grid item xs={12}>
                         <Avatar
                             alt="tema.titulo" 
-                            src={retornaImagemFicha(geraPathTema(item, tema, basePathImages)) == "" ? geraPathTema(item, tema, basePathImages) : retornaImagemFicha(geraPathTema(item, tema, basePathImages))}
+                            src={retornaImagemFicha(geraPathTema(tema)) == "" ? geraPathTema(tema) : retornaImagemFicha(geraPathTema(tema))}
                             sx={{
                                 border: '1px solid white',
                                 color: 'font.main',

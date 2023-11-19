@@ -26,3 +26,22 @@ export function validaSenha(senha) {
 
     return null;
 }
+
+export function validaValor(valor) {
+    let isNumeric = isNumber(valor);
+
+    console.log("VALOR " + valor)
+
+    if (valor == null) 
+        return "O campo deve ser preenchido";
+    if (!isNumeric)
+        return "O valor precisa ser um número válido";
+    if (valor < 1)
+        return "O valor não pode ser menor ou igual a 0";
+
+    return null;
+}
+
+function isNumber(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+}
