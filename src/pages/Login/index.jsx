@@ -193,7 +193,7 @@ export default function Login( ) {
 
                 {/* BOTAO SUBMIT */}
                 <Button onClick={handleSubmit} variant="outlined" sx={{my: 0.2}}>
-                    Submit
+                    Confirma
                 </Button>
                 {/* BOTAO VOLTAR */}
                 <Button onClick={() => setOpcao('')}

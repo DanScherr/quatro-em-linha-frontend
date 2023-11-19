@@ -6,10 +6,10 @@ export default function Sobre(  ) {
     
     return (
         <Card sx={{
-            height: '605px', m: 2, 
+            height: '515px', m: 2, 
             backgroundColor: 'background.card',
             borderRadius: 5,
-            mt: 11.6,
+            mt: 7,
         }}>
             <CardContent>
                 <Typography variant="span" sx={{
@@ -20,19 +20,19 @@ export default function Sobre(  ) {
                 </Typography>
 
                 <Card sx={{
-                    height: '100%', m: 2, display: 'block', 
+                    height: '100%', m: 1, display: 'block', 
                     borderRadius: 5
                 }}>
                     <CardContent sx={{p: 2}}>
                         <List
                             sx={{
                                 width: '100%',
-                                // maxWidth: 360,
                                 position: 'relative',
                                 overflow: 'auto',
                                 maxHeight: 450,
                                 '& ul': { padding: 0 },
-                                my: 'auto'
+                                my: 'auto',
+                                '& li': { paddingTop: '2px', paddingBottom: '4px' }
                             }}
                         >
                             {regrasDoJogo.map((item, i) => {
@@ -41,8 +41,8 @@ export default function Sobre(  ) {
                                         <ListItemText
                                             primary={
                                                 <React.Fragment>
-                                                    <LabelIcon sx={{display: 'inline', mr: 1, fontWeight: 700}} />
-                                                    {`nº ${i + 1}`}
+                                                    <LabelIcon sx={{display: 'inline', fontWeight: 700}} />
+                                                    {`  nº ${i + 1}`}
                                                 </React.Fragment>
                                             }
                                             secondary={
@@ -66,7 +66,7 @@ export default function Sobre(  ) {
 }
 
 const regrasDoJogo = [
-    ' Joga-se sempre entre 2 jogadores e sobre um tabuleiro de 7x6 espaços.',
+    'Joga-se sempre entre 2 jogadores e sobre um tabuleiro de 7x6 espaços.',
     'Em cada turno cada jogador coloca uma ficha da sua cor numa coluna e esta se posiciona na primeira casa disponível.',
     'Cada turno tem 15 segundos.',
     'O que conseguir colocar 4 fichas da mesma cor seguidas na horizontal, vertical ou diagonal ganha.',
