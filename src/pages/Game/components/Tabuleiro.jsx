@@ -43,8 +43,6 @@ export default function Tabuleiro(  ) {
     const [highlightedColumn, setHighlightedColumn] = useState(null);
     const [tempGameState, setTempGameState] = useState([]);
     const [isAnimating, setIsAnimating] = useState(false);
-    const [animationCompleted, setAnimationCompleted] = useState(false);
-
 
     const handleMouseEnter = (columnIndex) => {
     setHighlightedColumn(columnIndex);
@@ -98,7 +96,6 @@ export default function Tabuleiro(  ) {
                         // Aguarda antes de encerrar a animação
                         await delayAnima(animationDelay);
                         // Atualiza a célula inicial para casaBackgroundVazia
-                        tempGameState[0].casas[colunaState] = casaBackgroundVazia;
                         setGameState(tempGameState);
                     } else {
                         // Chama a próxima animação
@@ -320,7 +317,10 @@ export default function Tabuleiro(  ) {
                                             color: 'primary.main'
                                         }
                                     }
-                                }/>
+                                }
+                                onMouseEnter = {() => handleMouseEnter(i)}
+                                onMouseLeave = {handleMouseLeave}
+                                />
                             </Button>
                         </Grid>
                     )
@@ -354,8 +354,6 @@ export default function Tabuleiro(  ) {
                                             ? '0 0 5px 5px white' 
                                             : 'none'
                                     }}
-                                    onMouseEnter = {() => handleMouseEnter(j)}
-                                    onMouseLeave = {handleMouseLeave}
                                 >
                                     {''}
                                 </Avatar>
@@ -413,4 +411,4 @@ function stopMusic() {
     audioMusic.currentTime = 0; // Reinicia a reprodução para o início
 }
 
-const casaBackgroundVazia = 'radial-gradient(50% 50% at 50% 50%, rgba(39, 39, 39, 0) 0%, rgba(29, 28, 28, 0.72) 100%)';
+const casaBackgroundVazia = '#6c757d';

@@ -133,7 +133,7 @@ export function ModalSelecaoDeTema({ mostrar, setMostrar, setChosenState, setTem
                                                                     sx={{borderRadius: 60}}
                                                                     onClick={() => {setMostrar(false); setTemaState(retornaImagemFicha(geraPathTema(tema))); setCategoriaTemaState(item.categoria);} }
                                                                 >
-                                                                    <Avatar alt="" src={retornaImagemFicha(geraPathTema(tema)) == "" ? geraPathTema(tema) : retornaImagemFicha(geraPathTema(tema))}
+                                                                    <Avatar alt="" src={retornaImagemFicha(geraPathTema(tema)) === "" ? geraPathTema(tema) : retornaImagemFicha(geraPathTema(tema))}
                                                                         sx={{border: '1px solid white',
                                                                         color: 'font.main',
                                                                         }}
