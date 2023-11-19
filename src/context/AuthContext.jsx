@@ -123,8 +123,12 @@ export const AuthProvider = ({children}) => {
     };
 
     const RealizaLogout = () => {
+        console.log("DESLOGANDO...");
+
         Cookies.remove('authToken');
         Cookies.remove('userId');
+        setAuth(false);
+        setIsAdmin(false);
         setLogin(prev => {return {loading: false, login: false}});
     }
 

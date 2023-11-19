@@ -7,7 +7,6 @@ export default function Auth( {children} ) {
     const {
         ValidaCookie,
         auth,
-        userId,
         isAdmin,
     } = useContext(AuthContext);
 
@@ -27,5 +26,3 @@ export default function Auth( {children} ) {
         </>
     )
 }
-
-// <Route path="/super-user" element={<SuperUser />} />
