@@ -40,6 +40,80 @@ export default function Tabuleiro(  ) {
     const [delay, setDelay] = useState(1000);
     const [isRunning, setIsRunning] = useState(false);
 
+    const [highlightedColumn, setHighlightedColumn] = useState(null);
+    const [tempGameState, setTempGameState] = useState([]);
+    const [isAnimating, setIsAnimating] = useState(false);
+    const [animationCompleted, setAnimationCompleted] = useState(false);
+
+
+    const handleMouseEnter = (columnIndex) => {
+    setHighlightedColumn(columnIndex);
+    };
+
+    const handleMouseLeave = () => {
+    setHighlightedColumn(null);
+    };
+
+    const delayAnima = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+    const animationDelay = 150; // tempo da animação em milissegundos
+
+    useEffect(() => {
+        // Tocar música quando o tema é escolhido
+        if (myChosenTheme && myChosenTheme !== 'grey' && myChosenTheme !== '' ) {
+            playMusic();
+        } else {
+            return () => {
+                stopMusic();
+            };
+        }
+    }, [myChosenTheme]);
+
+    useEffect(() => {
+        // Parar música quando o jogo termina
+        if (statusJogo === 'winner' || statusJogo === 'empate' || statusJogo === 'loser') {
+            stopMusic();
+        }
+    }, [statusJogo]);
+
+    const animateCellColors = async (cellIndex) => {
+        if (!isAnimating && cellIndex < gameState.length) {
+            setIsAnimating(true);
+            const currentCell = gameState[cellIndex];
+            if (currentCell && Array.isArray(currentCell.casas)) {
+                const cellContent = currentCell.casas[colunaState];
+                if (cellContent === 0) {
+                    const animationTheme = myChosenTheme;
+                    // Cria uma cópia do estado do jogo
+                    const tempGameState = gameState.map(row => ({ ...row, casas: [...row.casas] }));
+                    // Atualiza o estado temporário para refletir a animação
+                    tempGameState[cellIndex].casas[colunaState] = animationTheme;
+                    setGameState(tempGameState);
+                    // Aguarda o tempo de animação
+                    await delayAnima(animationDelay);
+                    // Volta para a cor original
+                    tempGameState[cellIndex].casas[colunaState] = casaBackgroundVazia;
+                    setGameState(tempGameState);
+                    // Verifica se é a última célula
+                    if (cellIndex === gameState.length - 1) {
+                        // Aguarda antes de encerrar a animação
+                        await delayAnima(animationDelay);
+                        // Atualiza a célula inicial para casaBackgroundVazia
+                        tempGameState[0].casas[colunaState] = casaBackgroundVazia;
+                        setGameState(tempGameState);
+                    } else {
+                        // Chama a próxima animação
+                        await animateCellColors(cellIndex + 1);
+                    }
+                } else {
+                    // Se a célula não estiver vazia, pula para a próxima sem animação
+                    await animateCellColors(cellIndex + 1);
+                }
+            }
+        }
+    
+        setIsAnimating(false);
+    };
+
     useInterval(() => {
         if (stopWatch > 0)
             setStopWatch(stopWatch - 1);
@@ -123,25 +197,31 @@ export default function Tabuleiro(  ) {
 
     // Roda quando o evento do botão é gerado
     useEffect(() => {
-        // Chama função para alocar ficha ao final da coluna selecionada
-        let novoArray = posicionaFichaAoFinalDaColuna(gameState, colunaState);
-        setTemaState(myChosenTheme);
-        setTurn(false);
-        // Chama função que envia jogada para o outro jogador
-        if (socket.set) {
-            conversaComSocket();
+
+        if (gameState.length > 0){
+            animateCellColors(0);
+            // Adiciona um atraso de 1000ms antes de executar a lógica seguinte
+            const delayBeforeNextLogic = setTimeout(() => {
+                // Chama função para alocar ficha ao final da coluna selecionada
+                let novoArray = posicionaFichaAoFinalDaColuna(gameState, colunaState);
+                setTemaState(myChosenTheme);
+                setTurn(false);
+                // Chama função que envia jogada para o outro jogador
+                if (socket.set) {
+                    conversaComSocket();
+                }
+                setColunaState(-1);
+                setGameState(novoArray);
+                // Roda lógica para saber se o jogador ganhou
+                setVencedorState(verificarVitoria(gameState));
+                // Roda lógica para saber o jogo empatou (terminou sem vitória)
+                setEmpateState(verificarEmpate(gameState));
+                //console.log("empate " + empateState);
+            }, 1000);
+    
+            // Limpa o timeout ao desmontar o componente ou quando a dependência colunaState mudar
+            return () => clearTimeout(delayBeforeNextLogic);
         }
-
-        setColunaState(-1);
-        setGameState(novoArray);
-
-        // Roda lógica para saber se o jogador ganhou
-        setVencedorState(verificarVitoria(gameState));
-
-        // Roda lógica para saber o jogo empatou (terminou sem vitória)
-        setEmpateState(verificarEmpate(gameState));
-        //console.log("emapte " + empateState);
-
     }, [colunaState]);
 
     // Roda quando um vencedor é determinado
@@ -214,7 +294,7 @@ export default function Tabuleiro(  ) {
                                             false : 
                                             true
                                 } 
-                                onClick={() => {setColunaState(i); playAudio()}}
+                                onClick={() => {setColunaState(i); playAudio(); }}
                                 sx={{
                                     height: '20px',
                                     mr: 4, mt: 0,
@@ -267,8 +347,15 @@ export default function Tabuleiro(  ) {
                                     sx={{
                                         border: '1px solid white',
                                         color: 'font.main',
-                                        backgroundColor: casa === 0 ? casaBackgroundVazia : (casa !== 'red' && casa !== 'yellow') ? '' : casa
+                                        backgroundColor: casa === 0 ? casaBackgroundVazia : (casa !== 'red' && casa !== 'yellow') ? '' : casa,
+                                        transition:'background-color 0.5s, box-shadow 0.5s',
+                                        boxShadow:
+                                            highlightedColumn !== null && highlightedColumn === j
+                                            ? '0 0 5px 5px white' 
+                                            : 'none'
                                     }}
+                                    onMouseEnter = {() => handleMouseEnter(j)}
+                                    onMouseLeave = {handleMouseLeave}
                                 >
                                     {''}
                                 </Avatar>
@@ -287,28 +374,43 @@ export default function Tabuleiro(  ) {
 
 function useInterval(callback, delay) {
     const savedCallback = useRef();
-  
+    
     useEffect(() => {
-      savedCallback.current = callback;
+        savedCallback.current = callback;
     });
-  
+    
     useEffect(() => {
-      function tick() {
+        function tick() {
         savedCallback.current();
-      }
-  
-      if (delay !== null) {
-        let id = setInterval(tick, delay);
-        return () => clearInterval(id);
-      }
+        }
+        
+        if (delay !== null) {
+            let id = setInterval(tick, delay);
+            return () => clearInterval(id);
+        }
     }, [delay]);
-  }
+}
 
-  function playAudio() {
+function playAudio() {
     var audioFicha = new Audio();
     audioFicha.src = retornaAudio('ficha');
 
     audioFicha.play();
-  }
+}
+
+var audioMusic = new Audio();
+
+function playMusic() {
+    audioMusic.src = retornaAudio('musica');
+    // Configura o volume (0.0 - 1.0)
+    audioMusic.volume = 0.25; 
+    audioMusic.loop = true;
+    audioMusic.play();
+}
+
+function stopMusic() {
+    audioMusic.pause();
+    audioMusic.currentTime = 0; // Reinicia a reprodução para o início
+}
 
 const casaBackgroundVazia = 'radial-gradient(50% 50% at 50% 50%, rgba(39, 39, 39, 0) 0%, rgba(29, 28, 28, 0.72) 100%)';
