@@ -129,11 +129,11 @@ export function ModalSelecaoDeTema({ mostrar, setMostrar, setChosenState, setTem
                                                     <Box sx={{mb: 1}}>
                                                         <Tooltip followCursor arrow title={`${tema.nome.charAt(0).toUpperCase() + tema.nome.slice(1)}`} placement="top">
                                                             <Button 
-                                                                    disabled={!multiplayerEstabelecido || (vsChosenTheme === tema.nome.toLowerCase())}
+                                                                    disabled={!multiplayerEstabelecido || (vsChosenTheme === tema.nome.toLowerCase()) || vsChosenTheme === retornaImagemFicha(geraPathTema(tema))}
                                                                     sx={{borderRadius: 60}}
-                                                                    onClick={() => {setMostrar(false); setTemaState(geraPathTema(item, tema, basePathImages)); setCategoriaTemaState(item.categoria);} }
+                                                                    onClick={() => {setMostrar(false); setTemaState(retornaImagemFicha(geraPathTema(tema))); setCategoriaTemaState(item.categoria);} }
                                                                 >
-                                                                    <Avatar alt="" src={retornaImagemFicha(geraPathTema(item, tema, basePathImages)) == "" ? geraPathTema(item, tema, basePathImages) : retornaImagemFicha(geraPathTema(item, tema, basePathImages))}
+                                                                    <Avatar alt="" src={retornaImagemFicha(geraPathTema(tema)) == "" ? geraPathTema(tema) : retornaImagemFicha(geraPathTema(tema))}
                                                                         sx={{border: '1px solid white',
                                                                         color: 'font.main',
                                                                         }}
@@ -183,13 +183,12 @@ export function ModalSelecaoDeTema({ mostrar, setMostrar, setChosenState, setTem
     );
 };
 
-export const geraPathTema = (item, tema, basePathImages) => {
+export const geraPathTema = (tema) => {
     let nome = tema.imagem?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(' ').join('').split('-').join('').replace('.png', '');
 
     if (tema.imagem && tema.imagem.startsWith('https')) {
         return tema.imagem;
     } else {
         return nome;
-    }
-    
+    }    
 };

@@ -22,10 +22,18 @@ export default function Regras() {
     const fetchData = async () => {
       try {
         const data = await propagandaData();
-        setPropagandas(data || []);
+        
+        setPropagandas((existingPropagandas) => [
+          ...existingPropagandas,
+          ...(data || []),
+          { imagem_Anun: require("./../../../../static/images/propaganda/propaganda-0.png") },
+          { imagem_Anun: require("./../../../../static/images/propaganda/propaganda-1.png") },
+          // Adicione mais imagens locais conforme necessário
+        ]);
+
       } catch (error) {
         console.error("Erro ao carregar propagandas:", error);
-        // Em caso de erro, definimos algumas imagens locais
+
         setPropagandas([
           { imagem_Anun: require("./../../../../static/images/propaganda/propaganda-0.png") },
           { imagem_Anun: require("./../../../../static/images/propaganda/propaganda-1.png") },

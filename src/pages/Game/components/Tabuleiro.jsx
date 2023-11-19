@@ -227,7 +227,6 @@ export default function Tabuleiro(  ) {
     // Roda quando um vencedor é determinado
     useEffect(() => {
         if (vencedorState) {
-            console.log("VITÓRIA");
             encerrarJogo();
         };
     }, [vencedorState]);
@@ -236,7 +235,6 @@ export default function Tabuleiro(  ) {
     useEffect(() => {
         if (empateState)   
         {
-            console.log("EMPATE!");
             encerrarJogo();
         };
     }, [empateState]);
@@ -244,7 +242,6 @@ export default function Tabuleiro(  ) {
     useEffect(() => {
         if (loserState)   
         {
-            console.log("PERDEU PLAYBAS!");
             conversaComSocket();
             encerrarJogo();
         };
@@ -346,7 +343,7 @@ export default function Tabuleiro(  ) {
                         return (
                             <Grid item key={`JogarTabuleiroArrayItem-${i}-Casa-${j}`} xs={1} sx={{my: 2, ml: 0, mx: 'auto'}}>
                                 {/* CASA DO TABULEIRO */}
-                                <Avatar alt="" src={casa === 0 || casa === 'red' || casa === 'yellow' ? '' : retornaImagemFicha(casa)}
+                                <Avatar alt="" src={casa === 0 || casa === 'red' || casa === 'yellow' ? '' : casa}
                                     sx={{
                                         border: '1px solid white',
                                         color: 'font.main',
@@ -394,30 +391,26 @@ function useInterval(callback, delay) {
     }, [delay]);
 }
 
-    function playAudio() {
-        console.log("VAI TOCAR AUDIO!");
-
+function playAudio() {
     var audioFicha = new Audio();
     audioFicha.src = retornaAudio('ficha');
 
     audioFicha.play();
-    }
+}
 
-    var audioMusic = new Audio();
+var audioMusic = new Audio();
 
-    function playMusic() {
-        console.log("VAI TOCAR MUSICA!");
-        audioMusic.src = retornaAudio('musica');
-        // Configura o volume (0.0 - 1.0)
-        audioMusic.volume = 0.25; 
-        audioMusic.loop = true;
-        audioMusic.play();
-    }
+function playMusic() {
+    audioMusic.src = retornaAudio('musica');
+    // Configura o volume (0.0 - 1.0)
+    audioMusic.volume = 0.25; 
+    audioMusic.loop = true;
+    audioMusic.play();
+}
 
-    function stopMusic() {
-        console.log("PARAR MUSICA!");
-        audioMusic.pause();
-        audioMusic.currentTime = 0; // Reinicia a reprodução para o início
-    }
+function stopMusic() {
+    audioMusic.pause();
+    audioMusic.currentTime = 0; // Reinicia a reprodução para o início
+}
 
 const casaBackgroundVazia = 'radial-gradient(50% 50% at 50% 50%, rgba(39, 39, 39, 0) 0%, rgba(29, 28, 28, 0.72) 100%)';
