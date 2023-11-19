@@ -147,7 +147,6 @@ export default function Tabuleiro(  ) {
     // Roda quando um vencedor é determinado
     useEffect(() => {
         if (vencedorState) {
-            console.log("VITÓRIA");
             encerrarJogo();
         };
     }, [vencedorState]);
@@ -156,7 +155,6 @@ export default function Tabuleiro(  ) {
     useEffect(() => {
         if (empateState)   
         {
-            console.log("EMPATE!");
             encerrarJogo();
         };
     }, [empateState]);
@@ -164,7 +162,6 @@ export default function Tabuleiro(  ) {
     useEffect(() => {
         if (loserState)   
         {
-            console.log("PERDEU PLAYBAS!");
             conversaComSocket();
             encerrarJogo();
         };
@@ -266,7 +263,7 @@ export default function Tabuleiro(  ) {
                         return (
                             <Grid item key={`JogarTabuleiroArrayItem-${i}-Casa-${j}`} xs={1} sx={{my: 2, ml: 0, mx: 'auto'}}>
                                 {/* CASA DO TABULEIRO */}
-                                <Avatar alt="" src={casa === 0 || casa === 'red' || casa === 'yellow' ? '' : retornaImagemFicha(casa)}
+                                <Avatar alt="" src={casa === 0 || casa === 'red' || casa === 'yellow' ? '' : casa}
                                     sx={{
                                         border: '1px solid white',
                                         color: 'font.main',
@@ -308,8 +305,6 @@ function useInterval(callback, delay) {
   }
 
   function playAudio() {
-    console.log("VAI TOCAR AUDIO!");
-
     var audioFicha = new Audio();
     audioFicha.src = retornaAudio('ficha');
 

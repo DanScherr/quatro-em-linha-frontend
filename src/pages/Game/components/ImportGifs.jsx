@@ -30,75 +30,77 @@ import grogu from './../../../static/images/gifs/star-wars/grogu.gif';
 import darthvader from './../../../static/images/gifs/star-wars/darthvader.gif';
 import chewbaca from './../../../static/images/gifs/star-wars/chewbaca.gif';
 import starwars from './../../../static/images/gifs/star-wars/star-wars.gif';
+import padrao from './../../../static/images/gifs/padrao.gif';
 
 export const retornaGif= (nome) => {
-    switch (nome) {
-        case 'batman':
-            return  batman;
-        case 'superman':
-            return  superman;
-        case 'flash':
-            return  flash;
-        case 'dc':
-            return  dc;
-        case 'digimon':
-            return digimon;
-        case 'natalatt':
-            return  natalatt;
-        case 'verao':
-            return  verao;
-        case 'pascoa':
-            return  pascoa;
-        case 'halloween':
-            return  halloween;
-        case 'dragon-ball-z':
-            return dragonball;
-        case 'futebol':
-            return futebol;
-        case 'lufalufa':
-            return  lufalufa;
-        case 'corvinal':
-            return  corvinal;
-        case 'sonserina':
-            return  sonserina;
-        case 'grifinoria':
-            return  grifinoria;
-        case 'homemdeferro':
-            return  homemdeferro;
-        case 'homemaranha':
-            return  homemaranha;
-        case 'capitaoamericaatt':
-            return  capitaoamericaatt;
-        case 'marvel':
-            return  marvel;
-        case 'naruto':
-            return  naruto;
-        case 'vaporeon':
-            return  vaporeon;
-        case 'pokemon':
-            return  pokemon;
-        case 'pikachu':
-            return  pikachu;
-        case 'charizard':
-            return  charizard;
-        case 'star-trek':
-            return  startrek;
-        case 'rey':
-            return rey;
-        case 'jangofett':
-            return jangofett;
-        case 'luke':
-            return luke; 
-        case 'grogu':
-            return  grogu;
-        case 'darthvader':
-            return  darthvader;
-        case 'chewbaca':
-            return  chewbaca;
-        case 'star-wars':
-            return  starwars;
-            
-        default:
-            break;
+    if (nome.includes('batman')) {
+        return batman;
+    } else if (nome.includes('superman')) {
+        return superman;
+    } else if (nome.includes('flash')) {
+        return flash;
+    } else if (nome.includes('dc')) {
+        return dc;
+    } else if (nome.includes('digimon')) {
+        return digimon;
+    } else if (nome.includes('natalatt')) {
+        return natalatt;
+    } else if (nome.includes('verao')) {
+        return verao;
+    } else if (nome.includes('pascoa')) {
+        return pascoa;
+    } else if (nome.includes('halloween')) {
+        return halloween;
+    } else if (nome.includes('dragon-ball-z')) {
+        return dragonball;
+    } else if (nome.includes('futebol')) {
+        return futebol;
+    } else if (nome.includes('lufalufa')) {
+        return lufalufa;
+    } else if (nome.includes('corvinal')) {
+        return corvinal;
+    } else if (nome.includes('sonserina')) {
+        return sonserina;
+    } else if (nome.includes('grifinoria')) {
+        return grifinoria;
+    } else if (nome.includes('homemdeferro')) {
+        return homemdeferro;
+    } else if (nome.includes('homemaranha')) {
+        return homemaranha;
+    } else if (nome.includes('capitaoamericaatt')) {
+        return capitaoamericaatt;
+    } else if (nome.includes('marvel')) {
+        return marvel;
+    } else if (nome.includes('naruto')) {
+        return naruto;
+    } else if (nome.includes('vaporeon')) {
+        return vaporeon;
+    } else if (nome.includes('pokemon')) {
+        return pokemon;
+    } else if (nome.includes('pikachu')) {
+        return pikachu;
+    } else if (nome.includes('charizard')) {
+        return charizard;
+    } else if (nome.includes('star-trek')) {
+        return startrek;
+    } else if (nome.includes('rey')) {
+        return rey;
+    } else if (nome.includes('jangofett')) {
+        return jangofett;
+    } else if (nome.includes('luke')) {
+        return luke;
+    } else if (nome.includes('grogu')) {
+        return grogu;
+    } else if (nome.includes('darthvader')) {
+        return darthvader;
+    } else if (nome.includes('chewbaca')) {
+        return chewbaca;
+    } else if (nome.includes('star-wars')) {
+        return starwars;
+    } else if (nome.includes('padrao')){
+        return padrao;
+    }
+    else{
+        return "";
     }
 }

@@ -2,6 +2,7 @@ import { Box, Grid, Modal, Typography, Button } from '@mui/material'
 import { retornaGif } from "./ImportGifs";
 import React, { useState } from 'react';
 import { retornaAudio } from "./ImportAudios";
+import { geraPathTema } from "./ModalSelecaoDeTema";
 
 const BACKGROUND_STYLE = {
   position: 'fixed',
@@ -59,8 +60,10 @@ export function ModalResultado({ mostrar, setMostrar, isVencedor, isEmpate, tema
   let srcGif = "";
   if (retornaGif(temaUser) != null && retornaGif(temaUser) != '')
     srcGif = retornaGif(temaUser);
-  else
+  else if ((retornaGif(categoriaTemaUser) != null && retornaGif(categoriaTemaUser) != ''))
     srcGif = retornaGif(categoriaTemaUser);
+  else
+  srcGif = retornaGif("padrao");
 
     return (
       <Modal onClose={() => setMostrar(false) } open={mostrar} style={BACKGROUND_STYLE}>

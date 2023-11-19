@@ -41,6 +41,9 @@ export const AuthProvider = ({children}) => {
                 if (authToken) {
                     setAuth(true);
                     setUserId(loginId);
+
+                    if (response.data.id === 1)
+                    setIsAdmin(true);
                 };
             }
             else RealizaLogout();
@@ -70,6 +73,7 @@ export const AuthProvider = ({children}) => {
                 },
                 Headers()
             );
+
             if (response.status === 201 && response.data.status === true) {
                 setOpcao('login');
                 setCadastro(prev => {return {loading: false, cadastro: true}});
@@ -83,6 +87,7 @@ export const AuthProvider = ({children}) => {
 
     const [login, setLogin] = React.useState({loading: false, login: false});
     const [userId, setUserId] = React.useState(null);
+    const [isAdmin, setIsAdmin] = React.useState(false);
 
     const RealizaLogin = async (email, senha) => {
         setLogin(prev => {return {loading: true, login: false}});
@@ -99,6 +104,10 @@ export const AuthProvider = ({children}) => {
             if (response.status === 200 && response.data.status === true) {
                 setLogin(prev => {return {loading: false, login: true}});
                 setUserId(response.data.id);
+
+                if (response.data.id === 1)
+                    setIsAdmin(true);
+
                 console.log(response)
                 Cookies.set('authToken', true, { expires: 7 });
                 Cookies.set('userId', response.data.id, { expires: 7 });
@@ -114,8 +123,12 @@ export const AuthProvider = ({children}) => {
     };
 
     const RealizaLogout = () => {
+        console.log("DESLOGANDO...");
+
         Cookies.remove('authToken');
         Cookies.remove('userId');
+        setAuth(false);
+        setIsAdmin(false);
         setLogin(prev => {return {loading: false, login: false}});
     }
 
@@ -154,6 +167,32 @@ export const AuthProvider = ({children}) => {
         } catch (error) {
             console.error('Erro ao obter cotação do banco de dados:', error);
             return null;
+        }
+    };
+
+    const atualizaCotacao = async (valor) => {
+        console.log('ATUALIZANDO COTAÇÃO..');
+
+        try {
+            const response = await axios.put(
+                production ? `${apiAdress}` : '' + `/api/v1/cotacao/1`,
+                {
+                    valor_Con: valor
+                },
+                Headers()
+            );
+
+            console.log(response);
+
+            if (response.status === 200 && response.data.status === true) {
+                return true;
+            } else {
+                console.error('Erro ao obter cotação do banco de dados:', response);
+                return false;
+            }
+        } catch (error) {
+            console.error('Erro ao obter cotação do banco de dados:', error);
+            return false;
         }
     };
 
@@ -361,7 +400,59 @@ export const AuthProvider = ({children}) => {
         };
     };
 
-    //Propaganda
+    const CadastraTema = async (nome, descricao, categoria, imagem, valor) => {
+        
+        try {
+            const response = await axios.post(
+                production?`${apiAdress}`: '' + `/api/v1/monetizacao`,
+                {
+                    nome: nome, 
+                    descricao: descricao, 
+                    categoria: categoria, 
+                    imagem: imagem, 
+                    valor: valor
+                },
+                Headers()
+            );
+
+            if (response.status === 201 && response.data.status === true) {
+                return true;
+            } else {
+                console.error('Erro ao cadastrar Tema:', response);
+                return false;
+            }
+        } catch (error) {
+            console.error('Erro ao cadastrar Tema:', error);
+            return false;
+        }
+    };
+
+    // PROPAGANDA
+
+    const CadastraPropaganda = async (nome, empresa, imagem) => {
+        
+        try {
+            const response = await axios.post(
+                production?`${apiAdress}`: '' + `/api/v1/anuncio`,
+                {
+                    nome_Anun: nome.value,
+                    imagem_Anun: imagem.value,
+                    empresa_Anun: empresa.value
+                },
+                Headers()
+            );
+
+            if (response.status === 201 && response.data.status === true) {
+                return true;
+            } else {
+                console.error('Erro ao cadastrar Propaganda:', response);
+                return false;
+            }
+        } catch (error) {
+            console.error('Erro ao cadastrar Propaganda:', error);
+            return false;
+        }
+    };
 
     const propagandaData = async () => {
         try {
@@ -402,12 +493,14 @@ export const AuthProvider = ({children}) => {
             RealizaCadastro, RealizaLogout,
             RealizaLogin, login,
             userId,
+            isAdmin,
             todosTemas,
             BuscaTemas,
-            ConsultaUsuarioTemas, usuarioTemas,
+            ConsultaUsuarioTemas, usuarioTemas, CadastraTema,
             ConsultaCarteira, AlteraCarteira, carteira,
             CompraFicha,
-            obterCotacaoDoBancoDeDados, propagandaData,
+            obterCotacaoDoBancoDeDados, atualizaCotacao,
+            propagandaData, CadastraPropaganda,
             openNotificacao, setOpenNotificacao
         }}
     >
