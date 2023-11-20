@@ -194,7 +194,7 @@ const handleSubmit = (e) => {
                     {/* NOME TEMA INPUT */}
                     <FormControl sx={{mb: 3, marginTop: '5px'}} required={true}> 
                         <InputLabel sx={{color:'#000'}} htmlFor='input-nome-tema'>Nome do Tema:</InputLabel>
-                        <Input sx={{color:'#000'}}
+                        <Input 
                             className='superuser'
                             onChange={handleInputs}
                             // onBlur={handleBlur}
@@ -207,7 +207,7 @@ const handleSubmit = (e) => {
                     {/* DESCRIÇÃO TEMA INPUT */}
                     <FormControl sx={{mb: 3}} required={true}>
                         <InputLabel sx={{color:'#000'}} htmlFor='input-descricao-tema'>Descrição do Tema:</InputLabel>
-                        <Input sx={{color:'#000'}}
+                        <Input 
                             className='superuser'
                             onChange={handleInputs}
                             // onBlur={handleBlur} 
@@ -220,8 +220,8 @@ const handleSubmit = (e) => {
                     {/* CATEGORIA TEMA INPUT */}
                     <FormControl className='superuser' required={true} sx={{mb: 3}}>
                         <InputLabel sx={{color:'#000'}} htmlFor='input-categoria-tema'>Categoria do Tema:</InputLabel>
-                        <Input sx={{color:'#000'}}
-                            className='superuser MuiInput-root'
+                        <Input 
+                            className='superuser'
                             onChange={handleInputs}
                             // onBlur={handleBlur}
                             id="input-categoria-tema" 
@@ -233,7 +233,7 @@ const handleSubmit = (e) => {
                     {/* IMAGEM TEMA INPUT */}
                     <FormControl required={true} sx={{mb: 3}}>
                         <InputLabel sx={{color:'#000'}} htmlFor='input-imagem-tema'>Imagem do Tema:</InputLabel>
-                        <Input sx={{color:'#000'}}
+                        <Input 
                             className='superuser'
                             onChange={handleInputs}
                             // onBlur={handleBlur}
@@ -246,7 +246,7 @@ const handleSubmit = (e) => {
                     {/* VALOR TEMA INPUT */}
                     <FormControl error={formComponents.valor.error} required={true} sx={{mb: 3}}>
                         <InputLabel sx={{color:'#000'}} htmlFor='input-valor-tema'>Valor do Tema em moedas do jogo:</InputLabel>
-                        <Input sx={{color:'#000'}}
+                        <Input 
                             className='superuser'
                             type="number"
                             onChange={handleInputs}
@@ -271,7 +271,7 @@ const handleSubmit = (e) => {
 
                 <Typography 
                     sx={{
-                        display: msgCadastro.mostrar != '' ? 'block' : 'none',
+                        display: msgCadastro.mostrar !== '' ? 'block' : 'none',
                         mt: 3, mb: 8, mx: "auto", fontSize: `14px`, color: msgCadastro.cor
                     }}
                 >

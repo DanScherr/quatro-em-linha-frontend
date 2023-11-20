@@ -10,7 +10,7 @@ export function validaNome(nome) {
 export function validaEmail(email) {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (email == null) 
+    if (email === null) 
         return "O campo 'email' deve ser preenchido";
     if (!regex.test(email))
         return "Você digitou um e-mail inválido"
@@ -19,7 +19,7 @@ export function validaEmail(email) {
 }
 
 export function validaSenha(senha) {
-    if (senha == null) 
+    if (senha === null) 
         return "O campo 'senha' deve ser preenchido";
     if (senha.length < 5)
         return "A senha deve ter ao menos 5 caracteres";
@@ -32,7 +32,7 @@ export function validaValor(valor) {
 
     console.log("VALOR " + valor)
 
-    if (valor == null) 
+    if (valor === null) 
         return "O campo deve ser preenchido";
     if (!isNumeric)
         return "O valor precisa ser um número válido";

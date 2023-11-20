@@ -121,7 +121,7 @@ export default function CadastroPropaganda() {
                     {/* VALOR DE 100 MOEDAS INPUT */}
                     <FormControl error={formComponents.cotacao.error} required={true} sx={{mb: 3, marginTop: '80px'}}>
                         <InputLabel sx={{color:'#000'}} htmlFor='input-valor-cotacao'>Valor de 100 moedas do jogo em R$:</InputLabel>
-                        <Input sx={{color:'#000'}}
+                        <Input 
                             className='superuser'
                             type="number"
                             step="1"
@@ -146,7 +146,7 @@ export default function CadastroPropaganda() {
 
                 <Typography 
                     sx={{
-                        display: msgCadastro.mostrar != '' ? 'block' : 'none',
+                        display: msgCadastro.mostrar !== '' ? 'block' : 'none',
                         mt: 3, mb: 8, mx: "auto", fontSize: `14px`, color: msgCadastro.cor
                     }}
                 >

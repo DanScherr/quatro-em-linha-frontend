@@ -33,10 +33,6 @@
     letter-spacing: 0em
 }
 
-.superuser.MuiInput-root:before, :not(.Mui-error){
-    border-bottom-color: #000 !important;
-}
-
 .superuser-button-primary{
     background-color: #9500ae !important
 }
@@ -62,4 +58,20 @@
     box-shadow: none !important;
     color: #fff !important;
     opacity: 75% !important
+} 
+
+#input-nome-tema, 
+#input-descricao-tema, 
+#input-categoria-tema, 
+#input-imagem-tema, 
+#input-valor-tema,
+#input-nome-anuncio,
+#input-empresa-anuncio,
+#input-imagem-anuncio,
+#input-valor-cotacao{
+    color: #000 !important;
+}
+
+.superuser.MuiInput-root:before, .superuser.MuiInput-root:not(.Mui-error){
+    border-bottom-color: #000;
 } 

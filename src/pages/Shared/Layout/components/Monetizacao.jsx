@@ -79,7 +79,7 @@ export default function Monetizacao(  ) {
                                                                         <Button sx={{borderRadius: 5}} onClick={() => {setOpen(true); setitemFicha(item); settemaFicha(tema)}}>
                                                                             <Grid container justifyContent={'center'}>
                                                                                 <Grid item xs={12}>
-                                                                                    <Avatar alt="tema.titulo" src={retornaImagemFicha(geraPathTema(tema)) == "" ? geraPathTema(tema) : retornaImagemFicha(geraPathTema(tema))}
+                                                                                    <Avatar alt="tema.titulo" src={retornaImagemFicha(geraPathTema(tema)) === "" ? geraPathTema(tema) : retornaImagemFicha(geraPathTema(tema))}
                                                                                         sx={{
                                                                                             border: '1px solid white',
                                                                                             color: 'font.main',

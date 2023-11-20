@@ -115,7 +115,7 @@ export default function CadastroPropaganda() {
                     {/* NOME DO ANUNCIO INPUT */}
                     <FormControl required={true} sx={{mb: 3, marginTop: '20px'}}> 
                         <InputLabel sx={{color:'#000'}} htmlFor='input-nome-anuncio'>Nome do anúncio:</InputLabel>
-                        <Input sx={{color:'#000'}}
+                        <Input
                             className='superuser'
                             onChange={handleInputs}
                             // onBlur={handleBlur}
@@ -128,7 +128,7 @@ export default function CadastroPropaganda() {
                     {/* EMPRESA DO ANUNCIO INPUT */}
                     <FormControl required={true} sx={{mb: 3}}>
                         <InputLabel sx={{color:'#000'}} htmlFor='input-empresa-anuncio'>Empresa do Anúncio:</InputLabel>
-                        <Input sx={{color:'#000'}}
+                        <Input
                             className='superuser'
                             onChange={handleInputs}
                             // onBlur={handleBlur} 
@@ -141,7 +141,7 @@ export default function CadastroPropaganda() {
                     {/* IMAGEM ANUNCIO INPUT */}
                     <FormControl required={true} sx={{mb: 3}}>
                         <InputLabel sx={{color:'#000'}} htmlFor='input-imagem-anuncio'>Imagem do Anúncio:</InputLabel>
-                        <Input sx={{color:'#000'}}
+                        <Input
                             className='superuser'
                             onChange={handleInputs}
                             // onBlur={handleBlur}
@@ -164,7 +164,7 @@ export default function CadastroPropaganda() {
 
                 <Typography 
                     sx={{
-                        display: msgCadastro.mostrar != '' ? 'block' : 'none',
+                        display: msgCadastro.mostrar !== '' ? 'block' : 'none',
                         mt: 3, mb: 8, mx: "auto", fontSize: `14px`, color: msgCadastro.cor
                     }}
                 >
