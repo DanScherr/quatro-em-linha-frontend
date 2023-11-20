@@ -191,7 +191,6 @@ export const MultiplayerProvider = ({children}) => {
         console.log('Tentando conectar com o socket')
         // conectando com o socket
         const newSocket = io(
-            apiAdress,
             `https://quatroemlinhabackendweb.azurewebsites.net`, 
             {
                 path: '/api/v1/gaming'
