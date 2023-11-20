@@ -3,13 +3,12 @@ import { createContext } from "react";
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { apiAdress } from '../bin/api';
-import { redirect } from 'react-router-dom';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
 
-    let production = false;
+    let production = true;
 
     const Headers = () => {
         if (production) {
