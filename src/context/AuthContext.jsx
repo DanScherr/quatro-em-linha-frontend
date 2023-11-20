@@ -33,7 +33,7 @@ export const AuthProvider = ({children}) => {
 
         try {
             const response = await axios.get(
-                production?``: '' + `${apiAdress}/api/v1/usuario/${loginId}`,
+                `${apiAdress}/api/v1/usuario/${loginId}`,
                 Headers()
             );
             if (response.status === 200 && response.data.status === true) {
@@ -174,7 +174,7 @@ export const AuthProvider = ({children}) => {
 
         try {
             const response = await axios.put(
-                production ? `${apiAdress}` : '' + `/api/v1/cotacao/1`,
+                `${apiAdress}/api/v1/cotacao/1`,
                 {
                     valor_Con: valor
                 },
@@ -456,7 +456,7 @@ export const AuthProvider = ({children}) => {
     const propagandaData = async () => {
         try {
             const response = await axios.get(
-                production ? `${apiAdress}` : '' + `/api/v1/anuncio`,
+                `${apiAdress}/api/v1/anuncio`,
                 Headers()
             );
             if (response.status === 200 && response.data.status === true) {
